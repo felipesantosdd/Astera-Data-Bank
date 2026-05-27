@@ -1,0 +1,317 @@
+/**
+ * Strings da interface (labels fixos como "Pitfall", "Cut", "Hitzones").
+ * Idiomas não cobertos caem em inglês.
+ */
+export interface UIStrings {
+  nav: { monsters: string }
+  listing: {
+    bestiary: string
+    largeMonsters: string
+    monstersRecorded: string
+    loadingError: string
+    backendHint: string
+  }
+  detail: {
+    back: string
+    monsterNotFound: string
+    backendHint: string
+    bestiary: string
+    weaknesses: string
+    elemental: string
+    status: string
+    altState: string
+    inflictsOnHunter: string
+    trapEffectiveness: string
+    hitzones: string
+    hitzonesHint: string
+    noHitzones: string
+  }
+  ailments: {
+    roar: string
+    wind: string
+    tremor: string
+    fireblight: string
+    waterblight: string
+    thunderblight: string
+    iceblight: string
+    dragonblight: string
+    blastblight: string
+    poison: string
+    sleep: string
+    paralysis: string
+    bleeding: string
+    stun: string
+    muddy: string
+    effluvia: string
+    defenseDown: string
+  }
+  traps: {
+    pitfall: string
+    shock: string
+    vine: string
+  }
+  columns: {
+    part: string
+    cut: string
+    impact: string
+    shot: string
+    fire: string
+    water: string
+    thunder: string
+    ice: string
+    dragon: string
+    ko: string
+  }
+  armor: {
+    section: string
+    sectionHint: string
+    noArmor: string
+    lowRank: string
+    highRank: string
+    masterRank: string
+    rankLR: string
+    rankHR: string
+    rankMR: string
+    setBonus: string
+    requiredPieces: string
+    defense: string
+    defenseBase: string
+    defenseMax: string
+    defenseAugment: string
+    defenseBaseTip: string
+    defenseMaxTip: string
+    defenseAugmentTip: string
+    resistances: string
+    slots: string
+    skills: string
+    materials: string
+    rarity: string
+  }
+  armorTypes: {
+    head: string
+    chest: string
+    arms: string
+    waist: string
+    legs: string
+  }
+  itemSources: {
+    title: string
+    monsterDrops: string
+    gathering: string
+    noSources: string
+    close: string
+    colMonster: string
+    colCondition: string
+    colRank: string
+    colChance: string
+    colStack: string
+    colLocation: string
+    colArea: string
+    colNodes: string
+    areaPrefix: string
+  }
+}
+
+const en: UIStrings = {
+  nav: { monsters: 'Monsters' },
+  listing: {
+    bestiary: 'Bestiary',
+    largeMonsters: 'Large Monsters',
+    monstersRecorded: 'monsters recorded',
+    loadingError: 'Failed to load monsters.',
+    backendHint: 'Check if the backend is running on localhost:8080.',
+  },
+  detail: {
+    back: 'Back to Bestiary',
+    monsterNotFound: 'Monster not found',
+    backendHint: 'Check if the backend is running on localhost:8080.',
+    bestiary: 'Bestiary',
+    weaknesses: 'Weaknesses',
+    elemental: 'Elemental',
+    status: 'Status',
+    altState: 'Enraged / Alt State',
+    inflictsOnHunter: 'Inflicts on Hunter',
+    trapEffectiveness: 'Trap Effectiveness',
+    hitzones: 'Hitzones',
+    hitzonesHint: 'Higher values = more damage. Highlighted cells are the best target per damage type.',
+    noHitzones: 'No hitzones recorded for this monster.',
+  },
+  ailments: {
+    roar: 'Roar',
+    wind: 'Wind Pressure',
+    tremor: 'Tremor',
+    fireblight: 'Fireblight',
+    waterblight: 'Waterblight',
+    thunderblight: 'Thunderblight',
+    iceblight: 'Iceblight',
+    dragonblight: 'Dragonblight',
+    blastblight: 'Blastblight',
+    poison: 'Poison',
+    sleep: 'Sleep',
+    paralysis: 'Paralysis',
+    bleeding: 'Bleeding',
+    stun: 'Stun',
+    muddy: 'Muddy',
+    effluvia: 'Effluvia',
+    defenseDown: 'Defense Down',
+  },
+  traps: { pitfall: 'Pitfall', shock: 'Shock', vine: 'Vine' },
+  columns: {
+    part: 'Part', cut: 'Cut', impact: 'Impact', shot: 'Shot',
+    fire: 'Fire', water: 'Water', thunder: 'Thunder', ice: 'Ice',
+    dragon: 'Dragon', ko: 'KO',
+  },
+  armor: {
+    section: 'Armor Crafts',
+    sectionHint: 'Sets craftable from this monster\'s materials.',
+    noArmor: 'No armor sets are crafted from this monster.',
+    lowRank: 'Low Rank',
+    highRank: 'High Rank',
+    masterRank: 'Master Rank',
+    rankLR: 'LR',
+    rankHR: 'HR',
+    rankMR: 'MR',
+    setBonus: 'Set Bonus',
+    requiredPieces: 'pieces',
+    defense: 'Defense',
+    defenseBase: 'Base',
+    defenseMax: 'Max',
+    defenseAugment: 'Augmented',
+    defenseBaseTip: 'Defense when the piece is first crafted (level 1).',
+    defenseMaxTip: 'Maximum defense after fully upgrading the piece with Armor Spheres.',
+    defenseAugmentTip: 'Defense after fully augmenting the piece with Streamstones (Master Rank endgame mechanic).',
+    resistances: 'Resistances',
+    slots: 'Slots',
+    skills: 'Skills',
+    materials: 'Materials',
+    rarity: 'R',
+  },
+  armorTypes: {
+    head: 'Head',
+    chest: 'Chest',
+    arms: 'Arms',
+    waist: 'Waist',
+    legs: 'Legs',
+  },
+  itemSources: {
+    title: 'Where to find',
+    monsterDrops: 'Monster Drops',
+    gathering: 'Gathering Points',
+    noSources: 'No sources found — this item may come from crafting or quest rewards.',
+    close: 'Close',
+    colMonster: 'Monster',
+    colCondition: 'Condition',
+    colRank: 'Rank',
+    colChance: 'Chance',
+    colStack: 'Stack',
+    colLocation: 'Location',
+    colArea: 'Area',
+    colNodes: 'Nodes',
+    areaPrefix: 'Area',
+  },
+}
+
+const pt: UIStrings = {
+  nav: { monsters: 'Monstros' },
+  listing: {
+    bestiary: 'Bestiário',
+    largeMonsters: 'Grandes Monstros',
+    monstersRecorded: 'monstros catalogados',
+    loadingError: 'Falha ao carregar monstros.',
+    backendHint: 'Verifique se o backend está rodando em localhost:8080.',
+  },
+  detail: {
+    back: 'Voltar ao Bestiário',
+    monsterNotFound: 'Monstro não encontrado',
+    backendHint: 'Verifique se o backend está rodando em localhost:8080.',
+    bestiary: 'Bestiário',
+    weaknesses: 'Fraquezas',
+    elemental: 'Elemental',
+    status: 'Status',
+    altState: 'Enfurecido / Estado Alterado',
+    inflictsOnHunter: 'Inflige no Caçador',
+    trapEffectiveness: 'Efetividade de Armadilhas',
+    hitzones: 'Zonas de Acerto',
+    hitzonesHint: 'Valores maiores = mais dano. Células destacadas são os melhores alvos para cada tipo de dano.',
+    noHitzones: 'Sem zonas de acerto registradas para este monstro.',
+  },
+  ailments: {
+    roar: 'Rugido',
+    wind: 'Pressão do Vento',
+    tremor: 'Tremor',
+    fireblight: 'Mal-do-Fogo',
+    waterblight: 'Mal-da-Água',
+    thunderblight: 'Mal-do-Trovão',
+    iceblight: 'Mal-do-Gelo',
+    dragonblight: 'Mal-do-Dragão',
+    blastblight: 'Mal-Explosivo',
+    poison: 'Veneno',
+    sleep: 'Sono',
+    paralysis: 'Paralisia',
+    bleeding: 'Sangramento',
+    stun: 'Atordoamento',
+    muddy: 'Lamacento',
+    effluvia: 'Efluvio',
+    defenseDown: 'Defesa Reduzida',
+  },
+  traps: { pitfall: 'Cova', shock: 'Choque', vine: 'Liana' },
+  columns: {
+    part: 'Parte', cut: 'Corte', impact: 'Impacto', shot: 'Tiro',
+    fire: 'Fogo', water: 'Água', thunder: 'Trovão', ice: 'Gelo',
+    dragon: 'Dragão', ko: 'Atordoar',
+  },
+  armor: {
+    section: 'Armaduras Craftáveis',
+    sectionHint: 'Sets feitos a partir dos materiais deste monstro.',
+    noArmor: 'Nenhum set de armadura é craftado a partir deste monstro.',
+    lowRank: 'Rank Baixo',
+    highRank: 'Rank Alto',
+    masterRank: 'Rank Mestre',
+    rankLR: 'RB',
+    rankHR: 'RA',
+    rankMR: 'RM',
+    setBonus: 'Bônus de Set',
+    requiredPieces: 'peças',
+    defense: 'Defesa',
+    defenseBase: 'Base',
+    defenseMax: 'Máx',
+    defenseAugment: 'Aumentada',
+    defenseBaseTip: 'Defesa quando a peça é craftada inicialmente (nível 1).',
+    defenseMaxTip: 'Defesa máxima após upar totalmente a peça com Armor Spheres.',
+    defenseAugmentTip: 'Defesa após augment completo com Streamstones (mecânica de endgame de Master Rank).',
+    resistances: 'Resistências',
+    slots: 'Slots',
+    skills: 'Habilidades',
+    materials: 'Materiais',
+    rarity: 'R',
+  },
+  armorTypes: {
+    head: 'Cabeça',
+    chest: 'Peito',
+    arms: 'Braços',
+    waist: 'Cintura',
+    legs: 'Pernas',
+  },
+  itemSources: {
+    title: 'Onde encontrar',
+    monsterDrops: 'Drops de Monstros',
+    gathering: 'Pontos de Coleta',
+    noSources: 'Sem fontes encontradas — pode vir de craft ou recompensa de missão.',
+    close: 'Fechar',
+    colMonster: 'Monstro',
+    colCondition: 'Condição',
+    colRank: 'Rank',
+    colChance: 'Chance',
+    colStack: 'Stack',
+    colLocation: 'Local',
+    colArea: 'Área',
+    colNodes: 'Nodes',
+    areaPrefix: 'Área',
+  },
+}
+
+const STRINGS: Record<string, UIStrings> = { en, pt }
+
+export function getUIStrings(lang: string): UIStrings {
+  return STRINGS[lang] ?? en
+}

@@ -1,0 +1,64 @@
+package com.asteradatabank.monsters;
+
+import com.asteradatabank.LangUtil;
+import com.asteradatabank.monsters.dto.HitzoneDTO;
+import com.asteradatabank.monsters.dto.MonsterDetailDTO;
+import com.asteradatabank.monsters.dto.MonsterSummaryDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class MonsterService {
+
+    private final MonsterRepository monsterRepository;
+
+    public List<MonsterSummaryDTO> getLargeMonsters(String lang) {
+        String language = LangUtil.normalize(lang);
+        return monsterRepository.findAllLargeMonsters(language);
+    }
+
+    public MonsterDetailDTO getMonsterById(Integer id, String lang) {
+        String language = LangUtil.normalize(lang);
+
+        Monster m = monsterRepository.findByIdWithText(id, language)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Monster not found"));
+
+        MonsterText mt = m.getTexts().get(0);
+
+        List<HitzoneDTO> hitzones = monsterRepository.findHitzonesByMonsterIdAndLang(id, language);
+
+        return new MonsterDetailDTO(
+                m.getId(), mt.getName(), m.getIcon(),
+                mt.getEcology(), mt.getDescription(), mt.getAltStateDescription(),
+
+                m.getWeaknessFire(), m.getWeaknessWater(), m.getWeaknessThunder(),
+                m.getWeaknessIce(), m.getWeaknessDragon(),
+                m.getWeaknessPoison(), m.getWeaknessSleep(), m.getWeaknessParalysis(),
+                m.getWeaknessBlast(), m.getWeaknessStun(),
+
+                m.getHasAltWeakness(),
+                m.getAltWeaknessFire(), m.getAltWeaknessWater(), m.getAltWeaknessThunder(),
+                m.getAltWeaknessIce(), m.getAltWeaknessDragon(),
+                m.getAltWeaknessPoison(), m.getAltWeaknessSleep(), m.getAltWeaknessParalysis(),
+                m.getAltWeaknessBlast(), m.getAltWeaknessStun(),
+
+                m.getPitfallTrap(), m.getShockTrap(), m.getVineTrap(),
+
+                m.getAilmentRoar(), m.getAilmentWind(), m.getAilmentTremor(),
+                m.getAilmentDefenseDown(), m.getAilmentFireblight(), m.getAilmentWaterblight(),
+                m.getAilmentThunderblight(), m.getAilmentIceblight(), m.getAilmentDragonblight(),
+                m.getAilmentBlastblight(), m.getAilmentPoison(), m.getAilmentSleep(),
+                m.getAilmentParalysis(), m.getAilmentBleed(), m.getAilmentStun(),
+                m.getAilmentMud(), m.getAilmentEffluvia(),
+
+                hitzones
+        );
+    }
+}

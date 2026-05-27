@@ -1,0 +1,4 @@
+-- V1: Schema inicial do Astera Data Bank
+-- As tabelas do MHWorldData sao criadas pela migration V2.
+-- Para popular o banco com os dados, execute:
+--   python scripts/import_mhdata.py
