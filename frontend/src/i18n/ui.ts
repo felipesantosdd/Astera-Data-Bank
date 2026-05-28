@@ -30,6 +30,16 @@ export interface UIStrings {
     sleep: string
     paralysis: string
   }
+  ecologies: {
+    'Bird Wyvern': string
+    'Brute Wyvern': string
+    'Elder Dragon': string
+    'Fanged Beast': string
+    'Fanged Wyvern': string
+    'Flying Wyvern': string
+    'Piscine Wyvern': string
+    'Relict': string
+  }
   detail: {
     back: string
     monsterNotFound: string
@@ -301,6 +311,16 @@ const en: UIStrings = {
     tracking: 'Tracking',
     other: 'Other',
   },
+  ecologies: {
+    'Bird Wyvern':    'Bird Wyvern',
+    'Brute Wyvern':   'Brute Wyvern',
+    'Elder Dragon':   'Elder Dragon',
+    'Fanged Beast':   'Fanged Beast',
+    'Fanged Wyvern':  'Fanged Wyvern',
+    'Flying Wyvern':  'Flying Wyvern',
+    'Piscine Wyvern': 'Piscine Wyvern',
+    'Relict':         'Relict',
+  },
 }
 
 const pt: UIStrings = {
@@ -445,6 +465,16 @@ const pt: UIStrings = {
     mining: 'Mineração',
     tracking: 'Rastreamento',
     other: 'Outros',
+  },
+  ecologies: {
+    'Bird Wyvern':    'Serpe Pássaro',
+    'Brute Wyvern':   'Serpe Bruta',
+    'Elder Dragon':   'Dragão Ancião',
+    'Fanged Beast':   'Besta de Presas',
+    'Fanged Wyvern':  'Serpe de Presas',
+    'Flying Wyvern':  'Serpe Alada',
+    'Piscine Wyvern': 'Hidroserpe',
+    'Relict':         'Lendário',
   },
 }
 

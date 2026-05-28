@@ -62,6 +62,11 @@ function elementLabel(key: string): string {
   if (key === '__none__') return t.value.listing.filterNone
   return (t.value.elements as Record<string, string>)[key] ?? key
 }
+
+// Label traduzida para uma ecologia
+function ecologyLabel(key: string): string {
+  return (t.value.ecologies as Record<string, string>)[key] ?? key
+}
 </script>
 
 <template>
@@ -125,7 +130,7 @@ function elementLabel(key: string): string {
             v-for="eco in availableEcologies"
             :key="eco"
             :value="eco"
-          >{{ eco }}</option>
+          >{{ ecologyLabel(eco) }}</option>
         </select>
       </div>
 

@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Monster } from '@/types/monster'
+import { useUI } from '@/composables/useUI'
 
 const props = defineProps<{ monster: Monster }>()
 const router = useRouter()
+const { t } = useUI()
+
+const ecologyLabel = computed(() => {
+  if (!props.monster.ecology) return null
+  return (t.value.ecologies as Record<string, string>)[props.monster.ecology] ?? props.monster.ecology
+})
 
 const localIcon = `/monsters/${props.monster.id}.png`
 const imgFailed = ref(false)
@@ -34,7 +41,7 @@ function goToDetail() {
     </div>
 
     <p class="monster-card__name">{{ monster.name }}</p>
-    <p v-if="monster.ecology" class="monster-card__ecology">{{ monster.ecology }}</p>
+    <p v-if="ecologyLabel" class="monster-card__ecology">{{ ecologyLabel }}</p>
   </button>
 </template>
 
