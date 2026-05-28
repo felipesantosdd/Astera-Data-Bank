@@ -91,3 +91,27 @@ export interface MonsterDetail {
 
   hitzones: Hitzone[]
 }
+
+export type DropSource =
+  | 'carve'
+  | 'break'
+  | 'questReward'
+  | 'shiny'
+  | 'guidingLands'
+  | 'siege'
+  | 'palico'
+  | 'mining'
+  | 'tracking'
+  | 'other'
+
+export interface MonsterDrop {
+  itemId:     number
+  itemName:   string
+  iconName:   string | null
+  iconColor:  string | null
+  rank:       'LR' | 'HR' | 'MR' | string
+  source:     DropSource | string
+  condition:  string
+  stack:      number | null
+  percentage: number | null
+}

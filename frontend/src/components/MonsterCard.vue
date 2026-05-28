@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import ElementBadge from './ElementBadge.vue'
 import type { Monster } from '@/types/monster'
 
 const props = defineProps<{ monster: Monster }>()
 const router = useRouter()
 
-// Ícone local: public/monsters/{id}.png
-// Servido pelo próprio Vite — sem dependência de CDN externo
 const localIcon = `/monsters/${props.monster.id}.png`
 const imgFailed = ref(false)
 
-// Fallback: iniciais do nome (para os 5 sem ícone local)
 const initials = props.monster.name
   .split(' ')
   .map((w: string) => w[0])
@@ -26,8 +22,6 @@ function goToDetail() {
 
 <template>
   <button class="monster-card" @click="goToDetail">
-
-    <!-- Ícone do monstro -->
     <div class="monster-card__icon-wrap">
       <img
         v-if="!imgFailed"
@@ -36,22 +30,10 @@ function goToDetail() {
         class="monster-card__icon"
         @error="imgFailed = true"
       />
-      <!-- Fallback com as iniciais (só para os 5 sem arquivo local) -->
       <span v-else class="monster-card__initials">{{ initials }}</span>
     </div>
 
-    <!-- Nome -->
     <p class="monster-card__name">{{ monster.name }}</p>
-
-    <!-- Fraquezas elementais (só as 5 principais) -->
-    <div class="monster-card__elements">
-      <ElementBadge element="fire"    :value="monster.weaknessFire" />
-      <ElementBadge element="water"   :value="monster.weaknessWater" />
-      <ElementBadge element="thunder" :value="monster.weaknessThunder" />
-      <ElementBadge element="ice"     :value="monster.weaknessIce" />
-      <ElementBadge element="dragon"  :value="monster.weaknessDragon" />
-    </div>
-
   </button>
 </template>
 
@@ -78,7 +60,6 @@ function goToDetail() {
   transform: translateY(-2px);
 }
 
-/* ── Ícone ── */
 .monster-card__icon-wrap {
   width: 104px;
   height: 104px;
@@ -112,7 +93,6 @@ function goToDetail() {
   color: var(--gold);
 }
 
-/* ── Nome ── */
 .monster-card__name {
   font-family: var(--font-heading);
   font-size: 12px;
@@ -129,14 +109,5 @@ function goToDetail() {
 
 .monster-card:hover .monster-card__name {
   color: var(--text);
-}
-
-/* ── Fraquezas ── */
-.monster-card__elements {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-  min-height: 22px;
 }
 </style>

@@ -6,7 +6,13 @@ import { useUI } from '@/composables/useUI'
 import { translatePart } from '@/i18n/hitzoneParts'
 import ElementBadge from '@/components/ElementBadge.vue'
 import MonsterArmorSection from '@/components/MonsterArmorSection.vue'
+import MonsterDropsSection from '@/components/MonsterDropsSection.vue'
 import type { Hitzone } from '@/types/monster'
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+type TabKey = 'combat' | 'drops' | 'equipment' | 'stats'
+const TABS: TabKey[] = ['combat', 'drops', 'equipment', 'stats']
+const activeTab = ref<TabKey>('combat')
 
 const route  = useRoute()
 const router = useRouter()
@@ -129,6 +135,22 @@ watch([id, () => monster.value?.name], () => { imgFailed.value = false })
       </section>
 
       <div class="divider" />
+
+      <!-- ── Tabs nav ──────────────────────────────────────────────────── -->
+      <nav class="tabs">
+        <button
+          v-for="tab in TABS"
+          :key="tab"
+          class="tab"
+          :class="{ 'tab--active': activeTab === tab }"
+          @click="activeTab = tab"
+        >
+          {{ t.tabs[tab] }}
+        </button>
+      </nav>
+
+      <!-- ── Tab: Combate ──────────────────────────────────────────────── -->
+      <template v-if="activeTab === 'combat'">
 
       <!-- ── Info grid ─────────────────────────────────────────────────── -->
       <div class="info-grid">
@@ -269,8 +291,28 @@ watch([id, () => monster.value?.name], () => { imgFailed.value = false })
         </div>
       </section>
 
-      <!-- ── Armaduras craftáveis ──────────────────────────────────────── -->
-      <MonsterArmorSection :monster-id="id" />
+      </template>
+      <!-- ↑ fim da aba Combate -->
+
+      <!-- ── Tab: Drops ────────────────────────────────────────────────── -->
+      <MonsterDropsSection
+        v-else-if="activeTab === 'drops'"
+        :monster-id="id"
+      />
+
+      <!-- ── Tab: Equipamentos ─────────────────────────────────────────── -->
+      <MonsterArmorSection
+        v-else-if="activeTab === 'equipment'"
+        :monster-id="id"
+      />
+
+      <!-- ── Tab: Stats (placeholder) ──────────────────────────────────── -->
+      <section v-else-if="activeTab === 'stats'" class="card card--full">
+        <h2 class="card__title">{{ t.tabs.stats }}</h2>
+        <div class="state">
+          <p class="state__hint">{{ t.drops.statsPlaceholder }}</p>
+        </div>
+      </section>
 
     </template>
   </div>
@@ -386,6 +428,36 @@ watch([id, () => monster.value?.name], () => { imgFailed.value = false })
   background: linear-gradient(to right, var(--gold), var(--border) 60%, transparent);
   margin: 32px 0;
 }
+
+/* ── Tabs ────────────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 12px 22px;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+.tab:hover { color: var(--text); background: var(--surface); }
+.tab--active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+.tab--active:hover { background: var(--gold-glow); }
 
 /* ── Info grid ───────────────────────────────────────────────────────── */
 .info-grid {

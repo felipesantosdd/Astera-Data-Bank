@@ -1,6 +1,7 @@
 package com.asteradatabank.monsters;
 
 import com.asteradatabank.monsters.dto.MonsterDetailDTO;
+import com.asteradatabank.monsters.dto.MonsterDropDTO;
 import com.asteradatabank.monsters.dto.MonsterSummaryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -46,5 +47,19 @@ public class MonsterController {
     ) {
         MonsterDetailDTO monster = monsterService.getMonsterById(id, lang);
         return ResponseEntity.ok(monster);
+    }
+
+    /**
+     * GET /api/monsters/{id}/drops?lang=en
+     *
+     * Devolve todos os drops/recompensas do monstro, em ordem decrescente de chance.
+     * O frontend agrupa por rank e por tipo de obtenção (Carve, Capture, etc).
+     */
+    @GetMapping("/{id}/drops")
+    public ResponseEntity<List<MonsterDropDTO>> getDropsByMonsterId(
+            @PathVariable Integer id,
+            @RequestParam(required = false) String lang
+    ) {
+        return ResponseEntity.ok(monsterService.getDropsByMonsterId(id, lang));
     }
 }

@@ -110,6 +110,29 @@ export interface UIStrings {
     colNodes: string
     areaPrefix: string
   }
+  tabs: {
+    combat: string
+    drops: string
+    equipment: string
+    stats: string
+  }
+  drops: {
+    section: string
+    noDrops: string
+    statsPlaceholder: string
+  }
+  dropSources: {
+    carve: string
+    break: string
+    questReward: string
+    shiny: string
+    guidingLands: string
+    siege: string
+    palico: string
+    mining: string
+    tracking: string
+    other: string
+  }
 }
 
 const en: UIStrings = {
@@ -209,6 +232,29 @@ const en: UIStrings = {
     colNodes: 'Nodes',
     areaPrefix: 'Area',
   },
+  tabs: {
+    combat: 'Combat',
+    drops: 'Drops',
+    equipment: 'Equipment',
+    stats: 'Stats',
+  },
+  drops: {
+    section: 'Drops & Rewards',
+    noDrops: 'No drops recorded for this monster.',
+    statsPlaceholder: 'Detailed stats coming soon (HP, attack values, etc.).',
+  },
+  dropSources: {
+    carve: 'Carve',
+    break: 'Part Break',
+    questReward: 'Quest Reward',
+    shiny: 'Shiny Drop',
+    guidingLands: 'Guiding Lands',
+    siege: 'Siege',
+    palico: 'Palico / Tools',
+    mining: 'Mining',
+    tracking: 'Tracking',
+    other: 'Other',
+  },
 }
 
 const pt: UIStrings = {
@@ -307,6 +353,29 @@ const pt: UIStrings = {
     colArea: 'Área',
     colNodes: 'Nodes',
     areaPrefix: 'Área',
+  },
+  tabs: {
+    combat: 'Combate',
+    drops: 'Drops',
+    equipment: 'Equipamentos',
+    stats: 'Stats',
+  },
+  drops: {
+    section: 'Drops & Recompensas',
+    noDrops: 'Nenhum drop registrado para este monstro.',
+    statsPlaceholder: 'Stats detalhadas em breve (HP, valores de ataque, etc.).',
+  },
+  dropSources: {
+    carve: 'Corte',
+    break: 'Quebra de Parte',
+    questReward: 'Recompensa de Missão',
+    shiny: 'Drop Cintilante',
+    guidingLands: 'Guiding Lands',
+    siege: 'Cerco',
+    palico: 'Palico / Ferramentas',
+    mining: 'Mineração',
+    tracking: 'Rastreamento',
+    other: 'Outros',
   },
 }
 

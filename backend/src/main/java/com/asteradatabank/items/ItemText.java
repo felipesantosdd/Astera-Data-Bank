@@ -1,4 +1,4 @@
-package com.asteradatabank.armor;
+package com.asteradatabank.items;
 
 import jakarta.persistence.*;
 import lombok.Getter;

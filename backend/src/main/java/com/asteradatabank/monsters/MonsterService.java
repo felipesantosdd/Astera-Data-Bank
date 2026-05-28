@@ -3,6 +3,7 @@ package com.asteradatabank.monsters;
 import com.asteradatabank.LangUtil;
 import com.asteradatabank.monsters.dto.HitzoneDTO;
 import com.asteradatabank.monsters.dto.MonsterDetailDTO;
+import com.asteradatabank.monsters.dto.MonsterDropDTO;
 import com.asteradatabank.monsters.dto.MonsterSummaryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -60,5 +61,18 @@ public class MonsterService {
 
                 hitzones
         );
+    }
+
+    public List<MonsterDropDTO> getDropsByMonsterId(Integer monsterId, String lang) {
+        String language = LangUtil.normalize(lang);
+        return monsterRepository.findDropsByMonsterId(monsterId, language).stream()
+                .map(r -> new MonsterDropDTO(
+                        r.itemId(), r.itemName(), r.iconName(), r.iconColor(),
+                        r.rank(),
+                        DropSourceMapper.fromEnglishCondition(r.conditionEn()),
+                        r.condition(),
+                        r.stack(), r.percentage()
+                ))
+                .toList();
     }
 }
