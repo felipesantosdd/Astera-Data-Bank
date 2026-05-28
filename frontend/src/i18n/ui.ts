@@ -148,6 +148,7 @@ export interface UIStrings {
     gathering: string
     noSources: string
     noSourcesHint: string
+    noSourcesForRank: string
     close: string
     colMonster: string
     colCondition: string
@@ -319,6 +320,7 @@ const en: UIStrings = {
     gathering: 'Gathering Points',
     noSources: 'No sources recorded for this item.',
     noSourcesHint: 'This item may come from: event quests, limited-time content, crafting, NPC shops, or login bonuses.',
+    noSourcesForRank: 'No sources recorded for this rank.',
     close: 'Close',
     colMonster: 'Monster',
     colCondition: 'Condition',
@@ -501,6 +503,7 @@ const pt: UIStrings = {
     gathering: 'Pontos de Coleta',
     noSources: 'Nenhuma fonte registrada para este item.',
     noSourcesHint: 'Este item pode vir de: missões de evento, conteúdo por tempo limitado, craft, lojas de NPCs ou bônus de login.',
+    noSourcesForRank: 'Nenhuma fonte registrada para este rank.',
     close: 'Fechar',
     colMonster: 'Monstro',
     colCondition: 'Condição',
