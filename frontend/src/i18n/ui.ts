@@ -146,6 +146,7 @@ export interface UIStrings {
     monsterDrops: string
     gathering: string
     noSources: string
+    noSourcesHint: string
     close: string
     colMonster: string
     colCondition: string
@@ -306,7 +307,8 @@ const en: UIStrings = {
     title: 'Where to find',
     monsterDrops: 'Monster Drops',
     gathering: 'Gathering Points',
-    noSources: 'No sources found — this item may come from crafting or quest rewards.',
+    noSources: 'No sources recorded for this item.',
+    noSourcesHint: 'This item may come from: event quests, limited-time content, crafting, NPC shops, or login bonuses.',
     close: 'Close',
     colMonster: 'Monster',
     colCondition: 'Condition',
@@ -478,7 +480,8 @@ const pt: UIStrings = {
     title: 'Onde encontrar',
     monsterDrops: 'Drops de Monstros',
     gathering: 'Pontos de Coleta',
-    noSources: 'Sem fontes encontradas — pode vir de craft ou recompensa de missão.',
+    noSources: 'Nenhuma fonte registrada para este item.',
+    noSourcesHint: 'Este item pode vir de: missões de evento, conteúdo por tempo limitado, craft, lojas de NPCs ou bônus de login.',
     close: 'Fechar',
     colMonster: 'Monstro',
     colCondition: 'Condição',

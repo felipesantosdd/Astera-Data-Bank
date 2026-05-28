@@ -63,9 +63,11 @@ watch(isOpen, (open) => {
               <div class="modal__skel" />
             </div>
 
-            <!-- Empty -->
-            <div v-else-if="isEmpty" class="modal__state modal__state--empty">
-              {{ t.itemSources.noSources }}
+            <!-- Sem fontes -->
+            <div v-else-if="isEmpty" class="modal__empty">
+              <div class="modal__empty-icon">?</div>
+              <p class="modal__empty-title">{{ t.itemSources.noSources }}</p>
+              <p class="modal__empty-hint">{{ t.itemSources.noSourcesHint }}</p>
             </div>
 
             <template v-else-if="sources">
@@ -233,7 +235,49 @@ watch(isOpen, (open) => {
   text-align: center;
   color: var(--text-muted);
 }
-.modal__state--empty { font-style: italic; }
+
+/* Estado sem fontes */
+.modal__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.modal__empty-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.modal__empty-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.modal__empty-hint {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-dim);
+  max-width: 380px;
+  line-height: 1.6;
+  margin: 0;
+}
 .modal__skel {
   height: 32px;
   border-radius: 6px;
