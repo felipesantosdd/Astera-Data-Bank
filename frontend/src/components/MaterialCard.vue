@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { ItemSummary } from '@/types/item'
 import ItemIcon from '@/components/ItemIcon.vue'
+import { usePrefetchItemSources } from '@/composables/useItemSources'
 
 defineProps<{
   item: ItemSummary
 }>()
 
 defineEmits<{ open: [id: number, name: string] }>()
+
+const prefetch = usePrefetchItemSources()
 
 /** Estrelas de raridade (máx 3 para não poluir) */
 function rarityDots(rarity: number | null): number {
@@ -18,7 +21,11 @@ function rarityDots(rarity: number | null): number {
 </script>
 
 <template>
-  <button class="material-card" @click="$emit('open', item.id, item.name)">
+  <button
+    class="material-card"
+    @mouseenter="prefetch(item.id)"
+    @click="$emit('open', item.id, item.name)"
+  >
     <div class="material-card__icon-wrap">
       <ItemIcon :name="item.iconName" :color="item.iconColor" :size="40" />
     </div>

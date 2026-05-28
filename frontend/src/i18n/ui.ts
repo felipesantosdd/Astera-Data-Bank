@@ -12,6 +12,7 @@ export interface UIStrings {
     filterType: string
     filterAll: string
     clearFilters: string
+    page: string
     noResults: string
     noResultsHint: string
     noSources: string
@@ -205,6 +206,7 @@ const en: UIStrings = {
     filterType: 'Type',
     filterAll: 'All',
     clearFilters: 'Clear filters',
+    page: 'page',
     noResults: 'No materials found',
     noResultsHint: 'Try adjusting your search or filters.',
     noSources: 'No sources recorded for this material.',
@@ -386,6 +388,7 @@ const pt: UIStrings = {
     filterType: 'Tipo',
     filterAll: 'Todos',
     clearFilters: 'Limpar filtros',
+    page: 'página',
     noResults: 'Nenhum material encontrado',
     noResultsHint: 'Tente ajustar a busca ou os filtros.',
     noSources: 'Nenhuma fonte registrada para este material.',
@@ -467,9 +470,9 @@ const pt: UIStrings = {
     lowRank: 'Rank Baixo',
     highRank: 'Rank Alto',
     masterRank: 'Rank Mestre',
-    rankLR: 'RB',
-    rankHR: 'RA',
-    rankMR: 'RM',
+    rankLR: 'LR',
+    rankHR: 'HR',
+    rankMR: 'MR',
     setBonus: 'Bônus de Set',
     requiredPieces: 'peças',
     defense: 'Defesa',

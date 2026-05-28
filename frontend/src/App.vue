@@ -98,10 +98,15 @@ const { t } = useUI()
   transition: color 0.2s, border-color 0.2s;
 }
 
-.navbar__link:hover,
+.navbar__link:hover {
+  color: var(--text);
+  border-color: var(--border);
+}
+
 .navbar__link--active {
   color: var(--gold);
-  border-color: var(--border);
+  border-color: var(--gold);
+  background: var(--gold-glow);
 }
 
 /* ── Conteúdo ── */

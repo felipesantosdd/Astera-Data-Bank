@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import MaterialCard from '@/components/MaterialCard.vue'
 import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
 import { useItems } from '@/composables/useItems'
@@ -63,8 +63,27 @@ const filtered = computed(() => {
 const hasFilters = computed(() => search.value.trim() !== '' || activeTab.value !== 'all')
 
 function clearFilters() {
-  search.value  = ''
+  search.value    = ''
   activeTab.value = 'all'
+  currentPage.value = 1
+}
+
+// ── Paginação ─────────────────────────────────────────────────────────────────
+const ITEMS_PER_PAGE = 60
+const currentPage    = ref(1)
+const totalPages     = computed(() => Math.ceil(filtered.value.length / ITEMS_PER_PAGE))
+
+const paginated = computed(() => {
+  const start = (currentPage.value - 1) * ITEMS_PER_PAGE
+  return filtered.value.slice(start, start + ITEMS_PER_PAGE)
+})
+
+// Volta pra página 1 ao trocar filtro/busca
+watch([search, activeTab], () => { currentPage.value = 1 })
+
+function goTo(page: number) {
+  currentPage.value = Math.max(1, Math.min(page, totalPages.value))
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 </script>
 
@@ -78,6 +97,7 @@ function clearFilters() {
       <p v-if="items" class="materials-page__count">
         {{ filtered.length }}{{ filtered.length !== items.length ? `/${items.length}` : '' }}
         {{ t.materials.recorded }}
+        <span v-if="totalPages > 1"> · {{ t.materials.page }} {{ currentPage }}/{{ totalPages }}</span>
       </p>
     </header>
 
@@ -128,7 +148,7 @@ function clearFilters() {
     <template v-else>
       <div v-if="filtered.length > 0" class="materials-grid">
         <MaterialCard
-          v-for="item in filtered"
+          v-for="item in paginated"
           :key="item.id"
           :item="item"
           @open="openModal"
@@ -141,6 +161,26 @@ function clearFilters() {
         <button class="clear-btn clear-btn--center" @click="clearFilters">
           {{ t.materials.clearFilters }}
         </button>
+      </div>
+
+      <!-- Paginação -->
+      <div v-if="totalPages > 1" class="pagination">
+        <button class="pagination__btn" :disabled="currentPage === 1" @click="goTo(currentPage - 1)">‹</button>
+
+        <template v-for="p in totalPages" :key="p">
+          <!-- Sempre mostra 1ª, última e vizinhos da atual; reticências no resto -->
+          <template v-if="p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1">
+            <button
+              class="pagination__btn"
+              :class="{ 'pagination__btn--active': p === currentPage }"
+              @click="goTo(p)"
+            >{{ p }}</button>
+          </template>
+          <span v-else-if="p === 2 && currentPage > 4" class="pagination__ellipsis">…</span>
+          <span v-else-if="p === totalPages - 1 && currentPage < totalPages - 3" class="pagination__ellipsis">…</span>
+        </template>
+
+        <button class="pagination__btn" :disabled="currentPage === totalPages" @click="goTo(currentPage + 1)">›</button>
       </div>
     </template>
 
@@ -321,6 +361,49 @@ function clearFilters() {
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.4; }
+}
+
+/* ── Paginação ── */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.pagination__btn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.pagination__btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.pagination__btn--active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-glow);
+}
+.pagination__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.pagination__ellipsis {
+  color: var(--text-dim);
+  padding: 0 4px;
+  line-height: 36px;
 }
 
 /* ── Estado vazio / erro ── */
