@@ -8,6 +8,14 @@ export default defineConfig({
     vue(),
     tailwindcss(),
   ],
+  build: {
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (warning.code === 'INVALID_ANNOTATION') return
+        warn(warning)
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
