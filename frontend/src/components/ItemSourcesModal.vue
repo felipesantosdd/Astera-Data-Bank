@@ -12,6 +12,11 @@ const emit = defineEmits<{ close: [] }>()
 
 const { t } = useUI()
 
+/** Traduz condições que ficam em inglês no DB (ex: "Hunt (Bronze)" → "Caçada (Bronze)") */
+function translateCondition(cond: string): string {
+  return (t.value.conditions as Record<string, string>)[cond] ?? cond
+}
+
 const itemIdRef = computed(() => props.itemId)
 const { data: sources, isLoading } = useItemSources(itemIdRef)
 
@@ -81,7 +86,7 @@ watch(isOpen, (open) => {
                     <tbody>
                       <tr v-for="(r, i) in sources.rewards" :key="i">
                         <td class="src-table__name">{{ r.monsterName }}</td>
-                        <td class="src-table__cond">{{ r.condition }}</td>
+                        <td class="src-table__cond">{{ translateCondition(r.condition) }}</td>
                         <td>
                           <span class="rank-pill" :class="`rank-pill--${r.rank.toLowerCase()}`">{{ r.rank }}</span>
                         </td>

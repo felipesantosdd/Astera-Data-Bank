@@ -18,10 +18,10 @@ function openModal(id: number, name: string) {
 }
 function closeModal() { activeItemId.value = null }
 
-// ── Grupos de tipo por iconName ───────────────────────────────────────────────
+// ── Grupos por iconName ───────────────────────────────────────────────────────
 const MONSTER_PARTS = new Set([
   'Body','Bone','Carapace','Fang','Gem','Hide','Husk','Jaw','Liquid',
-  'Mantle','Plate','Sac','Scale','Tail','Web','Wing',
+  'Mantle','Plate','Sac','Scale','Tail','Webbing','Wing',
 ])
 const MINERALS = new Set(['Ore','CharmOre','Feystone','Sphere','Streamstone'])
 const PLANTS   = new Set(['Bug','Herb','Honey','Mushroom','Seed'])
@@ -34,30 +34,38 @@ function iconGroup(iconName: string | null): string {
   return 'other'
 }
 
-// ── Filtros ──────────────────────────────────────────────────────────────────
-const search      = ref('')
-const selectedGroup = ref('')  // '' = todos
+// ── Abas ─────────────────────────────────────────────────────────────────────
+const activeTab = ref('all')
 
-const groupOptions = computed(() => [
+const tabs = computed(() => [
+  { key: 'all',          label: t.value.materials.filterAll },
   { key: 'monster_part', label: t.value.materials.groupMonsterPart },
   { key: 'mineral',      label: t.value.materials.groupMineral },
   { key: 'plant',        label: t.value.materials.groupPlant },
   { key: 'other',        label: t.value.materials.groupOther },
 ])
 
+// ── Busca ─────────────────────────────────────────────────────────────────────
+const search = ref('')
+
+// ── Filtro combinado ──────────────────────────────────────────────────────────
 const filtered = computed(() => {
   if (!items.value) return []
   const q   = search.value.trim().toLowerCase()
-  const grp = selectedGroup.value
+  const tab = activeTab.value
   return items.value.filter(m => {
-    if (q   && !m.name.toLowerCase().includes(q)) return false
-    if (grp && iconGroup(m.iconName) !== grp)      return false
+    if (q && !m.name.toLowerCase().includes(q)) return false
+    if (tab !== 'all' && iconGroup(m.iconName) !== tab) return false
     return true
   })
 })
 
-const hasFilters = computed(() => search.value.trim() !== '' || selectedGroup.value !== '')
-function clearFilters() { search.value = ''; selectedGroup.value = '' }
+const hasFilters = computed(() => search.value.trim() !== '' || activeTab.value !== 'all')
+
+function clearFilters() {
+  search.value  = ''
+  activeTab.value = 'all'
+}
 </script>
 
 <template>
@@ -75,33 +83,35 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
 
     <div class="divider" />
 
-    <!-- Filtros -->
-    <div v-if="!isLoading && !isError" class="filter-bar">
-      <div class="filter-bar__search">
-        <svg class="filter-bar__search-icon" viewBox="0 0 20 20" fill="none">
+    <!-- Barra de busca -->
+    <div v-if="!isLoading && !isError" class="search-bar">
+      <div class="search-bar__wrap">
+        <svg class="search-bar__icon" viewBox="0 0 20 20" fill="none">
           <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/>
           <path d="M13 13l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <input
           v-model="search"
-          class="filter-bar__input"
+          class="search-bar__input"
           type="text"
           :placeholder="t.materials.searchPlaceholder"
         />
-        <button v-if="search" class="filter-bar__clear-input" @click="search = ''">×</button>
+        <button v-if="search" class="search-bar__clear" @click="search = ''">×</button>
       </div>
-
-      <div class="filter-bar__select-wrap">
-        <label class="filter-bar__select-label">{{ t.materials.filterType }}</label>
-        <select v-model="selectedGroup" class="filter-bar__select">
-          <option value="">{{ t.materials.filterAll }}</option>
-          <option v-for="g in groupOptions" :key="g.key" :value="g.key">{{ g.label }}</option>
-        </select>
-      </div>
-
-      <button v-if="hasFilters" class="filter-bar__clear-btn" @click="clearFilters">
+      <button v-if="hasFilters" class="clear-btn" @click="clearFilters">
         {{ t.materials.clearFilters }}
       </button>
+    </div>
+
+    <!-- Abas de tipo -->
+    <div v-if="!isLoading && !isError" class="tabs">
+      <button
+        v-for="tab in tabs"
+        :key="tab.key"
+        class="tab"
+        :class="{ 'tab--active': activeTab === tab.key }"
+        @click="activeTab = tab.key"
+      >{{ tab.label }}</button>
     </div>
 
     <!-- Loading -->
@@ -110,7 +120,7 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
     </div>
 
     <!-- Erro -->
-    <div v-else-if="isError" class="materials-page__error">
+    <div v-else-if="isError" class="state-msg">
       <p>⚠ {{ t.listing.loadingError }}</p>
     </div>
 
@@ -125,10 +135,10 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
         />
       </div>
 
-      <div v-else class="materials-page__empty">
-        <p class="materials-page__empty-title">{{ t.materials.noResults }}</p>
-        <p class="materials-page__empty-hint">{{ t.materials.noResultsHint }}</p>
-        <button class="filter-bar__clear-btn filter-bar__clear-btn--center" @click="clearFilters">
+      <div v-else class="state-msg">
+        <p class="state-msg__title">{{ t.materials.noResults }}</p>
+        <p class="state-msg__hint">{{ t.materials.noResultsHint }}</p>
+        <button class="clear-btn clear-btn--center" @click="clearFilters">
           {{ t.materials.clearFilters }}
         </button>
       </div>
@@ -151,6 +161,7 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
   padding: 40px 24px 80px;
 }
 
+/* ── Cabeçalho ── */
 .materials-page__header { margin-bottom: 20px; }
 
 .materials-page__label {
@@ -180,25 +191,24 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
 .divider {
   height: 1px;
   background: linear-gradient(to right, var(--gold), var(--border) 60%, transparent);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
-/* ── Barra de filtros (reutiliza classes da MonstersView) ── */
-.filter-bar {
+/* ── Busca ── */
+.search-bar {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 12px;
-  margin-bottom: 24px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
-.filter-bar__search {
+.search-bar__wrap {
   position: relative;
   flex: 1;
-  min-width: 180px;
+  max-width: 400px;
 }
 
-.filter-bar__search-icon {
+.search-bar__icon {
   position: absolute;
   left: 10px;
   top: 50%;
@@ -209,7 +219,7 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
   pointer-events: none;
 }
 
-.filter-bar__input {
+.search-bar__input {
   width: 100%;
   padding: 8px 32px 8px 34px;
   background: var(--surface);
@@ -222,11 +232,10 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
   transition: border-color 0.2s;
   box-sizing: border-box;
 }
+.search-bar__input:focus { border-color: var(--gold); }
+.search-bar__input::placeholder { color: var(--text-dim); }
 
-.filter-bar__input:focus    { border-color: var(--gold); }
-.filter-bar__input::placeholder { color: var(--text-dim); }
-
-.filter-bar__clear-input {
+.search-bar__clear {
   position: absolute;
   right: 8px;
   top: 50%;
@@ -239,46 +248,10 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
   padding: 0 2px;
   line-height: 1;
 }
-.filter-bar__clear-input:hover { color: var(--text); }
+.search-bar__clear:hover { color: var(--text); }
 
-.filter-bar__select-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 160px;
-}
-
-.filter-bar__select-label {
-  font-family: var(--font-heading);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.filter-bar__select {
-  padding: 8px 28px 8px 10px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 13px;
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.2s;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-}
-
-.filter-bar__select:focus { border-color: var(--gold); }
-.filter-bar__select option { background: var(--surface-2); }
-
-.filter-bar__clear-btn {
-  padding: 8px 14px;
+.clear-btn {
+  padding: 7px 13px;
   background: none;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -290,19 +263,49 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
   text-transform: uppercase;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
-  align-self: flex-end;
+  white-space: nowrap;
 }
-.filter-bar__clear-btn:hover { border-color: var(--gold); color: var(--gold); }
-.filter-bar__clear-btn--center { margin-top: 16px; align-self: center; }
+.clear-btn:hover { border-color: var(--gold); color: var(--gold); }
+.clear-btn--center { display: block; margin: 16px auto 0; }
 
-/* ── Grid de materiais ── */
+/* ── Abas ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+
+.tab {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--text-muted); }
+.tab--active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ── Grid ── */
 .materials-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
-
-@media (min-width: 480px)  { .materials-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 640px)  { .materials-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 900px)  { .materials-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1100px) { .materials-grid { grid-template-columns: repeat(5, 1fr); } }
@@ -320,28 +323,22 @@ function clearFilters() { search.value = ''; selectedGroup.value = '' }
   50%       { opacity: 0.4; }
 }
 
-/* ── Erro / vazio ── */
-.materials-page__error {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--el-fire);
-  font-family: var(--font-heading);
-}
-.materials-page__empty {
+/* ── Estado vazio / erro ── */
+.state-msg {
   text-align: center;
   padding: 60px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  color: var(--text-muted);
 }
-.materials-page__empty-title {
+.state-msg__title {
   font-family: var(--font-heading);
   font-size: 18px;
   font-weight: 600;
-  color: var(--text-muted);
 }
-.materials-page__empty-hint {
+.state-msg__hint {
   font-family: var(--font-body);
   font-size: 13px;
   color: var(--text-dim);

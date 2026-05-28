@@ -39,8 +39,12 @@ const COLORS: Record<string, string> = {
 
 // PascalCase do banco → arquivo SVG na pasta public/items/
 const SPECIAL_FILES: Record<string, string> = {
-  Jaw:  'monster_jaw',
-  Fang: 'claw',
+  Jaw:      'monster_jaw',
+  Fang:     'claw',
+  Webbing:  'web',
+  CharmOre: 'charm_ore',
+  Vocuher:  'voucher',   // typo no MHWorldData DB
+  Egg:      'question',  // sem SVG próprio, usa genérico
 }
 
 function pathFor(name: string): string {
