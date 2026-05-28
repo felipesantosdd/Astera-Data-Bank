@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, toRef } from 'vue'
+import { computed, ref, toRef, watch } from 'vue'
 import { useMonsterDrops } from '@/composables/useMonsterDrops'
 import { useUI } from '@/composables/useUI'
+import { translateCondition } from '@/i18n/dropConditions'
 import ItemIcon from '@/components/ItemIcon.vue'
 import type { MonsterDrop } from '@/types/monster'
 
@@ -9,7 +10,7 @@ const props = defineProps<{ monsterId: number }>()
 const monsterIdRef = toRef(props, 'monsterId')
 
 const { data: drops, isLoading, isError } = useMonsterDrops(monsterIdRef)
-const { t } = useUI()
+const { t, lang } = useUI()
 
 // ── Estrutura de agrupamento ───────────────────────────────────────────
 const RANK_ORDER = ['LR', 'HR', 'MR'] as const
@@ -54,12 +55,81 @@ function sourceLabel(src: SourceKey): string {
   return t.value.dropSources[src] ?? src
 }
 
-function hasAnyDropsInRank(rank: Rank): boolean {
-  const sources = grouped.value[rank]
-  return SOURCE_ORDER.some(s => (sources[s]?.length ?? 0) > 0)
+// Ranks/sources que efetivamente têm drops (não renderizamos abas vazias)
+const availableRanks = computed<Rank[]>(() =>
+  RANK_ORDER.filter(r => SOURCE_ORDER.some(s => (grouped.value[r][s]?.length ?? 0) > 0))
+)
+
+function sourcesInRank(rank: Rank): SourceKey[] {
+  return SOURCE_ORDER.filter(s => (grouped.value[rank][s]?.length ?? 0) > 0)
 }
 
+// ── Estado das abas ────────────────────────────────────────────────────
+const activeRank   = ref<Rank | null>(null)
+const activeSource = ref<SourceKey | null>(null)
+
+// Sempre que mudar de monstro/idioma e os dados chegarem, seleciona o
+// primeiro rank/source disponível. Também corrige se a aba ativa virar inválida.
+watch(grouped, () => {
+  const ranks = availableRanks.value
+  if (ranks.length === 0) {
+    activeRank.value = null
+    activeSource.value = null
+    return
+  }
+  if (!activeRank.value || !ranks.includes(activeRank.value)) {
+    activeRank.value = ranks[0]
+  }
+  const sources = sourcesInRank(activeRank.value!)
+  if (!activeSource.value || !sources.includes(activeSource.value)) {
+    activeSource.value = sources[0] ?? null
+  }
+}, { immediate: true })
+
+function selectRank(rank: Rank) {
+  activeRank.value = rank
+  const sources = sourcesInRank(rank)
+  // Se a sub-aba atual existe nesse rank, mantém. Senão pega a primeira.
+  if (!activeSource.value || !sources.includes(activeSource.value)) {
+    activeSource.value = sources[0] ?? null
+  }
+}
+
+const currentDrops = computed<MonsterDrop[]>(() => {
+  if (!activeRank.value || !activeSource.value) return []
+  return grouped.value[activeRank.value][activeSource.value] ?? []
+})
+
 const hasAnyDrops = computed(() => (drops.value?.length ?? 0) > 0)
+
+// ── Busca ──────────────────────────────────────────────────────────────
+const searchQuery = ref('')
+const isSearching = computed(() => searchQuery.value.trim().length > 0)
+
+// Resultados da busca: todos os drops do rank atual cujo nome inclui a query.
+// Mostra TODAS as formas de obter aquele item naquele rank (carve, quebra,
+// quest reward, etc.), ordenados por % decrescente.
+const searchResults = computed<MonsterDrop[]>(() => {
+  if (!isSearching.value || !activeRank.value) return []
+  const q = searchQuery.value.trim().toLowerCase()
+  const matches: MonsterDrop[] = []
+  for (const src of SOURCE_ORDER) {
+    for (const d of grouped.value[activeRank.value][src] ?? []) {
+      if (d.itemName.toLowerCase().includes(q)) matches.push(d)
+    }
+  }
+  return matches.sort((a, b) => (b.percentage ?? 0) - (a.percentage ?? 0))
+})
+
+// O que de fato é exibido na lista
+const displayedDrops = computed<MonsterDrop[]>(() =>
+  isSearching.value ? searchResults.value : currentDrops.value
+)
+
+// Reseta a busca ao trocar de monstro (idioma mantém — útil pra comparar)
+watch(monsterIdRef, () => { searchQuery.value = '' })
+
+function clearSearch() { searchQuery.value = '' }
 </script>
 
 <template>
@@ -83,42 +153,92 @@ const hasAnyDrops = computed(() => (drops.value?.length ?? 0) > 0)
 
     <!-- Conteúdo -->
     <template v-else>
-      <div
-        v-for="rank in RANK_ORDER"
-        :key="rank"
-        class="rank-group"
-        v-show="hasAnyDropsInRank(rank)"
-      >
-        <h3 class="rank-group__title">
-          <span class="rank-pill" :class="`rank-pill--${rank.toLowerCase()}`">{{ rankBadge(rank) }}</span>
-          {{ rankLabel(rank) }}
-        </h3>
 
-        <div
-          v-for="src in SOURCE_ORDER"
-          :key="src"
-          class="source-group"
-          v-show="(grouped[rank][src]?.length ?? 0) > 0"
+      <!-- Tabs de rank (nível externo) -->
+      <nav class="rank-tabs" role="tablist">
+        <button
+          v-for="rank in availableRanks"
+          :key="rank"
+          class="rank-tab"
+          :class="[
+            `rank-tab--${rank.toLowerCase()}`,
+            { 'rank-tab--active': activeRank === rank }
+          ]"
+          role="tab"
+          :aria-selected="activeRank === rank"
+          @click="selectRank(rank)"
         >
-          <h4 class="source-group__title">{{ sourceLabel(src) }}</h4>
+          <span class="rank-tab__badge">{{ rankBadge(rank) }}</span>
+          <span class="rank-tab__label">{{ rankLabel(rank) }}</span>
+        </button>
+      </nav>
 
-          <ul class="drop-list">
-            <li v-for="(d, i) in grouped[rank][src]" :key="i" class="drop-item">
-              <ItemIcon :name="d.iconName" :color="d.iconColor" :size="32" />
-
-              <span class="drop-item__name">{{ d.itemName }}</span>
-
-              <span class="drop-item__qty">×{{ d.stack }}</span>
-
-              <span class="drop-item__cond" :title="d.condition">{{ d.condition }}</span>
-
-              <span class="drop-item__pct" :style="{ '--p': (d.percentage ?? 0) + '%' }">
-                <strong>{{ d.percentage }}%</strong>
-              </span>
-            </li>
-          </ul>
-        </div>
+      <!-- Campo de busca -->
+      <div class="search">
+        <span class="search__icon" aria-hidden="true">⌕</span>
+        <input
+          v-model="searchQuery"
+          type="text"
+          class="search__input"
+          :placeholder="t.drops.searchPlaceholder"
+        />
+        <button
+          v-if="isSearching"
+          class="search__clear"
+          @click="clearSearch"
+          :aria-label="t.drops.searchClear"
+        >✕</button>
       </div>
+
+      <!-- Sub-tabs de source (escondidas durante busca) -->
+      <nav
+        v-if="activeRank && !isSearching"
+        class="source-tabs"
+        role="tablist"
+      >
+        <button
+          v-for="src in sourcesInRank(activeRank)"
+          :key="src"
+          class="source-tab"
+          :class="{ 'source-tab--active': activeSource === src }"
+          role="tab"
+          :aria-selected="activeSource === src"
+          @click="activeSource = src"
+        >
+          {{ sourceLabel(src) }}
+          <span class="source-tab__count">{{ grouped[activeRank][src]?.length }}</span>
+        </button>
+      </nav>
+
+      <!-- Contador de resultados em modo busca -->
+      <p v-if="isSearching && displayedDrops.length > 0" class="search-info">
+        <strong>{{ displayedDrops.length }}</strong> {{ t.drops.searchResultsCount }}
+      </p>
+
+      <!-- Sem resultados de busca -->
+      <div v-if="isSearching && displayedDrops.length === 0" class="state">
+        <p class="state__hint">{{ t.drops.searchNoResults }}</p>
+      </div>
+
+      <!-- Lista de drops -->
+      <ul v-if="displayedDrops.length > 0" class="drop-list">
+        <li v-for="(d, i) in displayedDrops" :key="i" class="drop-item">
+          <ItemIcon :name="d.iconName" :color="d.iconColor" :size="32" />
+
+          <span class="drop-item__name">{{ d.itemName }}</span>
+
+          <span class="drop-item__qty">×{{ d.stack }}</span>
+
+          <span
+            class="drop-item__cond"
+            :title="translateCondition(d.condition, lang)"
+          >{{ translateCondition(d.condition, lang) }}</span>
+
+          <span class="drop-item__pct" :style="{ '--p': (d.percentage ?? 0) + '%' }">
+            <strong>{{ d.percentage }}%</strong>
+          </span>
+        </li>
+      </ul>
     </template>
   </section>
 </template>
@@ -142,44 +262,166 @@ const hasAnyDrops = computed(() => (drops.value?.length ?? 0) > 0)
 .state--error { color: var(--el-fire); }
 .state__hint  { font-size: 13px; }
 
-/* ── Rank group ────────────────────────────────────────────────────── */
-.rank-group { margin-top: 24px; }
-.rank-group__title {
+/* ── Rank tabs (nível externo) ─────────────────────────────────────── */
+.rank-tabs {
   display: flex;
+  gap: 6px;
+  margin: 16px 0 14px;
+  flex-wrap: wrap;
+}
+.rank-tab {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-heading);
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text);
-  margin: 0 0 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.rank-pill {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  border: 1px solid;
-}
-.rank-pill--lr { color: #8fb88f; border-color: #4a6e4a; background: rgba(74,110,74,0.15); }
-.rank-pill--hr { color: var(--gold); border-color: var(--gold); background: var(--gold-glow); }
-.rank-pill--mr { color: var(--el-fire); border-color: var(--el-fire); background: rgba(224,82,40,0.15); }
-
-/* ── Source group ──────────────────────────────────────────────────── */
-.source-group { margin: 12px 0 18px; }
-.source-group__title {
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
   font-family: var(--font-heading);
   font-size: 11px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.rank-tab:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+.rank-tab__badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid;
+}
+.rank-tab--lr .rank-tab__badge { color: #8fb88f; border-color: #4a6e4a; background: rgba(74,110,74,0.15); }
+.rank-tab--hr .rank-tab__badge { color: var(--gold); border-color: var(--gold); background: var(--gold-glow); }
+.rank-tab--mr .rank-tab__badge { color: var(--el-fire); border-color: var(--el-fire); background: rgba(224,82,40,0.15); }
+
+.rank-tab--active {
+  color: var(--text);
+  background: var(--surface);
+}
+.rank-tab--lr.rank-tab--active { border-color: #4a6e4a; box-shadow: 0 0 0 1px #4a6e4a inset; }
+.rank-tab--hr.rank-tab--active { border-color: var(--gold);    box-shadow: 0 0 0 1px var(--gold) inset; }
+.rank-tab--mr.rank-tab--active { border-color: var(--el-fire); box-shadow: 0 0 0 1px var(--el-fire) inset; }
+
+/* ── Campo de busca ────────────────────────────────────────────────── */
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 0 14px;
+}
+.search__icon {
+  position: absolute;
+  left: 12px;
+  font-size: 16px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.search__input {
+  width: 100%;
+  padding: 9px 36px 9px 36px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.search__input::placeholder { color: var(--text-dim); }
+.search__input:focus {
+  border-color: var(--gold);
+  background: var(--surface);
+}
+.search__clear {
+  position: absolute;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  transition: color 0.15s, background 0.15s;
+}
+.search__clear:hover {
   color: var(--gold);
-  margin: 0 0 8px;
+  background: var(--gold-glow);
+}
+
+/* Contador de resultados em modo busca */
+.search-info {
+  margin: 4px 0 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.search-info strong {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* ── Source sub-tabs (nível interno) ───────────────────────────────── */
+.source-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 0 0 14px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--border);
+}
+.source-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  margin-bottom: -1px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.source-tab:hover { color: var(--text); }
+.source-tab--active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+.source-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 16px;
+  padding: 0 5px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+.source-tab--active .source-tab__count {
+  background: var(--gold-glow);
+  color: var(--gold);
 }
 
 /* ── Drop list (uma linha por item) ────────────────────────────────── */

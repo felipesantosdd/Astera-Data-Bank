@@ -2,10 +2,11 @@ import { useQuery } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import type { Ref } from 'vue'
 import { useLanguageStore } from '@/stores/language'
+import { dataUrl } from '@/utils/dataUrl'
 import type { ItemSources } from '@/types/item'
 
 async function fetchSources(itemId: number, lang: string): Promise<ItemSources> {
-  const res = await fetch(`/api/items/${itemId}/sources?lang=${lang}`)
+  const res = await fetch(dataUrl.itemSources(itemId, lang))
   if (!res.ok) throw new Error(`Erro ao buscar fontes do item #${itemId}: ${res.status}`)
   return res.json()
 }

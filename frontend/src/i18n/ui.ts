@@ -120,6 +120,10 @@ export interface UIStrings {
     section: string
     noDrops: string
     statsPlaceholder: string
+    searchPlaceholder: string
+    searchClear: string
+    searchNoResults: string
+    searchResultsCount: string
   }
   dropSources: {
     carve: string
@@ -242,6 +246,10 @@ const en: UIStrings = {
     section: 'Drops & Rewards',
     noDrops: 'No drops recorded for this monster.',
     statsPlaceholder: 'Detailed stats coming soon (HP, attack values, etc.).',
+    searchPlaceholder: 'Search drops in this rank...',
+    searchClear: 'Clear',
+    searchNoResults: 'No drops match your search in this rank.',
+    searchResultsCount: 'ways to get this drop',
   },
   dropSources: {
     carve: 'Carve',
@@ -364,6 +372,10 @@ const pt: UIStrings = {
     section: 'Drops & Recompensas',
     noDrops: 'Nenhum drop registrado para este monstro.',
     statsPlaceholder: 'Stats detalhadas em breve (HP, valores de ataque, etc.).',
+    searchPlaceholder: 'Buscar drops neste rank...',
+    searchClear: 'Limpar',
+    searchNoResults: 'Nenhum drop corresponde à busca neste rank.',
+    searchResultsCount: 'formas de obter esse drop',
   },
   dropSources: {
     carve: 'Corte',

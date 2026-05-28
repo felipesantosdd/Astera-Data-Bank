@@ -2,10 +2,11 @@ import { useQuery } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import type { Ref } from 'vue'
 import { useLanguageStore } from '@/stores/language'
+import { dataUrl } from '@/utils/dataUrl'
 import type { ArmorSet } from '@/types/armor'
 
 async function fetchArmor(monsterId: number, lang: string): Promise<ArmorSet[]> {
-  const res = await fetch(`/api/monsters/${monsterId}/armor?lang=${lang}`)
+  const res = await fetch(dataUrl.monsterArmor(monsterId, lang))
   if (!res.ok) throw new Error(`Erro ao buscar armadura do monstro #${monsterId}: ${res.status}`)
   return res.json()
 }

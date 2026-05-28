@@ -205,6 +205,55 @@ Quando um monstro não tem ícone local, o card mostra as iniciais do nome como 
 
 ---
 
+## Deploy em produção (snapshot estático)
+
+Os dados do MHW são imutáveis (Capcom não atualiza mais), então em produção
+não precisamos do backend Spring rodando. Geramos um **snapshot estático** dos
+dados como arquivos JSON e servimos tudo como site estático no Vercel.
+
+### Fluxo
+
+```
+Backend Spring rodando local
+        │
+        │  scripts/generate-snapshot.mjs (Node)
+        │  chama /api/* para todos os monstros × idiomas
+        ▼
+frontend/public/data/
+    ├── monsters-{lang}.json
+    ├── monsters/{id}/{lang}.json
+    ├── monsters/{id}/armor-{lang}.json
+    ├── monsters/{id}/drops-{lang}.json
+    └── items/{id}/sources-{lang}.json
+        │
+        │  npm run build
+        ▼
+   Vercel (estático)
+```
+
+### Como gerar o snapshot
+
+1. Sobe o backend local (`./mvnw spring-boot:run`)
+2. Roda o gerador:
+   ```bash
+   cd frontend
+   npm run snapshot
+   ```
+3. Os JSONs ficam em `frontend/public/data/`. Commita junto com o código.
+4. `npm run build` empacota tudo num diretório estático prontinho pro Vercel.
+
+### Como o frontend escolhe entre /api e /data
+
+`frontend/src/utils/dataUrl.ts` centraliza as URLs. Em **dev** (`import.meta.env.PROD === false`)
+o helper devolve `/api/...` — o Vite proxia pro backend. Em **build/prod**, devolve
+`/data/.../{lang}.json`. Todos os composables (`useMonster`, `useMonsterDrops`, etc.)
+usam esse helper.
+
+Pra adicionar uma rota nova: cria o endpoint no Spring + um método em `dataUrl.ts` +
+regenera o snapshot.
+
+---
+
 ## Estado atual
 
 - ✅ Listagem de monstros com fraquezas

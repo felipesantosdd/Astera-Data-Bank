@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { useLanguageStore } from '@/stores/language'
+import { dataUrl } from '@/utils/dataUrl'
 import type { Monster } from '@/types/monster'
 
 async function fetchMonsters(lang: string): Promise<Monster[]> {
-  const res = await fetch(`/api/monsters?lang=${lang}`)
+  const res = await fetch(dataUrl.monsters(lang))
   if (!res.ok) throw new Error(`Erro ao buscar monstros: ${res.status}`)
   return res.json()
 }
