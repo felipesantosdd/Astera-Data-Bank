@@ -39,7 +39,8 @@ const COLORS: Record<string, string> = {
 
 // PascalCase do banco → arquivo SVG na pasta public/items/
 const SPECIAL_FILES: Record<string, string> = {
-  Jaw: 'monster_jaw',
+  Jaw:  'monster_jaw',
+  Fang: 'claw',
 }
 
 function pathFor(name: string): string {

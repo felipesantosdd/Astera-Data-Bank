@@ -1,0 +1,5440 @@
+{
+  "generated": "2026-05-28T18:24:24.303Z",
+  "totalItems": 776,
+  "withIcon": 776,
+  "withFallback": 0,
+  "mapping": [
+    {
+      "itemId": 901,
+      "itemName": "Acidic Glavenus Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 902,
+      "itemName": "Acidic Glavenus Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 900,
+      "itemName": "Acidic Glavenus Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 903,
+      "itemName": "Acidic Glavenus Spineshell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 904,
+      "itemName": "Acidic Glavenus Tailedge",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 132,
+      "itemName": "Advanced Armor Sphere",
+      "iconName": "Sphere",
+      "resolvedFile": "ic_items_sphere_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 469,
+      "itemName": "Aetheryte Shard",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1304,
+      "itemName": "Alatreon Diretail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1303,
+      "itemName": "Alatreon Direwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1301,
+      "itemName": "Alatreon Mantle",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1300,
+      "itemName": "Alatreon Pallium",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1302,
+      "itemName": "Alatreon Riptalon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 875,
+      "itemName": "Amber Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 668,
+      "itemName": "Ancient Cursed Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1066,
+      "itemName": "Ancient Feystone",
+      "iconName": "Feystone",
+      "resolvedFile": "ic_items_feystone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1103,
+      "itemName": "Ancient Great Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 670,
+      "itemName": "Ancient Leshen Antlers",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 664,
+      "itemName": "Ancient Leshen Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 264,
+      "itemName": "Anjanath Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 270,
+      "itemName": "Anjanath Fang+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 760,
+      "itemName": "Anjanath Fur",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 272,
+      "itemName": "Anjanath Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 761,
+      "itemName": "Anjanath Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 763,
+      "itemName": "Anjanath Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 793,
+      "itemName": "Anjanath Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 265,
+      "itemName": "Anjanath Nosebone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 271,
+      "itemName": "Anjanath Nosebone+",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 263,
+      "itemName": "Anjanath Pelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 269,
+      "itemName": "Anjanath Pelt+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 267,
+      "itemName": "Anjanath Plate",
+      "iconName": "Plate",
+      "resolvedFile": "ic_items_plate_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 262,
+      "itemName": "Anjanath Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 268,
+      "itemName": "Anjanath Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 759,
+      "itemName": "Anjanath Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 266,
+      "itemName": "Anjanath Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 950,
+      "itemName": "Annihilating Greathorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1270,
+      "itemName": "Annihilating Temperhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 165,
+      "itemName": "Aqua Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1138,
+      "itemName": "Assassin Cutwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1163,
+      "itemName": "Aurora Crownhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1306,
+      "itemName": "Azure Dragonsphire",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1161,
+      "itemName": "Azure Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 352,
+      "itemName": "Azure Rathalos Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 846,
+      "itemName": "Azure Rathalos Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 848,
+      "itemName": "Azure Rathalos Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 847,
+      "itemName": "Azure Rathalos Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 351,
+      "itemName": "Azure Rathalos Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 845,
+      "itemName": "Azure Rathalos Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 353,
+      "itemName": "Azure Rathalos Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 354,
+      "itemName": "Azure Rathalos Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1133,
+      "itemName": "Azure Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 756,
+      "itemName": "Banbaro Chine",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 755,
+      "itemName": "Banbaro Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 757,
+      "itemName": "Banbaro Great Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 758,
+      "itemName": "Banbaro Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 870,
+      "itemName": "Barioth Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 873,
+      "itemName": "Barioth Greatspike",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 872,
+      "itemName": "Barioth Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 874,
+      "itemName": "Barioth Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 871,
+      "itemName": "Barioth Thickfur",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 242,
+      "itemName": "Barroth Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 732,
+      "itemName": "Barroth Chine",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 238,
+      "itemName": "Barroth Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 244,
+      "itemName": "Barroth Claw+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 731,
+      "itemName": "Barroth Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 734,
+      "itemName": "Barroth Crown",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 733,
+      "itemName": "Barroth Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 735,
+      "itemName": "Barroth Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 237,
+      "itemName": "Barroth Ridge",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 243,
+      "itemName": "Barroth Ridge+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 239,
+      "itemName": "Barroth Scalp",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 236,
+      "itemName": "Barroth Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 240,
+      "itemName": "Barroth Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 398,
+      "itemName": "Bazelgeuse Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 931,
+      "itemName": "Bazelgeuse Flail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 400,
+      "itemName": "Bazelgeuse Fuse",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 403,
+      "itemName": "Bazelgeuse Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 933,
+      "itemName": "Bazelgeuse Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 935,
+      "itemName": "Bazelgeuse Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 397,
+      "itemName": "Bazelgeuse Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 929,
+      "itemName": "Bazelgeuse Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 399,
+      "itemName": "Bazelgeuse Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 401,
+      "itemName": "Bazelgeuse Talon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 402,
+      "itemName": "Bazelgeuse Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 542,
+      "itemName": "Beautiful Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 465,
+      "itemName": "Behemoth Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 466,
+      "itemName": "Behemoth Great Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 464,
+      "itemName": "Behemoth Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 467,
+      "itemName": "Behemoth Shearclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 468,
+      "itemName": "Behemoth Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 742,
+      "itemName": "Beotodus Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 744,
+      "itemName": "Beotodus Grandfin",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 743,
+      "itemName": "Beotodus Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 741,
+      "itemName": "Beotodus Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1310,
+      "itemName": "Bergcrusher Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 171,
+      "itemName": "Bird Wyvern Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 941,
+      "itemName": "Black Blood",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 365,
+      "itemName": "Black Diablos Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 859,
+      "itemName": "Black Diablos Chine",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 858,
+      "itemName": "Black Diablos Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 366,
+      "itemName": "Black Diablos Ridge+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 367,
+      "itemName": "Black Spiral Horn+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 860,
+      "itemName": "Blackcurl Stouthorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1137,
+      "itemName": "Blackcurl Temperhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1136,
+      "itemName": "Blackcurl Tyranthorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1101,
+      "itemName": "Blinding Cathode",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1153,
+      "itemName": "Bloodstained Ebonhide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1173,
+      "itemName": "Bloodthirsty Glimmerpelt",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 364,
+      "itemName": "Blos Medulla",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1285,
+      "itemName": "Brach Obliterator",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1283,
+      "itemName": "Brach Warhead",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 906,
+      "itemName": "Brachydios Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 908,
+      "itemName": "Brachydios Crown",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 911,
+      "itemName": "Brachydios Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 912,
+      "itemName": "Brachydios Pallium",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 910,
+      "itemName": "Brachydios Pounder+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 890,
+      "itemName": "Brute Tigrex Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 891,
+      "itemName": "Brute Tigrex Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 892,
+      "itemName": "Brute Tigrex Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 889,
+      "itemName": "Brute Tigrex Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 528,
+      "itemName": "Bushi Ticket",
+      "iconName": "Voucher",
+      "resolvedFile": "ic_items_voucher_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 118,
+      "itemName": "Carbalite Ore",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1067,
+      "itemName": "Carved Feystone",
+      "iconName": "Feystone",
+      "resolvedFile": "ic_items_feystone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1149,
+      "itemName": "Charged Deathly Shocker",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 540,
+      "itemName": "Chipped Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1281,
+      "itemName": "Coldblooded Icefang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1094,
+      "itemName": "Colorful Plume",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 162,
+      "itemName": "Coma Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 700,
+      "itemName": "Conflagrant Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 727,
+      "itemName": "Coral Pukei-Pukei Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 728,
+      "itemName": "Coral Pukei-Pukei Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 730,
+      "itemName": "Coral Pukei-Pukei Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 726,
+      "itemName": "Coral Pukei-Pukei Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1107,
+      "itemName": "Crackling Thunderpelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1151,
+      "itemName": "Crimson Blastscale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 702,
+      "itemName": "Cryo Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1268,
+      "itemName": "Crystal Frozenhide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 953,
+      "itemName": "Crystal Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 444,
+      "itemName": "Daora Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 448,
+      "itemName": "Daora Claw+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 973,
+      "itemName": "Daora Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 443,
+      "itemName": "Daora Dragon Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 975,
+      "itemName": "Daora Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 449,
+      "itemName": "Daora Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 978,
+      "itemName": "Daora Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 976,
+      "itemName": "Daora Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 446,
+      "itemName": "Daora Horn+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 977,
+      "itemName": "Daora Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 974,
+      "itemName": "Daora Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 447,
+      "itemName": "Daora Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 445,
+      "itemName": "Daora Webbing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 55,
+      "itemName": "Dash Extract",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1111,
+      "itemName": "Dazzling Photophore+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 698,
+      "itemName": "Deadly Poison Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 981,
+      "itemName": "Deathweaver Membrane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 419,
+      "itemName": "Deceased Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 979,
+      "itemName": "Deceased Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 937,
+      "itemName": "Deviljho Blackpiel",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 942,
+      "itemName": "Deviljho Crook",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 940,
+      "itemName": "Deviljho Flail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 411,
+      "itemName": "Deviljho Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 405,
+      "itemName": "Deviljho Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 939,
+      "itemName": "Deviljho Ripper",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 410,
+      "itemName": "Deviljho Saliva",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 404,
+      "itemName": "Deviljho Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 408,
+      "itemName": "Deviljho Scalp",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 936,
+      "itemName": "Deviljho Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 409,
+      "itemName": "Deviljho Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 406,
+      "itemName": "Deviljho Tallfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 407,
+      "itemName": "Deviljho Talon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 361,
+      "itemName": "Diablos Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 854,
+      "itemName": "Diablos Chine",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 783,
+      "itemName": "Diablos Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 358,
+      "itemName": "Diablos Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 857,
+      "itemName": "Diablos Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 360,
+      "itemName": "Diablos Marrow",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 356,
+      "itemName": "Diablos Ridge",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 362,
+      "itemName": "Diablos Ridge+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 355,
+      "itemName": "Diablos Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 357,
+      "itemName": "Diablos Tailcase",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 855,
+      "itemName": "Diablos Tailcase+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 659,
+      "itemName": "Dissolved Weapon",
+      "iconName": "Question",
+      "resolvedFile": "ic_items_question_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 932,
+      "itemName": "Distilled Blast Fluid",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 776,
+      "itemName": "Dodogama Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 382,
+      "itemName": "Dodogama Hide+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 383,
+      "itemName": "Dodogama Jaw",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 777,
+      "itemName": "Dodogama Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 775,
+      "itemName": "Dodogama Mandible",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 381,
+      "itemName": "Dodogama Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 773,
+      "itemName": "Dodogama Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 385,
+      "itemName": "Dodogama Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 384,
+      "itemName": "Dodogama Talon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 774,
+      "itemName": "Dodogama Thickhide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1276,
+      "itemName": "Dracolite",
+      "iconName": "Question",
+      "resolvedFile": "ic_items_question_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1275,
+      "itemName": "Dracolite Shard",
+      "iconName": "Question",
+      "resolvedFile": "ic_items_question_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1247,
+      "itemName": "Dracophage Bug",
+      "iconName": "Bug",
+      "resolvedFile": "ic_items_bug_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 608,
+      "itemName": "Dragon Treasure",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 142,
+      "itemName": "Dragonbone Relic",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 117,
+      "itemName": "Dragonite Ore",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1023,
+      "itemName": "Dragonvein Solidbone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 836,
+      "itemName": "Ebony Odogaron Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 837,
+      "itemName": "Ebony Odogaron Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 838,
+      "itemName": "Ebony Odogaron Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 839,
+      "itemName": "Ebony Odogaron Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 834,
+      "itemName": "Ebony Odogaron Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 173,
+      "itemName": "Elder Dragon Blood",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 152,
+      "itemName": "Elder Dragon Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1024,
+      "itemName": "Elder Dragonvein Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1048,
+      "itemName": "Elder Spiritvein Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 169,
+      "itemName": "Electro Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1167,
+      "itemName": "Enchanting Finehide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1266,
+      "itemName": "Enticing Viperthorn",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 952,
+      "itemName": "Eternal Regrowth Plate",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1169,
+      "itemName": "Extinction Greathorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 916,
+      "itemName": "Fancy Beak",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1128,
+      "itemName": "Fatal Rendclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1312,
+      "itemName": "Fatalis Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1315,
+      "itemName": "Fatalis Evil Eye",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1316,
+      "itemName": "Fatalis Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1314,
+      "itemName": "Fatalis Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1313,
+      "itemName": "Fatalis Pectus",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1311,
+      "itemName": "Fatalis Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 241,
+      "itemName": "Fertile Mud",
+      "iconName": "Dung",
+      "resolvedFile": "ic_items_dung_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 789,
+      "itemName": "Fey Wyvern Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1021,
+      "itemName": "Fierce Dragonvein Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 907,
+      "itemName": "Fine Brachydios Ebonshell",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 965,
+      "itemName": "Fire Dragon Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 427,
+      "itemName": "Fire Dragon Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 125,
+      "itemName": "Firecell Stone",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 163,
+      "itemName": "Flame Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1284,
+      "itemName": "Flashpoint Slime",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1105,
+      "itemName": "Flickering Flamepelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 930,
+      "itemName": "Flickering Silvershell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 701,
+      "itemName": "Flood Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1095,
+      "itemName": "Fragrant Poison Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 168,
+      "itemName": "Freezer Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 167,
+      "itemName": "Frost Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 119,
+      "itemName": "Fucium Ore",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 796,
+      "itemName": "Fulgur Anjanath Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 798,
+      "itemName": "Fulgur Anjanath Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 799,
+      "itemName": "Fulgur Anjanath Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 794,
+      "itemName": "Fulgur Anjanath Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 795,
+      "itemName": "Fulgur Anjanath Thickfur",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 927,
+      "itemName": "Fulgurbug",
+      "iconName": "Bug",
+      "resolvedFile": "ic_items_bug_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 915,
+      "itemName": "Garuga Auricle",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 914,
+      "itemName": "Garuga Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 917,
+      "itemName": "Garuga Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 918,
+      "itemName": "Garuga Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 913,
+      "itemName": "Garuga Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 919,
+      "itemName": "Garuga Silverpelt",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1288,
+      "itemName": "Ghoulish Gold Gorer",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1180,
+      "itemName": "Giant Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 894,
+      "itemName": "Glavenus Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 895,
+      "itemName": "Glavenus Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 896,
+      "itemName": "Glavenus Hellshell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 899,
+      "itemName": "Glavenus Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 893,
+      "itemName": "Glavenus Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 897,
+      "itemName": "Glavenus Tailedge",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 544,
+      "itemName": "Glimmering Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1144,
+      "itemName": "Glossy Ebonshell",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 600,
+      "itemName": "Glowing Feystone",
+      "iconName": "Feystone",
+      "resolvedFile": "ic_items_feystone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 909,
+      "itemName": "Glowing Slime",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1074,
+      "itemName": "Gold Rajang Pelt+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 808,
+      "itemName": "Gold Rathian Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 807,
+      "itemName": "Gold Rathian Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 809,
+      "itemName": "Gold Rathian Surspike",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 557,
+      "itemName": "Golden Chunk",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 556,
+      "itemName": "Golden Fragment",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 303,
+      "itemName": "Great Girros Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 308,
+      "itemName": "Great Girros Fang+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 771,
+      "itemName": "Great Girros Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 770,
+      "itemName": "Great Girros Hardhood",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 301,
+      "itemName": "Great Girros Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 306,
+      "itemName": "Great Girros Hide+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 302,
+      "itemName": "Great Girros Hood",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 307,
+      "itemName": "Great Girros Hood+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 772,
+      "itemName": "Great Girros Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 300,
+      "itemName": "Great Girros Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 305,
+      "itemName": "Great Girros Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 768,
+      "itemName": "Great Girros Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 304,
+      "itemName": "Great Girros Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 769,
+      "itemName": "Great Girros Thickhide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 215,
+      "itemName": "Great Jagras Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 218,
+      "itemName": "Great Jagras Claw+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 715,
+      "itemName": "Great Jagras Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 213,
+      "itemName": "Great Jagras Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 217,
+      "itemName": "Great Jagras Hide+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 214,
+      "itemName": "Great Jagras Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 716,
+      "itemName": "Great Jagras Mane+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 212,
+      "itemName": "Great Jagras Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 216,
+      "itemName": "Great Jagras Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 713,
+      "itemName": "Great Jagras Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 714,
+      "itemName": "Great Jagras Thickhide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1092,
+      "itemName": "Great Spiritvein Gem",
+      "iconName": "Streamstone",
+      "resolvedFile": "ic_items_streamstone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1272,
+      "itemName": "Gushing Dragonhold",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 133,
+      "itemName": "Hard Armor Sphere",
+      "iconName": "Sphere",
+      "resolvedFile": "ic_items_sphere_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 835,
+      "itemName": "Hard Ebony Odogaron Sinew",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 829,
+      "itemName": "Hard Odogaron Sinew",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 762,
+      "itemName": "Heavy Anjanath Nosebone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1022,
+      "itemName": "Heavy Dragonvein Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 797,
+      "itemName": "Heavy Fulgur Anjanath Nosebone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1119,
+      "itemName": "Heavy Jaw",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1157,
+      "itemName": "Hellfire Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 964,
+      "itemName": "Hellfire Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 905,
+      "itemName": "Honed Acidcryst",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1142,
+      "itemName": "Honed Tailblade",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1097,
+      "itemName": "Hydrated Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 412,
+      "itemName": "Immortal Dragonscale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1286,
+      "itemName": "Immortal Reactor",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 947,
+      "itemName": "Immortal Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1120,
+      "itemName": "Incandescent Magmafin",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 662,
+      "itemName": "Incandescent Weapon",
+      "iconName": "Question",
+      "resolvedFile": "ic_items_question_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1282,
+      "itemName": "Indestructible Ebonshell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 164,
+      "itemName": "Inferno Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1117,
+      "itemName": "Inkstained Oilshell+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 115,
+      "itemName": "Iron Ore",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 250,
+      "itemName": "Jyuratodus Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 738,
+      "itemName": "Jyuratodus Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 247,
+      "itemName": "Jyuratodus Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 251,
+      "itemName": "Jyuratodus Fang+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 248,
+      "itemName": "Jyuratodus Fin",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 252,
+      "itemName": "Jyuratodus Fin+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 740,
+      "itemName": "Jyuratodus Grandfin",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 739,
+      "itemName": "Jyuratodus Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 245,
+      "itemName": "Jyuratodus Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 249,
+      "itemName": "Jyuratodus Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 737,
+      "itemName": "Jyuratodus Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 246,
+      "itemName": "Jyuratodus Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1132,
+      "itemName": "King's Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 374,
+      "itemName": "Kirin Azure Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 946,
+      "itemName": "Kirin Azure Horn+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 943,
+      "itemName": "Kirin Finehide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 368,
+      "itemName": "Kirin Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 372,
+      "itemName": "Kirin Hide+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 370,
+      "itemName": "Kirin Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 945,
+      "itemName": "Kirin Silvermane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 369,
+      "itemName": "Kirin Tail",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 371,
+      "itemName": "Kirin Thunderhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 373,
+      "itemName": "Kirin Thundertail",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 944,
+      "itemName": "Kirin Thundertail+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 222,
+      "itemName": "Kulu-Ya-Ku Beak",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 226,
+      "itemName": "Kulu-Ya-Ku Beak+",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 220,
+      "itemName": "Kulu-Ya-Ku Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 224,
+      "itemName": "Kulu-Ya-Ku Hide+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 221,
+      "itemName": "Kulu-Ya-Ku Plume",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 225,
+      "itemName": "Kulu-Ya-Ku Plume+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 219,
+      "itemName": "Kulu-Ya-Ku Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 223,
+      "itemName": "Kulu-Ya-Ku Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 717,
+      "itemName": "Kulu-Ya-Ku Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 718,
+      "itemName": "Kulu-Ya-Ku Thickhide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 663,
+      "itemName": "Kulve Taroth Emperor Nugget",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 463,
+      "itemName": "Kulve Taroth Golden Glimstone",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 460,
+      "itemName": "Kulve Taroth Golden Nugget",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 459,
+      "itemName": "Kulve Taroth Golden Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 461,
+      "itemName": "Kulve Taroth Golden Spiralhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 462,
+      "itemName": "Kulve Taroth Golden Tailshell",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1249,
+      "itemName": "Large Beast Tear",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 729,
+      "itemName": "Large Coral Pukei-Pukei Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 788,
+      "itemName": "Large Elder Dragon Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 792,
+      "itemName": "Large Elder Dragon Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 720,
+      "itemName": "Large Kulu-Ya-Ku Beak",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 719,
+      "itemName": "Large Kulu-Ya-Ku Plume",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 724,
+      "itemName": "Large Pukei-Pukei Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 541,
+      "itemName": "Large Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 819,
+      "itemName": "Large Wyvern Bonemass",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 790,
+      "itemName": "Large Wyvern Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 607,
+      "itemName": "Large Wyvern Tear",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 396,
+      "itemName": "Lava Nugget",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 387,
+      "itemName": "Lavasioth Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 862,
+      "itemName": "Lavasioth Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 388,
+      "itemName": "Lavasioth Fang+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 389,
+      "itemName": "Lavasioth Fin+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 864,
+      "itemName": "Lavasioth Grandfin",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 863,
+      "itemName": "Lavasioth Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 386,
+      "itemName": "Lavasioth Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 861,
+      "itemName": "Lavasioth Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 319,
+      "itemName": "Legiana Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 325,
+      "itemName": "Legiana Claw+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 823,
+      "itemName": "Legiana Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 327,
+      "itemName": "Legiana Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 822,
+      "itemName": "Legiana Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 318,
+      "itemName": "Legiana Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 324,
+      "itemName": "Legiana Hide+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 825,
+      "itemName": "Legiana Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 322,
+      "itemName": "Legiana Plate",
+      "iconName": "Plate",
+      "resolvedFile": "ic_items_plate_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 317,
+      "itemName": "Legiana Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 323,
+      "itemName": "Legiana Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 820,
+      "itemName": "Legiana Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 321,
+      "itemName": "Legiana Tail Webbing",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 824,
+      "itemName": "Legiana Tail Webbing+",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 821,
+      "itemName": "Legiana Thickhide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 320,
+      "itemName": "Legiana Webbing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 326,
+      "itemName": "Legiana Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 669,
+      "itemName": "Leshen Antlers",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 671,
+      "itemName": "Leshen Resin",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 665,
+      "itemName": "Leshen Skull",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 123,
+      "itemName": "Lightcrystal",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 703,
+      "itemName": "Lightning Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 437,
+      "itemName": "Lunastra Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 967,
+      "itemName": "Lunastra Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 972,
+      "itemName": "Lunastra Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 442,
+      "itemName": "Lunastra Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 970,
+      "itemName": "Lunastra Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 441,
+      "itemName": "Lunastra Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 969,
+      "itemName": "Lunastra Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 438,
+      "itemName": "Lunastra Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 968,
+      "itemName": "Lunastra Mane+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 436,
+      "itemName": "Lunastra Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 971,
+      "itemName": "Lunastra Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 440,
+      "itemName": "Lunastra Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 439,
+      "itemName": "Lunastra Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 543,
+      "itemName": "Lustrous Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1182,
+      "itemName": "Magnificent Pelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1181,
+      "itemName": "Magnificent Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 363,
+      "itemName": "Majestic Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 660,
+      "itemName": "Melded Weapon",
+      "iconName": "Question",
+      "resolvedFile": "ic_items_question_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1122,
+      "itemName": "Metallic Scute",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 898,
+      "itemName": "Molten Bursa",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 148,
+      "itemName": "Monster Bone L",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 147,
+      "itemName": "Monster Bone M",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 146,
+      "itemName": "Monster Bone S",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 149,
+      "itemName": "Monster Bone+",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 151,
+      "itemName": "Monster Hardbone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 150,
+      "itemName": "Monster Keenbone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 786,
+      "itemName": "Monster Slogbone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 787,
+      "itemName": "Monster Solidbone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 686,
+      "itemName": "Monster Toughbone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1170,
+      "itemName": "Moonlight Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1099,
+      "itemName": "Muddy Crown",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 674,
+      "itemName": "Mutagen",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 599,
+      "itemName": "Mysterious Feystone",
+      "iconName": "Feystone",
+      "resolvedFile": "ic_items_feystone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 987,
+      "itemName": "Namielle Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 986,
+      "itemName": "Namielle Finehide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 990,
+      "itemName": "Namielle Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 989,
+      "itemName": "Namielle Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 988,
+      "itemName": "Namielle Whisker",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 877,
+      "itemName": "Nargacuga Blackfur+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 880,
+      "itemName": "Nargacuga Cutwing+",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 881,
+      "itemName": "Nargacuga Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 878,
+      "itemName": "Nargacuga Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 882,
+      "itemName": "Nargacuga Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 876,
+      "itemName": "Nargacuga Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 879,
+      "itemName": "Nargacuga Tailspear",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 413,
+      "itemName": "Nergigante Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 948,
+      "itemName": "Nergigante Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 949,
+      "itemName": "Nergigante Flail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 418,
+      "itemName": "Nergigante Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 951,
+      "itemName": "Nergigante Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 415,
+      "itemName": "Nergigante Horn+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 417,
+      "itemName": "Nergigante Regrowth Plate",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 414,
+      "itemName": "Nergigante Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 416,
+      "itemName": "Nergigante Talon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1116,
+      "itemName": "Night Hood",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 816,
+      "itemName": "Nightshade Paolumu Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 815,
+      "itemName": "Nightshade Paolumu Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 814,
+      "itemName": "Nightshade Paolumu Thickfur",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 56,
+      "itemName": "Nourishing Extract",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 124,
+      "itemName": "Novacrystal",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1114,
+      "itemName": "Obsidian Fur",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 827,
+      "itemName": "Obsidian Icetalon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 330,
+      "itemName": "Odogaron Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 336,
+      "itemName": "Odogaron Claw+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 331,
+      "itemName": "Odogaron Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 337,
+      "itemName": "Odogaron Fang+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 338,
+      "itemName": "Odogaron Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 830,
+      "itemName": "Odogaron Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 831,
+      "itemName": "Odogaron Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 832,
+      "itemName": "Odogaron Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 833,
+      "itemName": "Odogaron Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 333,
+      "itemName": "Odogaron Plate",
+      "iconName": "Plate",
+      "resolvedFile": "ic_items_plate_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 328,
+      "itemName": "Odogaron Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 334,
+      "itemName": "Odogaron Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 781,
+      "itemName": "Odogaron Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 329,
+      "itemName": "Odogaron Sinew",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 335,
+      "itemName": "Odogaron Sinew+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 332,
+      "itemName": "Odogaron Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1184,
+      "itemName": "Old Dragon Treasure",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 160,
+      "itemName": "Omniplegia Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 298,
+      "itemName": "Paolumu Carapace+",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 812,
+      "itemName": "Paolumu Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 813,
+      "itemName": "Paolumu Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 292,
+      "itemName": "Paolumu Pelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 296,
+      "itemName": "Paolumu Pelt+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 293,
+      "itemName": "Paolumu Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 297,
+      "itemName": "Paolumu Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 811,
+      "itemName": "Paolumu Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 294,
+      "itemName": "Paolumu Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 810,
+      "itemName": "Paolumu Thickfur",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 295,
+      "itemName": "Paolumu Webbing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 299,
+      "itemName": "Paolumu Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 159,
+      "itemName": "Paralysis Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 283,
+      "itemName": "Pink Rathian Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 806,
+      "itemName": "Pink Rathian Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 282,
+      "itemName": "Pink Rathian Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 805,
+      "itemName": "Pink Rathian Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1110,
+      "itemName": "Pink Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 157,
+      "itemName": "Poison Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 233,
+      "itemName": "Pukei-Pukei Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 722,
+      "itemName": "Pukei-Pukei Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 723,
+      "itemName": "Pukei-Pukei Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 725,
+      "itemName": "Pukei-Pukei Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 229,
+      "itemName": "Pukei-Pukei Quill",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 230,
+      "itemName": "Pukei-Pukei Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 235,
+      "itemName": "Pukei-Pukei Sac+",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 227,
+      "itemName": "Pukei-Pukei Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 232,
+      "itemName": "Pukei-Pukei Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 721,
+      "itemName": "Pukei-Pukei Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 228,
+      "itemName": "Pukei-Pukei Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 231,
+      "itemName": "Pukei-Pukei Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 234,
+      "itemName": "Pukei-Pukei Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1252,
+      "itemName": "Pulsing Dragonshell",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 791,
+      "itemName": "Pure Dragon Blood",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 784,
+      "itemName": "Purecrystal",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 136,
+      "itemName": "Quality Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1109,
+      "itemName": "Queen's Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 315,
+      "itemName": "Radobaan Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 817,
+      "itemName": "Radobaan Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 313,
+      "itemName": "Radobaan Marrow",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 316,
+      "itemName": "Radobaan Medulla",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 311,
+      "itemName": "Radobaan Oilshell",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 818,
+      "itemName": "Radobaan Oilshell+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 309,
+      "itemName": "Radobaan Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 314,
+      "itemName": "Radobaan Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 780,
+      "itemName": "Radobaan Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 310,
+      "itemName": "Radobaan Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1287,
+      "itemName": "Rajang Apoplexy",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1072,
+      "itemName": "Rajang Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1070,
+      "itemName": "Rajang Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1069,
+      "itemName": "Rajang Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1289,
+      "itemName": "Rajang Heart",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1073,
+      "itemName": "Rajang Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1071,
+      "itemName": "Rajang Wildpelt",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 853,
+      "itemName": "Rath Gleam",
+      "iconName": "Liquid",
+      "resolvedFile": "ic_items_liquid_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 343,
+      "itemName": "Rath Wingtalon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 843,
+      "itemName": "Rath Wingtalon+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 347,
+      "itemName": "Rathalos Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 840,
+      "itemName": "Rathalos Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 841,
+      "itemName": "Rathalos Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 842,
+      "itemName": "Rathalos Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 844,
+      "itemName": "Rathalos Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 344,
+      "itemName": "Rathalos Marrow",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 349,
+      "itemName": "Rathalos Medulla",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 345,
+      "itemName": "Rathalos Plate",
+      "iconName": "Plate",
+      "resolvedFile": "ic_items_plate_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 350,
+      "itemName": "Rathalos Ruby",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 339,
+      "itemName": "Rathalos Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 346,
+      "itemName": "Rathalos Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 782,
+      "itemName": "Rathalos Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 340,
+      "itemName": "Rathalos Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 342,
+      "itemName": "Rathalos Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 341,
+      "itemName": "Rathalos Webbing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 348,
+      "itemName": "Rathalos Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 279,
+      "itemName": "Rathian Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 801,
+      "itemName": "Rathian Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 804,
+      "itemName": "Rathian Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 277,
+      "itemName": "Rathian Plate",
+      "iconName": "Plate",
+      "resolvedFile": "ic_items_plate_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 281,
+      "itemName": "Rathian Ruby",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 273,
+      "itemName": "Rathian Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 278,
+      "itemName": "Rathian Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 800,
+      "itemName": "Rathian Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 274,
+      "itemName": "Rathian Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 276,
+      "itemName": "Rathian Spike",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 280,
+      "itemName": "Rathian Spike+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 803,
+      "itemName": "Rathian Surspike",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 802,
+      "itemName": "Rathian Weave",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 275,
+      "itemName": "Rathian Webbing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 736,
+      "itemName": "Rich Mud",
+      "iconName": "Dung",
+      "resolvedFile": "ic_items_dung_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 826,
+      "itemName": "Rimed Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1112,
+      "itemName": "Rubbery Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1093,
+      "itemName": "Rugged Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1251,
+      "itemName": "Safi'jiiva Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1256,
+      "itemName": "Safi'jiiva Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1255,
+      "itemName": "Safi'jiiva Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1254,
+      "itemName": "Safi'jiiva Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1253,
+      "itemName": "Safi'jiiva Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1250,
+      "itemName": "Safi'jiiva Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1171,
+      "itemName": "Scorching Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 934,
+      "itemName": "Scorching Silverwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1068,
+      "itemName": "Sealed Feystone",
+      "iconName": "Feystone",
+      "resolvedFile": "ic_items_feystone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 983,
+      "itemName": "Shadowpierce Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 992,
+      "itemName": "Shara Ishvalda Boulderplate",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 996,
+      "itemName": "Shara Ishvalda Gem",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 994,
+      "itemName": "Shara Ishvalda Petalstone",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 995,
+      "itemName": "Shara Ishvalda Tenderclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 993,
+      "itemName": "Shara Ishvalda Tenderplate",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 991,
+      "itemName": "Shara Ishvalda Tenderscale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 604,
+      "itemName": "Shining Streamstone",
+      "iconName": "Streamstone",
+      "resolvedFile": "ic_items_streamstone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1148,
+      "itemName": "Shuddering Darkjaw",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 850,
+      "itemName": "Silver Rathalos Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 851,
+      "itemName": "Silver Rathalos Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 852,
+      "itemName": "Silver Rathalos Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 849,
+      "itemName": "Silver Rathalos Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1309,
+      "itemName": "Silversnow Pelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1307,
+      "itemName": "Silverwhite Frostfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1124,
+      "itemName": "Sinister Silverpelt",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1305,
+      "itemName": "Skyswayer",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 161,
+      "itemName": "Sleep Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1140,
+      "itemName": "Smoldering Tailedge",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1126,
+      "itemName": "Smooth Icehide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1155,
+      "itemName": "Solemn Azure Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1130,
+      "itemName": "Soulrender Talon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1154,
+      "itemName": "Spattered Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1091,
+      "itemName": "Spiritvein Gem",
+      "iconName": "Streamstone",
+      "resolvedFile": "ic_items_streamstone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1090,
+      "itemName": "Spiritvein Gem Shard",
+      "iconName": "Streamstone",
+      "resolvedFile": "ic_items_streamstone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1089,
+      "itemName": "Spiritvein Slogbone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1047,
+      "itemName": "Spiritvein Solidbone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 828,
+      "itemName": "Stark Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1159,
+      "itemName": "Stormcall Steelwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1146,
+      "itemName": "Strongman's Jaw",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 135,
+      "itemName": "Sturdy Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1241,
+      "itemName": "Stygian Zinogre Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1246,
+      "itemName": "Stygian Zinogre Dragonhold",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1242,
+      "itemName": "Stygian Zinogre Dragonlocks",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1244,
+      "itemName": "Stygian Zinogre Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1243,
+      "itemName": "Stygian Zinogre Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1245,
+      "itemName": "Stygian Zinogre Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1248,
+      "itemName": "Stygian Zinogre Skymerald",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 661,
+      "itemName": "Sublimated Weapon",
+      "iconName": "Question",
+      "resolvedFile": "ic_items_question_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 603,
+      "itemName": "Sullied Streamstone",
+      "iconName": "Streamstone",
+      "resolvedFile": "ic_items_streamstone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1156,
+      "itemName": "Tempered Azure Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1162,
+      "itemName": "Tempered Azure Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1058,
+      "itemName": "Tempered Azure Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1152,
+      "itemName": "Tempered Blastscale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1102,
+      "itemName": "Tempered Cathode",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1158,
+      "itemName": "Tempered Crimson Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1100,
+      "itemName": "Tempered Crown",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1164,
+      "itemName": "Tempered Crownhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1139,
+      "itemName": "Tempered Cutwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1273,
+      "itemName": "Tempered Dragonhold",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1049,
+      "itemName": "Tempered Ebonjaw",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1145,
+      "itemName": "Tempered Ebonshell",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1106,
+      "itemName": "Tempered Flamepelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1269,
+      "itemName": "Tempered Frosthide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1174,
+      "itemName": "Tempered Glimmerpelt",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1271,
+      "itemName": "Tempered Gold Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1104,
+      "itemName": "Tempered Great Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1055,
+      "itemName": "Tempered Green Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1115,
+      "itemName": "Tempered Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1280,
+      "itemName": "Tempered Icefang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1127,
+      "itemName": "Tempered Icehide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1147,
+      "itemName": "Tempered Jaw",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1121,
+      "itemName": "Tempered Magmafin",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1118,
+      "itemName": "Tempered Oilshell+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1056,
+      "itemName": "Tempered Pink Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1096,
+      "itemName": "Tempered Poison Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1057,
+      "itemName": "Tempered Red Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1129,
+      "itemName": "Tempered Rendclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1113,
+      "itemName": "Tempered Rubbery Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1123,
+      "itemName": "Tempered Scute",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1150,
+      "itemName": "Tempered Shocker",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1172,
+      "itemName": "Tempered Silver Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1125,
+      "itemName": "Tempered Silverpelt",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1160,
+      "itemName": "Tempered Steelwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1143,
+      "itemName": "Tempered Tailblade",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1141,
+      "itemName": "Tempered Tailedge",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1131,
+      "itemName": "Tempered Talon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1108,
+      "itemName": "Tempered Thunderpelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1098,
+      "itemName": "Tempered Torrent Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1168,
+      "itemName": "Tempered Trancehide",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1166,
+      "itemName": "Tempered Twilight Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1267,
+      "itemName": "Tempered Viperthorn",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 428,
+      "itemName": "Teostra Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 432,
+      "itemName": "Teostra Claw+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 960,
+      "itemName": "Teostra Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 966,
+      "itemName": "Teostra Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 435,
+      "itemName": "Teostra Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 963,
+      "itemName": "Teostra Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 431,
+      "itemName": "Teostra Horn+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 962,
+      "itemName": "Teostra Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 429,
+      "itemName": "Teostra Mane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 961,
+      "itemName": "Teostra Mane+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 434,
+      "itemName": "Teostra Powder",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 430,
+      "itemName": "Teostra Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 433,
+      "itemName": "Teostra Webbing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 170,
+      "itemName": "Thunder Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 884,
+      "itemName": "Tigrex Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 886,
+      "itemName": "Tigrex Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 887,
+      "itemName": "Tigrex Hardfang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 885,
+      "itemName": "Tigrex Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 888,
+      "itemName": "Tigrex Mantle",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 883,
+      "itemName": "Tigrex Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 749,
+      "itemName": "Tobi-Kadachi Cathode",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 256,
+      "itemName": "Tobi-Kadachi Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 260,
+      "itemName": "Tobi-Kadachi Claw+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 257,
+      "itemName": "Tobi-Kadachi Electrode",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 261,
+      "itemName": "Tobi-Kadachi Electrode+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 748,
+      "itemName": "Tobi-Kadachi Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 255,
+      "itemName": "Tobi-Kadachi Membrane",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 747,
+      "itemName": "Tobi-Kadachi Membrane+",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 254,
+      "itemName": "Tobi-Kadachi Pelt",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 259,
+      "itemName": "Tobi-Kadachi Pelt+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 253,
+      "itemName": "Tobi-Kadachi Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 258,
+      "itemName": "Tobi-Kadachi Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 745,
+      "itemName": "Tobi-Kadachi Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 746,
+      "itemName": "Tobi-Kadachi Thickfur",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 779,
+      "itemName": "Torpor Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 166,
+      "itemName": "Torrent Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 158,
+      "itemName": "Toxin Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1165,
+      "itemName": "Twilight Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1134,
+      "itemName": "Twisted Bravehorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 359,
+      "itemName": "Twisted Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 856,
+      "itemName": "Twisted Stouthorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1135,
+      "itemName": "Twisted Temperhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 286,
+      "itemName": "Tzitzi-Ya-Ku Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 290,
+      "itemName": "Tzitzi-Ya-Ku Claw+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 766,
+      "itemName": "Tzitzi-Ya-Ku Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 285,
+      "itemName": "Tzitzi-Ya-Ku Hide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 289,
+      "itemName": "Tzitzi-Ya-Ku Hide+",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 767,
+      "itemName": "Tzitzi-Ya-Ku Photomembrane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 287,
+      "itemName": "Tzitzi-Ya-Ku Photophore",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 291,
+      "itemName": "Tzitzi-Ya-Ku Photophore+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 284,
+      "itemName": "Tzitzi-Ya-Ku Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 288,
+      "itemName": "Tzitzi-Ya-Ku Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 764,
+      "itemName": "Tzitzi-Ya-Ku Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 765,
+      "itemName": "Tzitzi-Ya-Ku Thickhide",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 699,
+      "itemName": "Ultraplegia Sac",
+      "iconName": "Sac",
+      "resolvedFile": "ic_items_sac_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 391,
+      "itemName": "Uragaan Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 866,
+      "itemName": "Uragaan Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 392,
+      "itemName": "Uragaan Jaw",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 867,
+      "itemName": "Uragaan Jaw+",
+      "iconName": "Jaw",
+      "resolvedFile": "ic_items_monster_jaw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 394,
+      "itemName": "Uragaan Marrow",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 869,
+      "itemName": "Uragaan Pallium",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 395,
+      "itemName": "Uragaan Ruby",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 390,
+      "itemName": "Uragaan Scale+",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 393,
+      "itemName": "Uragaan Scute",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 868,
+      "itemName": "Uragaan Scute+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 865,
+      "itemName": "Uragaan Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 420,
+      "itemName": "Vaal Hazak Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 980,
+      "itemName": "Vaal Hazak Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 423,
+      "itemName": "Vaal Hazak Fang+",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 985,
+      "itemName": "Vaal Hazak Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 982,
+      "itemName": "Vaal Hazak Flail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 426,
+      "itemName": "Vaal Hazak Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 984,
+      "itemName": "Vaal Hazak Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 421,
+      "itemName": "Vaal Hazak Membrane",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 422,
+      "itemName": "Vaal Hazak Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 424,
+      "itemName": "Vaal Hazak Talon",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 425,
+      "itemName": "Vaal Hazak Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 954,
+      "itemName": "Velkhana Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 956,
+      "itemName": "Velkhana Crownhorn",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 959,
+      "itemName": "Velkhana Crystal",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 955,
+      "itemName": "Velkhana Fellwing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 958,
+      "itemName": "Velkhana Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 957,
+      "itemName": "Velkhana Lash",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 938,
+      "itemName": "Vile Fang",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 753,
+      "itemName": "Viper Tobi-Kadachi Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 752,
+      "itemName": "Viper Tobi-Kadachi Membrane+",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 750,
+      "itemName": "Viper Tobi-Kadachi Shard",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 751,
+      "itemName": "Viper Tobi-Kadachi Thickfur",
+      "iconName": "Hide",
+      "resolvedFile": "ic_items_hide_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 754,
+      "itemName": "Viper Tobi-Kadachi Thorn",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 140,
+      "itemName": "Warped Bone",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 602,
+      "itemName": "Warped Feystone",
+      "iconName": "Feystone",
+      "resolvedFile": "ic_items_feystone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 601,
+      "itemName": "Worn Feystone",
+      "iconName": "Feystone",
+      "resolvedFile": "ic_items_feystone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 312,
+      "itemName": "Wyvern Bonemass",
+      "iconName": "Bone",
+      "resolvedFile": "ic_items_bone_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 172,
+      "itemName": "Wyvern Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 606,
+      "itemName": "Wyvern Tear",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 455,
+      "itemName": "Xeno'jiiva Claw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 457,
+      "itemName": "Xeno'jiiva Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 454,
+      "itemName": "Xeno'jiiva Horn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 451,
+      "itemName": "Xeno'jiiva Shell",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 450,
+      "itemName": "Xeno'jiiva Soulscale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 453,
+      "itemName": "Xeno'jiiva Tail",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 452,
+      "itemName": "Xeno'jiiva Veil",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 456,
+      "itemName": "Xeno'jiiva Wing",
+      "iconName": "Wing",
+      "resolvedFile": "ic_items_wing_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 921,
+      "itemName": "Zinogre Cortex",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 926,
+      "itemName": "Zinogre Deathly Shocker",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 922,
+      "itemName": "Zinogre Electrofur+",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 924,
+      "itemName": "Zinogre Hardclaw",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 923,
+      "itemName": "Zinogre Hardhorn",
+      "iconName": "Fang",
+      "resolvedFile": "ic_items_claw_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 925,
+      "itemName": "Zinogre Lash",
+      "iconName": "Tail",
+      "resolvedFile": "ic_items_tail_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 928,
+      "itemName": "Zinogre Skymerald",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 1257,
+      "itemName": "Zionium Crystal",
+      "iconName": "Mantle",
+      "resolvedFile": "ic_items_mantle_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 376,
+      "itemName": "Zorah Magdaros Carapace",
+      "iconName": "Carapace",
+      "resolvedFile": "ic_items_carapace_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 380,
+      "itemName": "Zorah Magdaros Gem",
+      "iconName": "Gem",
+      "resolvedFile": "ic_items_gem_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 375,
+      "itemName": "Zorah Magdaros Heat Scale",
+      "iconName": "Scale",
+      "resolvedFile": "ic_items_scale_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 379,
+      "itemName": "Zorah Magdaros Magma",
+      "iconName": "Ore",
+      "resolvedFile": "ic_items_ore_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 378,
+      "itemName": "Zorah Magdaros Pleura",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    },
+    {
+      "itemId": 377,
+      "itemName": "Zorah Magdaros Ridge",
+      "iconName": "Body",
+      "resolvedFile": "ic_items_body_base.svg",
+      "status": "ok"
+    }
+  ]
+}

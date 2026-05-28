@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>ic_items_mantle_base</title>
+    <desc>Created with Sketch.</desc>
+    <g id="ic_items_mantle_base" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(56.000000, 40.000000)" fill-rule="nonzero">
+            <!-- Background (black outline) -->
+            <path d="M200,0 C200,0 60,80 60,200 C60,310 120,390 200,432 C280,390 340,310 340,200 C340,80 200,0 200,0 Z M200,30 C200,30 95,105 95,210 C95,305 148,376 200,408 C252,376 305,305 305,210 C305,105 200,30 200,30 Z" id="outline" fill="#000000"></path>
+            <!-- Shine ring -->
+            <ellipse cx="142" cy="120" rx="18" ry="10" transform="rotate(-40 142 120)" fill="#000000" opacity="0.12"></ellipse>
+            <!-- Base (tintable white) -->
+            <path d="M200,30 C200,30 95,105 95,210 C95,305 148,376 200,408 C252,376 305,305 305,210 C305,105 200,30 200,30 Z M200,65 C200,65 128,130 128,215 C128,292 166,354 200,380 C234,354 272,292 272,215 C272,130 200,65 200,65 Z" id="base" fill="#FFFFFF"></path>
+            <!-- Highlight dot -->
+            <circle cx="156" cy="140" r="22" fill="#FFFFFF" opacity="0.6"></circle>
+        </g>
+    </g>
+</svg>

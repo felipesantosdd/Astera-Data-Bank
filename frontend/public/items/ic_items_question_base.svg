@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>ic_items_question_base</title>
+    <desc>Created with Sketch.</desc>
+    <g id="ic_items_question_base" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(56.000000, 56.000000)" fill-rule="nonzero">
+            <!-- Background circle (black) -->
+            <circle id="bg" cx="200" cy="200" r="200" fill="#000000"></circle>
+            <!-- Base question mark (tintable white) -->
+            <path d="M200,360 C188,360 178,370 178,382 C178,394 188,404 200,404 C212,404 222,394 222,382 C222,370 212,360 200,360 Z M200,20 C148,20 106,58 106,108 C106,122 118,134 132,134 C146,134 158,122 158,108 C158,82 176,66 200,66 C224,66 242,82 242,108 C242,134 220,152 200,168 C178,186 162,210 162,240 L162,280 C162,294 174,306 188,306 L212,306 C226,306 238,294 238,280 L238,248 C238,228 252,212 268,196 C288,178 294,154 294,132 C294,70 252,20 200,20 Z" id="base" fill="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>
