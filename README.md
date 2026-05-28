@@ -1,6 +1,6 @@
 # Astera Data Bank
 
-App fullstack que serve como banco de dados navegável dos dados de *Monster Hunter World* — monstros, fraquezas, hitzones, armaduras craftáveis, materiais necessários, drops e locais de coleta. Inspirado visualmente na UI do jogo (Astera = a cidade central onde os caçadores guardam suas informações).
+App fullstack que serve como banco de dados navegável dos dados de *Monster Hunter World* — monstros, fraquezas, hitzones, armaduras craftáveis, materiais, drops, coleta em mapa e recompensas de missão. Inspirado visualmente na UI do jogo (Astera = a cidade central onde os caçadores guardam suas informações).
 
 ---
 
@@ -33,7 +33,7 @@ App fullstack que serve como banco de dados navegável dos dados de *Monster Hun
 - Docker Desktop rodando
 - Java 21 e Maven (ou usar o `mvnw` que já está no projeto)
 - Node.js 20+ e npm
-- Python 3.10+ com `psycopg2-binary` instalado
+- Python 3.10+ (`py` no Windows)
 
 ### 1. Banco de dados
 
@@ -79,47 +79,43 @@ npm run dev
 
 Sobe em `http://localhost:5173`. O Vite proxia `/api/*` para `http://localhost:8080`.
 
+> **Sem backend rodando?** Crie `frontend/.env.development.local` com `VITE_USE_STATIC=true`
+> para o frontend usar os JSONs estáticos pré-gerados (funcional para leitura, sem escrita).
+
 ---
 
 ## Estrutura do projeto
 
 ```
 astera-data-bank/
-├── docker-compose.yml          # PostgreSQL
+├── docker-compose.yml
 ├── scripts/
-│   └── import_mhdata.py        # SQLite → PostgreSQL
+│   ├── import_mhdata.py             # SQLite → PostgreSQL (one-time)
+│   ├── generate-snapshot.mjs        # Snapshot monstros via API (requer backend)
+│   ├── enrich-monster-summary.mjs   # Adiciona ecology/elements aos JSONs de monstros
+│   ├── generate-items-snapshot.py   # Snapshot de materiais direto do SQLite
+│   └── setup-claude-permissions.ps1 # Configura permissões do Claude Code
 ├── backend/
 │   └── src/main/java/com/asteradatabank/
-│       ├── BackendApplication.java
-│       ├── LangUtil.java       # Normalização de idiomas (pt-BR → pt)
-│       ├── monsters/           # Módulo: listagem + detalhe de monstros
-│       │   ├── Monster.java
-│       │   ├── MonsterText.java
-│       │   ├── MonsterHitzone.java
-│       │   ├── MonsterHitzoneText.java
-│       │   ├── MonsterRepository.java
-│       │   ├── MonsterService.java
-│       │   ├── MonsterController.java
-│       │   └── dto/
-│       ├── armor/              # Módulo: sets craftáveis a partir de um monstro
-│       │   ├── Armorset.java
-│       │   ├── Armor.java
-│       │   ├── ArmorSkill.java
-│       │   ├── Skill.java
-│       │   ├── RecipeItem.java
-│       │   └── ...
-│       └── items/              # Módulo: fontes de um item (drops + coleta)
-│           ├── MonsterReward.java
-│           ├── LocationItem.java
-│           └── ...
+│       ├── monsters/          # Listagem, detalhe, drops de monstros
+│       ├── armor/             # Sets craftáveis por monstro
+│       └── items/             # Fontes de itens (drops + coleta + quests)
 └── frontend/
+    ├── public/
+    │   ├── monsters/{id}.png          # Ícones dos monstros
+    │   ├── items/ic_items_*_base.svg  # Ícones de materiais (SVG tintável)
+    │   └── data/                      # Snapshot estático (JSONs)
+    │       ├── monsters-{lang}.json
+    │       ├── monsters/{id}/{lang,drops,armor}-{lang}.json
+    │       ├── items-{lang}.json
+    │       └── items/{id}/sources-{lang}.json
     └── src/
-        ├── views/              # Páginas (MonstersView, MonsterDetailView)
-        ├── components/         # Cards, badges, tooltips, modal
-        ├── composables/        # use* — wrappers em TanStack Query
-        ├── stores/             # Pinia (language store)
-        ├── types/              # Interfaces TS espelhando os DTOs
-        ├── i18n/               # Strings da UI + tradução de partes do corpo
+        ├── views/             # MonstersView, MonsterDetailView, MaterialsView
+        ├── components/        # MonsterCard, MaterialCard, ItemIcon, ItemSourcesModal, ...
+        ├── composables/       # useMonsters, useMonster, useItems, useItemSources, ...
+        ├── stores/            # language (Pinia)
+        ├── types/             # Interfaces TS espelhando os DTOs
+        ├── i18n/              # ui.ts (labels), hitzoneParts.ts (partes do corpo)
         └── router/
 ```
 
@@ -127,26 +123,26 @@ astera-data-bank/
 
 ## Módulos do backend
 
-A organização segue [Spring Modulith](https://spring.io/projects/spring-modulith): cada subpacote de `com.asteradatabank` é um módulo independente. Não há herança ou dependência forte entre eles — comunicam-se via foreign-keys soltos (`monster_id`, `item_id`, `recipe_id`).
+Organização em [Spring Modulith](https://spring.io/projects/spring-modulith): cada subpacote é um módulo independente que se comunica via foreign-keys (`monster_id`, `item_id`, etc.).
 
-- **`monsters`** — listagem (`GET /api/monsters`) e detalhe (`GET /api/monsters/{id}`)
-- **`armor`** — sets craftáveis do monstro (`GET /api/monsters/{id}/armor`) com peças, skills (com descrição por nível) e materiais
-- **`items`** — onde encontrar um item (`GET /api/items/{id}/sources`): drops de monstros + pontos de coleta
-
-JPQL atravessa módulos quando necessário (ex: `ItemRepository` faz JOIN com `MonsterText` do módulo `monsters`). Hibernate enxerga todas as entidades regardless do pacote.
+- **`monsters`** — listagem (`GET /api/monsters`) e detalhe (`GET /api/monsters/{id}`) com fraquezas, ailments, hitzones, ecologia e elementos derivados
+- **`armor`** — sets craftáveis do monstro (`GET /api/monsters/{id}/armor`) com peças, skills por nível e materiais
+- **`items`** — lista de materiais (`GET /api/items`) e fontes de um item (`GET /api/items/{id}/sources`): drops de monstros + coleta em mapa + recompensas de missão
 
 ---
 
 ## API
 
-Todos os endpoints aceitam `?lang=<código>` opcional. Default = `en`. Suporta os 12 idiomas do MHW (`ar`, `de`, `en`, `es`, `fr`, `it`, `ja`, `ko`, `pl`, `pt`, `ru`, `zh`) e normaliza variantes (`pt-BR`, `en-US`, `zh-CN`...).
+Todos os endpoints aceitam `?lang=<código>` opcional (default `en`). Suporta os 12 idiomas do MHW (`ar`, `de`, `en`, `es`, `fr`, `it`, `ja`, `ko`, `pl`, `pt`, `ru`, `zh`) e normaliza variantes (`pt-BR`, `en-US`, etc.).
 
 | Endpoint | Descrição |
 |----------|-----------|
-| `GET /api/monsters` | Lista todos os large monsters (resumo) |
+| `GET /api/monsters` | Lista todos os large monsters com nome, ícone, ecologia, elementos e fraquezas |
 | `GET /api/monsters/{id}` | Detalhe completo: info + fraquezas + alt state + ailments + hitzones |
 | `GET /api/monsters/{id}/armor` | Sets de armadura craftáveis a partir desse monstro |
-| `GET /api/items/{id}/sources` | Drops por monstro + pontos de coleta em mapas |
+| `GET /api/monsters/{id}/drops` | Drops agrupados por rank e condição |
+| `GET /api/items` | Lista de todos os materiais (`category=material`) com ícone e raridade |
+| `GET /api/items/{id}/sources` | Drops por monstro + coleta em mapas + recompensas de missão |
 
 ---
 
@@ -154,29 +150,49 @@ Todos os endpoints aceitam `?lang=<código>` opcional. Default = `en`. Suporta o
 
 1. **DTO** — Java record em `<modulo>/dto/`
 2. **Entity** — `@Entity` mapeada para a tabela do banco
-3. **Composite PK** quando a tabela tem chave composta (geralmente `id + lang_id`) — usar `@Embeddable` + `@EmbeddedId`
+3. **Composite PK** quando a tabela tem chave composta (`id + lang_id`) — usar `@Embeddable` + `@EmbeddedId`
 4. **Repository** — `JpaRepository<Entity, Id>` com `@Query` JPQL e constructor expression direta para o DTO
 5. **Service** — `@Service @Transactional(readOnly = true)`, recebe `lang` e chama `LangUtil.normalize(lang)`
 6. **Controller** — `@RestController @CrossOrigin("http://localhost:5173")`, expõe o endpoint
-
-Quando a query precisar agregar listas aninhadas (ex: armor set → peças → skills → materiais), use **múltiplas queries flat + agrupamento em memória** no service. Evita o problema de N+1 sem precisar de `JOIN FETCH` em árvore complexa. Veja `ArmorService` como referência.
+7. **Snapshot** — adicionar chamada em `generate-snapshot.mjs` ou criar script Python se não precisar do backend
 
 ---
 
 ## i18n
 
-Os dados (nomes de monstros, descrições, skills, etc.) já vêm traduzidos do banco. A **UI** tem dicionários próprios:
+Os dados (nomes de monstros, missões, locais, etc.) vêm traduzidos do banco em 12 idiomas. A **UI** tem dicionários próprios:
 
-- `frontend/src/i18n/ui.ts` — labels fixos (cabeçalhos, botões, colunas)
-- `frontend/src/i18n/hitzoneParts.ts` — tradução das partes do corpo (o MHWorldData não traduz "Head/Tail/etc.")
+| Arquivo | Conteúdo |
+|---------|----------|
+| `i18n/ui.ts` | Labels fixos: cabeçalhos, botões, colunas, filtros, condições de drop (58 strings), ecologias (8), elementos (9) |
+| `i18n/hitzoneParts.ts` | Tradução das partes do corpo (Head, Tail, etc.) |
 
-Atualmente cobre `en` e `pt`. Idiomas não cobertos caem em inglês. Para adicionar um idioma, estenda os dois dicionários.
+Atualmente cobre `en` e `pt`. Para adicionar idioma, estenda os dois arquivos. Idiomas não cobertos caem em inglês.
 
-A preferência de idioma vive em `stores/language.ts` (Pinia) e persiste no `localStorage`. Composables (`useMonsters`, `useMonster`, etc.) usam `lang` como parte da `queryKey` do TanStack Query, então qualquer mudança de idioma dispara refetch automático.
+A preferência persiste em `localStorage` via Pinia. Trocar idioma dispara refetch automático em todos os composables (a `lang` é parte da `queryKey` do TanStack Query).
 
 ---
 
-## Banco
+## Ícones de materiais
+
+Ícones SVG em `frontend/public/items/ic_items_{name}_base.svg`. O componente `ItemIcon.vue` carrega o SVG, substitui `fill="#FFFFFF"` pela cor do item (`icon_color` do banco) e aplica cache em memória.
+
+Mapeamentos especiais (`SPECIAL_FILES` em `ItemIcon.vue`):
+
+| `iconName` no banco | Arquivo SVG |
+|---------------------|-------------|
+| `Jaw` | `monster_jaw` |
+| `Fang` | `claw` |
+| `Webbing` | `web` |
+| `CharmOre` | `charm_ore` |
+| `Vocuher` *(typo no DB)* | `voucher` |
+| `Egg` | `question` (sem SVG próprio) |
+
+O relatório de cobertura de ícones fica em `frontend/public/item_icon_mapping.json` (776 itens, 0 sem ícone).
+
+---
+
+## Banco de dados
 
 Migrations Flyway em `backend/src/main/resources/db/migration/`:
 
@@ -186,85 +202,81 @@ Migrations Flyway em `backend/src/main/resources/db/migration/`:
 
 Como os dados são importados pelo script Python **antes** do Flyway rodar, `application.properties` usa:
 
-```
+```properties
 spring.flyway.baseline-on-migrate=true
 spring.flyway.baseline-version=2
 spring.jpa.hibernate.ddl-auto=validate
 ```
 
-Isso diz ao Flyway: "tem dado aí, considere até V2 como já aplicado". Hibernate só valida o schema, nunca altera.
-
----
-
-## Ícones e assets
-
-- Ícones dos monstros: `frontend/public/monsters/{id}.png` (servidos localmente, sem CDN)
-- Ícones de elementos: `frontend/public/icons/ic_element_*.svg` + `ic_status_*.svg`
-
-Quando um monstro não tem ícone local, o card mostra as iniciais do nome como fallback (`MonsterCard.vue`).
-
 ---
 
 ## Deploy em produção (snapshot estático)
 
-Os dados do MHW são imutáveis (Capcom não atualiza mais), então em produção
-não precisamos do backend Spring rodando. Geramos um **snapshot estático** dos
-dados como arquivos JSON e servimos tudo como site estático no Vercel.
+Os dados do MHW são imutáveis, então em produção não precisamos do backend rodando. Geramos **snapshots estáticos** como JSONs e servimos tudo no Vercel.
 
-### Fluxo
+### Arquivos gerados
 
 ```
-Backend Spring rodando local
-        │
-        │  scripts/generate-snapshot.mjs (Node)
-        │  chama /api/* para todos os monstros × idiomas
-        ▼
 frontend/public/data/
-    ├── monsters-{lang}.json
-    ├── monsters/{id}/{lang}.json
-    ├── monsters/{id}/armor-{lang}.json
-    ├── monsters/{id}/drops-{lang}.json
-    └── items/{id}/sources-{lang}.json
-        │
-        │  npm run build
-        ▼
-   Vercel (estático)
+├── monsters-{lang}.json               # Lista de monstros (ecology, elements, fraquezas)
+├── monsters/{id}/{lang}.json          # Detalhe do monstro
+├── monsters/{id}/drops-{lang}.json    # Drops por condição
+├── monsters/{id}/armor-{lang}.json    # Armaduras craftáveis
+├── items-{lang}.json                  # Lista de materiais (1072 itens × 12 idiomas)
+└── items/{id}/sources-{lang}.json     # Fontes: drops + coleta + quests
 ```
 
 ### Como gerar o snapshot
 
-1. Sobe o backend local (`./mvnw spring-boot:run`)
-2. Roda o gerador:
-   ```bash
-   cd frontend
-   npm run snapshot
-   ```
-3. Os JSONs ficam em `frontend/public/data/`. Commita junto com o código.
-4. `npm run build` empacota tudo num diretório estático prontinho pro Vercel.
+**Monstros** (requer backend rodando):
+```bash
+# 1. Sobe o backend
+cd backend && ./mvnw spring-boot:run
+
+# 2. Gera todos os JSONs de monstros
+cd frontend && npm run snapshot
+
+# 3. Enriquece com ecology/elements (pode rodar sem backend)
+node scripts/enrich-monster-summary.mjs
+```
+
+**Materiais** (não requer backend — lê o SQLite diretamente):
+```bash
+py scripts/generate-items-snapshot.py
+```
+
+Commita os JSONs gerados. O `npm run build` empacota tudo para o Vercel.
 
 ### Como o frontend escolhe entre /api e /data
 
-`frontend/src/utils/dataUrl.ts` centraliza as URLs. Em **dev** (`import.meta.env.PROD === false`)
-o helper devolve `/api/...` — o Vite proxia pro backend. Em **build/prod**, devolve
-`/data/.../{lang}.json`. Todos os composables (`useMonster`, `useMonsterDrops`, etc.)
-usam esse helper.
-
-Pra adicionar uma rota nova: cria o endpoint no Spring + um método em `dataUrl.ts` +
-regenera o snapshot.
+`frontend/src/utils/dataUrl.ts` centraliza as URLs:
+- **Dev** (`PROD=false` e `VITE_USE_STATIC` não definido): `/api/...` → Vite proxia pro backend
+- **Dev sem backend** (`VITE_USE_STATIC=true`): `/data/...` → usa JSONs estáticos locais
+- **Prod** (`PROD=true`): `/data/...` → sempre usa JSONs estáticos
 
 ---
 
 ## Estado atual
 
-- ✅ Listagem de monstros com fraquezas
-- ✅ Detalhe de monstro completo (fraquezas, alt state, ailments, hitzones)
-- ✅ Armaduras craftáveis com peças, skills (descrição + por nível), materiais e set bonus
-- ✅ Modal "onde encontrar" para cada material
-- ✅ Multi-idioma (12 idiomas suportados, UI em en/pt)
+### Implementado
 
-**Não implementado ainda:**
-- HP do monstro (dado não existe no MHWorldData; viria do poedb.tw)
-- Armas, decorações, charms
-- Quests
-- Busca/filtros
+| Feature | Detalhe |
+|---------|---------|
+| ✅ Listagem de monstros | Grid com busca por nome, filtro por elemento e por ecologia/tipo |
+| ✅ Detalhe de monstro | Fraquezas elementais e de status, alt state, ailments infligidos, armadilhas |
+| ✅ Hitzones | Tabela com highlight da melhor zona por tipo de dano |
+| ✅ Drops do monstro | Agrupados por rank (LR/HR/MR) e fonte (corte, quebra de parte, quest reward, etc.) |
+| ✅ Armaduras craftáveis | Peças por rank, defesa, resistências, slots, skills por nível, set bonus, materiais |
+| ✅ Página de Materiais | 1072 materiais com ícones coloridos, busca, abas por tipo (Partes de Monstro / Minerais / Plantas / Outros) |
+| ✅ Fontes de itens | Modal com drops de monstro + pontos de coleta em mapa + recompensas de missão (521 quests) |
+| ✅ Ícones de itens | SVGs tintáveis por cor do banco; mapeamento completo de 44 tipos |
+| ✅ Multi-idioma | 12 idiomas nos dados; UI traduzida em en/pt com ecologias e condições de drop localizadas |
+| ✅ Snapshot estático | Produção sem backend (Vercel) |
+
+### Não implementado
+
+- HP e valores de ataque dos monstros (não existem no MHWorldData; fonte externa seria poedb.tw)
+- Armas, decorações, charms, kinsects
+- Filtro por fraqueza elemental na listagem de monstros
 - Comparação entre monstros ou armaduras
+- Itens de evento sazonal (ex: Bilhete Estrela de Inverno) — não rastreados pelo MHWorldData
