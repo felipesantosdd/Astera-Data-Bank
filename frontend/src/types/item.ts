@@ -27,7 +27,19 @@ export interface LocationItem {
   nodes:        number | null
 }
 
+export interface QuestReward {
+  questId:      number
+  questName:    string
+  category:     string   // 'assigned' | 'optional' | 'event' | 'arena' | 'challenge' | 'special'
+  rank:         'LR' | 'HR' | 'MR' | string
+  stars:        number | null
+  rewardGroup:  string   // 'A' | 'B' | 'C'
+  stack:        number | null
+  percentage:   number | null
+}
+
 export interface ItemSources {
   rewards:   MonsterReward[]
   gathering: LocationItem[]
+  quests:    QuestReward[]
 }

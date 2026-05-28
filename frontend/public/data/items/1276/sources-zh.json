@@ -1,1 +1,1 @@
-{"rewards": [{"monsterId": 140, "monsterName": "冥赤龍", "rank": "MR", "condition": "Siege Progress", "stack": 1, "percentage": 16}], "gathering": []}
+{"rewards": [{"monsterId": 140, "monsterName": "冥赤龍", "rank": "MR", "condition": "Siege Progress", "stack": 1, "percentage": 16}], "gathering": [], "quests": [{"questId": 51605, "questName": "赤色的龍", "category": "event", "rank": "MR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 24}]}

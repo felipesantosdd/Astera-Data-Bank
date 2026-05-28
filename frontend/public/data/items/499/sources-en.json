@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 63001, "questName": "Challenge Quest 1: Beginner", "category": "challenge", "rank": "LR", "stars": 2, "rewardGroup": "A", "stack": 1, "percentage": 23}, {"questId": 3001, "questName": "Arena Quest 02", "category": "arena", "rank": "LR", "stars": 2, "rewardGroup": "A", "stack": 1, "percentage": 1}]}

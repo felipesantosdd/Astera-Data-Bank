@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 3031, "questName": "Misión de la Arena 04", "category": "arena", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 1}, {"questId": 63031, "questName": "Misión desafío 1: intermedio", "category": "challenge", "rank": "HR", "stars": 7, "rewardGroup": "A", "stack": 1, "percentage": 23}]}

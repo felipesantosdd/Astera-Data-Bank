@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 63033, "questName": "Fuga di Gajalaka", "category": "challenge", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 5}, {"questId": 5003, "questName": "Menestrelli nei guai", "category": "optional", "rank": "LR", "stars": 4, "rewardGroup": "A", "stack": 1, "percentage": 100}, {"questId": 5003, "questName": "Menestrelli nei guai", "category": "optional", "rank": "LR", "stars": 4, "rewardGroup": "A", "stack": 1, "percentage": 1}]}

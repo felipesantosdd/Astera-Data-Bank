@@ -10,11 +10,28 @@ const props = defineProps<{
 
 const emit = defineEmits<{ close: [] }>()
 
-const { t } = useUI()
+const { t, lang } = useUI()
 
 /** Traduz condições que ficam em inglês no DB (ex: "Hunt (Bronze)" → "Caçada (Bronze)") */
 function translateCondition(cond: string): string {
   return (t.value.conditions as Record<string, string>)[cond] ?? cond
+}
+
+/** Traduz categoria de quest */
+const QUEST_CATEGORY: Record<string, Record<string, string>> = {
+  en: { assigned: 'Story', optional: 'Optional', event: 'Event', arena: 'Arena', challenge: 'Challenge', special: 'Special' },
+  pt: { assigned: 'Principal', optional: 'Opcional', event: 'Evento', arena: 'Arena', challenge: 'Desafio', special: 'Especial' },
+}
+function questCategory(cat: string): string {
+  return QUEST_CATEGORY[lang.value]?.[cat] ?? QUEST_CATEGORY.en[cat] ?? cat
+}
+
+/** Label do grupo de recompensa */
+function groupLabel(group: string): string {
+  if (group === 'A') return t.value.itemSources.rewardGroupA
+  if (group === 'B') return t.value.itemSources.rewardGroupB
+  if (group === 'C') return t.value.itemSources.rewardGroupC
+  return group
 }
 
 const itemIdRef = computed(() => props.itemId)
@@ -24,7 +41,8 @@ const isOpen = computed(() => props.itemId !== null)
 const isEmpty = computed(() =>
   !!sources.value &&
   sources.value.rewards.length === 0 &&
-  sources.value.gathering.length === 0
+  sources.value.gathering.length === 0 &&
+  (sources.value.quests?.length ?? 0) === 0
 )
 
 // Fecha com ESC + trava o scroll do body enquanto aberto
@@ -138,6 +156,49 @@ watch(isOpen, (open) => {
                   </table>
                 </div>
               </section>
+              <!-- Recompensas de missão -->
+              <section v-if="sources.quests && sources.quests.length > 0" class="modal__section">
+                <h3 class="modal__section-title">{{ t.itemSources.questRewards }}</h3>
+                <div class="modal__table-wrap">
+                  <table class="src-table">
+                    <thead>
+                      <tr>
+                        <th class="src-table__col-name">{{ t.itemSources.colQuest }}</th>
+                        <th>{{ t.itemSources.colCategory }}</th>
+                        <th>{{ t.itemSources.colRank }}</th>
+                        <th>{{ t.itemSources.colStars }}</th>
+                        <th>{{ t.itemSources.colGroup }}</th>
+                        <th class="src-table__col-pct">{{ t.itemSources.colChance }}</th>
+                        <th>{{ t.itemSources.colStack }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(q, i) in sources.quests" :key="i">
+                        <td class="src-table__name">{{ q.questName }}</td>
+                        <td>
+                          <span class="quest-cat" :class="`quest-cat--${q.category}`">
+                            {{ questCategory(q.category) }}
+                          </span>
+                        </td>
+                        <td>
+                          <span class="rank-pill" :class="`rank-pill--${q.rank?.toLowerCase()}`">{{ q.rank }}</span>
+                        </td>
+                        <td class="src-table__stars">
+                          {{ q.stars ? '★'.repeat(Math.min(q.stars, 5)) : '—' }}
+                        </td>
+                        <td class="src-table__group">{{ groupLabel(q.rewardGroup) }}</td>
+                        <td class="src-table__pct">
+                          <span class="pct-bar" :style="{ '--p': (q.percentage ?? 0) + '%' }">
+                            <strong>{{ q.percentage }}%</strong>
+                          </span>
+                        </td>
+                        <td class="src-table__stack">×{{ q.stack }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
             </template>
           </div>
 
@@ -361,6 +422,30 @@ watch(isOpen, (open) => {
   font-weight: 700;
   z-index: 1;
 }
+
+/* ── Quest category badge ─────────────────────────────────────────── */
+.quest-cat {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  background: var(--surface-2);
+}
+.quest-cat--event    { color: var(--gold);    border-color: var(--gold);    background: var(--gold-glow); }
+.quest-cat--assigned { color: #7ec8a0;        border-color: #3a6e54; }
+.quest-cat--optional { color: var(--text-muted); }
+.quest-cat--arena    { color: #d4806a;        border-color: #7a3a2a; }
+.quest-cat--special  { color: var(--el-dragon); border-color: #5a3a7a; }
+.quest-cat--challenge{ color: #a0a0e0;        border-color: #4a4a8a; }
+
+.src-table__stars { color: var(--gold); letter-spacing: -1px; font-size: 11px; }
+.src-table__group { color: var(--text-dim); font-size: 11px; }
 
 /* ── Rank pill (mesma do MonsterArmorSection) ─────────────────────── */
 .rank-pill {

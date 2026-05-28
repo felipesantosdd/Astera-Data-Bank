@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 1291, "questName": "В поисках мерцания", "category": "optional", "rank": "MR", "stars": 2, "rewardGroup": "A", "stack": 1, "percentage": 16}, {"questId": 67809, "questName": "A Farewell to Zinogre", "category": "event", "rank": "MR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 45}]}

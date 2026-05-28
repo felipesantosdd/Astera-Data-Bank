@@ -1,1 +1,1 @@
-{"rewards": [{"monsterId": 140, "monsterName": "Safi'jiiva", "rank": "MR", "condition": "Siege Progress", "stack": 1, "percentage": 16}], "gathering": []}
+{"rewards": [{"monsterId": 140, "monsterName": "Safi'jiiva", "rank": "MR", "condition": "Siege Progress", "stack": 1, "percentage": 16}], "gathering": [], "quests": [{"questId": 51605, "questName": "O Dragão Vermelho", "category": "event", "rank": "MR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 24}]}

@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 3031, "questName": "鬥技大會04", "category": "arena", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 1}, {"questId": 63031, "questName": "中級挑戰任務01", "category": "challenge", "rank": "HR", "stars": 7, "rewardGroup": "A", "stack": 1, "percentage": 23}]}

@@ -157,6 +157,14 @@ export interface UIStrings {
     colArea: string
     colNodes: string
     areaPrefix: string
+    questRewards: string
+    colQuest: string
+    colCategory: string
+    colStars: string
+    colGroup: string
+    rewardGroupA: string
+    rewardGroupB: string
+    rewardGroupC: string
   }
   tabs: {
     combat: string
@@ -319,6 +327,14 @@ const en: UIStrings = {
     colArea: 'Area',
     colNodes: 'Nodes',
     areaPrefix: 'Area',
+    questRewards: 'Quest Rewards',
+    colQuest: 'Quest',
+    colCategory: 'Category',
+    colStars: 'Stars',
+    colGroup: 'Group',
+    rewardGroupA: 'Primary',
+    rewardGroupB: 'Bonus 1',
+    rewardGroupC: 'Bonus 2',
   },
   tabs: {
     combat: 'Combat',
@@ -492,6 +508,14 @@ const pt: UIStrings = {
     colArea: 'Área',
     colNodes: 'Nodes',
     areaPrefix: 'Área',
+    questRewards: 'Recompensas de Missão',
+    colQuest: 'Missão',
+    colCategory: 'Categoria',
+    colStars: 'Estrelas',
+    colGroup: 'Grupo',
+    rewardGroupA: 'Primária',
+    rewardGroupB: 'Bônus 1',
+    rewardGroupC: 'Bônus 2',
   },
   tabs: {
     combat: 'Combate',

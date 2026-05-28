@@ -3,17 +3,17 @@ Gera os arquivos estáticos de itens/materiais a partir do SQLite local.
 Não precisa do backend rodando.
 
 Gera:
-  frontend/public/data/items-{lang}.json    — lista de materiais por idioma
-  frontend/public/data/items/{id}/sources-{lang}.json — fontes (drops + coleta)
+  frontend/public/data/items-{lang}.json        — lista de materiais por idioma
+  frontend/public/data/items/{id}/sources-{lang}.json — fontes (drops + coleta + quests)
 
 Uso:
   py scripts/generate-items-snapshot.py
 """
 
-import sqlite3, json, os, pathlib
+import sqlite3, json, pathlib
 
-DB   = pathlib.Path(__file__).parent.parent / "mhdata" / "mhw.db"
-OUT  = pathlib.Path(__file__).parent.parent / "frontend" / "public" / "data"
+DB    = pathlib.Path(__file__).parent.parent / "mhdata" / "mhw.db"
+OUT   = pathlib.Path(__file__).parent.parent / "frontend" / "public" / "data"
 LANGS = ["ar","de","en","es","fr","it","ja","ko","pl","pt","ru","zh"]
 
 conn = sqlite3.connect(DB)
@@ -47,8 +47,7 @@ for lang in LANGS:
     path.write_text(json.dumps(items, ensure_ascii=False), encoding="utf-8")
     print(f"  items-{lang}.json — {len(items)} materiais")
 
-# ── 2. Sources de cada item (drops + coleta) ─────────────────────────────────
-# Obtém IDs de todos os materiais
+# ── 2. Sources de cada item (drops + coleta + quests) ────────────────────────
 c.execute("SELECT id FROM item WHERE category = 'material'")
 all_ids = [r["id"] for r in c.fetchall()]
 
@@ -103,7 +102,32 @@ for item_id in all_ids:
             for r in c.fetchall()
         ]
 
-        sources = {"rewards": rewards, "gathering": gathering}
+        # Quest rewards
+        c.execute("""
+            SELECT q.id AS quest_id, qt.name AS quest_name, q.category,
+                   q.rank, q.stars, qr."group" AS reward_group,
+                   qr.stack, qr.percentage
+            FROM quest_reward qr
+            JOIN quest q ON q.id = qr.quest_id
+            JOIN quest_text qt ON qt.id = q.id AND qt.lang_id = ?
+            WHERE qr.item_id = ?
+            ORDER BY q.rank ASC, q.stars ASC, qr.percentage DESC
+        """, (lang, item_id))
+        quests = [
+            {
+                "questId":     r["quest_id"],
+                "questName":   r["quest_name"],
+                "category":    r["category"],
+                "rank":        r["rank"],
+                "stars":       r["stars"],
+                "rewardGroup": r["reward_group"],
+                "stack":       r["stack"],
+                "percentage":  r["percentage"],
+            }
+            for r in c.fetchall()
+        ]
+
+        sources = {"rewards": rewards, "gathering": gathering, "quests": quests}
         path = OUT / "items" / str(item_id) / f"sources-{lang}.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(sources, ensure_ascii=False), encoding="utf-8")

@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 694, "questName": "주방장의! 조마조마 격퇴 의뢰", "category": "optional", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 100}, {"questId": 63033, "questName": "가쟈부 대탈출!!", "category": "challenge", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 5}, {"questId": 694, "questName": "주방장의! 조마조마 격퇴 의뢰", "category": "optional", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 1}]}

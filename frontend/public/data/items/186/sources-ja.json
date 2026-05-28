@@ -1,1 +1,1 @@
-{"rewards": [{"monsterId": 9, "monsterName": "ガライーバ", "rank": "LR", "condition": "本体剥ぎ取り", "stack": 1, "percentage": 75}, {"monsterId": 9, "monsterName": "ガライーバ", "rank": "LR", "condition": "クエスト報酬／銅枠", "stack": 1, "percentage": 45}], "gathering": []}
+{"rewards": [{"monsterId": 9, "monsterName": "ガライーバ", "rank": "LR", "condition": "本体剥ぎ取り", "stack": 1, "percentage": 75}, {"monsterId": 9, "monsterName": "ガライーバ", "rank": "LR", "condition": "クエスト報酬／銅枠", "stack": 1, "percentage": 45}], "gathering": [], "quests": []}

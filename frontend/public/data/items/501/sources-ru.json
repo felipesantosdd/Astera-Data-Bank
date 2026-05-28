@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 3031, "questName": "Задание на арене 04", "category": "arena", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 1}, {"questId": 63031, "questName": "Задание испытания 1: знаток", "category": "challenge", "rank": "HR", "stars": 7, "rewardGroup": "A", "stack": 1, "percentage": 23}]}

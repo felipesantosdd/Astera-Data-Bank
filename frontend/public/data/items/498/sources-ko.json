@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 3101, "questName": "격투대회01", "category": "arena", "rank": "LR", "stars": 1, "rewardGroup": "A", "stack": 1, "percentage": 1}, {"questId": 63001, "questName": "초급 챌린지 퀘스트01", "category": "challenge", "rank": "LR", "stars": 2, "rewardGroup": "A", "stack": 1, "percentage": 23}]}

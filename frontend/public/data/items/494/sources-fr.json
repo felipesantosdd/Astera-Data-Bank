@@ -1,1 +1,1 @@
-{"rewards": [], "gathering": []}
+{"rewards": [], "gathering": [], "quests": [{"questId": 694, "questName": "Quête Cuistot : Objectif Gajalaka", "category": "optional", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 100}, {"questId": 63033, "questName": "Gajalaka à gogo", "category": "challenge", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 5}, {"questId": 694, "questName": "Quête Cuistot : Objectif Gajalaka", "category": "optional", "rank": "HR", "stars": 6, "rewardGroup": "A", "stack": 1, "percentage": 1}]}
