@@ -20,6 +20,9 @@ const { t } = useUI()
         <RouterLink to="/monsters" class="navbar__link" active-class="navbar__link--active">
           {{ t.nav.monsters }}
         </RouterLink>
+        <RouterLink to="/materials" class="navbar__link" active-class="navbar__link--active">
+          {{ t.nav.materials }}
+        </RouterLink>
         <LanguagePicker />
       </div>
     </nav>

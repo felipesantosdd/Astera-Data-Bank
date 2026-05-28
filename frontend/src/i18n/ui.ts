@@ -3,7 +3,24 @@
  * Idiomas não cobertos caem em inglês.
  */
 export interface UIStrings {
-  nav: { monsters: string }
+  nav: { monsters: string; materials: string }
+  materials: {
+    title: string
+    subtitle: string
+    recorded: string
+    searchPlaceholder: string
+    filterType: string
+    filterAll: string
+    clearFilters: string
+    noResults: string
+    noResultsHint: string
+    noSources: string
+    // grupos de ícone
+    groupMonsterPart: string
+    groupMineral: string
+    groupPlant: string
+    groupOther: string
+  }
   listing: {
     bestiary: string
     largeMonsters: string
@@ -169,7 +186,23 @@ export interface UIStrings {
 }
 
 const en: UIStrings = {
-  nav: { monsters: 'Monsters' },
+  nav: { monsters: 'Monsters', materials: 'Materials' },
+  materials: {
+    title: 'Materials',
+    subtitle: 'Materials & Resources',
+    recorded: 'materials recorded',
+    searchPlaceholder: 'Search materials...',
+    filterType: 'Type',
+    filterAll: 'All',
+    clearFilters: 'Clear filters',
+    noResults: 'No materials found',
+    noResultsHint: 'Try adjusting your search or filters.',
+    noSources: 'No sources recorded for this material.',
+    groupMonsterPart: 'Monster Parts',
+    groupMineral: 'Minerals',
+    groupPlant: 'Plants & Bugs',
+    groupOther: 'Other',
+  },
   listing: {
     bestiary: 'Bestiary',
     largeMonsters: 'Large Monsters',
@@ -324,7 +357,23 @@ const en: UIStrings = {
 }
 
 const pt: UIStrings = {
-  nav: { monsters: 'Monstros' },
+  nav: { monsters: 'Monstros', materials: 'Materiais' },
+  materials: {
+    title: 'Materiais',
+    subtitle: 'Materiais & Recursos',
+    recorded: 'materiais catalogados',
+    searchPlaceholder: 'Buscar materiais...',
+    filterType: 'Tipo',
+    filterAll: 'Todos',
+    clearFilters: 'Limpar filtros',
+    noResults: 'Nenhum material encontrado',
+    noResultsHint: 'Tente ajustar a busca ou os filtros.',
+    noSources: 'Nenhuma fonte registrada para este material.',
+    groupMonsterPart: 'Partes de Monstro',
+    groupMineral: 'Minerais',
+    groupPlant: 'Plantas & Insetos',
+    groupOther: 'Outros',
+  },
   listing: {
     bestiary: 'Bestiário',
     largeMonsters: 'Grandes Monstros',

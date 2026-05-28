@@ -4,11 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * Item base. Só mapeamos os campos que usamos hoje (icon_name + icon_color).
- * Outros campos do schema (rarity, buy_price, etc.) ficam de fora — Hibernate
- * em modo validate aceita entidade com subset de colunas.
- */
 @Entity
 @Table(name = "item")
 @Getter
@@ -17,6 +12,10 @@ public class Item {
 
     @Id
     private Integer id;
+
+    private String  category;
+    private String  subcategory;
+    private Integer rarity;
 
     @Column(name = "icon_name")
     private String iconName;

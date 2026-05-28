@@ -17,6 +17,11 @@ const router = createRouter({
       name: 'monster-detail',
       component: () => import('@/views/MonsterDetailView.vue'),
     },
+    {
+      path: '/materials',
+      name: 'materials',
+      component: () => import('@/views/MaterialsView.vue'),
+    },
   ],
 })
 

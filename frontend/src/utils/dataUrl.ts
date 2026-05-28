@@ -32,4 +32,9 @@ export const dataUrl = {
     STATIC
       ? `/data/items/${id}/sources-${lang}.json`
       : `/api/items/${id}/sources?lang=${lang}`,
+
+  items: (lang: string) =>
+    STATIC
+      ? `/data/items-${lang}.json`
+      : `/api/items?lang=${lang}`,
 }

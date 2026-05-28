@@ -1,1 +1,1 @@
-{"rewards":[{"monsterId":2,"monsterName":"ジャグラス","rank":"HR","condition":"本体剥ぎ取り","stack":1,"percentage":50},{"monsterId":2,"monsterName":"ジャグラス","rank":"HR","condition":"クエスト報酬／銅枠","stack":1,"percentage":40}],"gathering":[]}
+{"rewards": [{"monsterId": 2, "monsterName": "ジャグラス", "rank": "HR", "condition": "本体剥ぎ取り", "stack": 1, "percentage": 50}, {"monsterId": 2, "monsterName": "ジャグラス", "rank": "HR", "condition": "クエスト報酬／銅枠", "stack": 1, "percentage": 40}], "gathering": []}

@@ -1,3 +1,13 @@
+export interface ItemSummary {
+  id:          number
+  name:        string
+  rarity:      number | null
+  iconName:    string | null
+  iconColor:   string | null
+  category:    string
+  subcategory: string | null
+}
+
 export interface MonsterReward {
   monsterId:   number
   monsterName: string

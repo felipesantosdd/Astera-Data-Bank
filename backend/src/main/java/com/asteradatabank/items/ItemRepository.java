@@ -1,5 +1,6 @@
 package com.asteradatabank.items;
 
+import com.asteradatabank.items.dto.ItemSummaryDTO;
 import com.asteradatabank.items.dto.LocationItemDTO;
 import com.asteradatabank.items.dto.MonsterRewardDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,17 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<MonsterReward, Integer> {
+
+    @Query("""
+            SELECT new com.asteradatabank.items.dto.ItemSummaryDTO(
+                i.id, it.name, i.rarity, i.iconName, i.iconColor, i.category, i.subcategory
+            )
+            FROM Item i
+            JOIN ItemText it ON it.id.itemId = i.id AND it.id.langId = :lang
+            WHERE i.category = 'material'
+            ORDER BY i.id ASC
+            """)
+    List<ItemSummaryDTO> findAllMaterials(@Param("lang") String lang);
 
     /**
      * Drops do item de monstros — inclui carve, captura, quest reward, investigation etc.
