@@ -5,7 +5,7 @@
  * Em build/prod (`npm run build`), os JSONs gerados por scripts/generate-snapshot.mjs
  * são servidos como arquivos estáticos a partir de /data/.
  */
-const STATIC = import.meta.env.PROD
+const STATIC = import.meta.env.PROD || import.meta.env.VITE_USE_STATIC === 'true'
 
 export const dataUrl = {
   monsters: (lang: string) =>
