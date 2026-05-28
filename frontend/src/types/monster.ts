@@ -3,6 +3,13 @@ export interface Monster {
   name: string
   icon: string | null
 
+  // Ecologia/tipo (localizado, ex: "Flying Wyvern", "Serpe Voadora")
+  ecology: string | null
+
+  // Elementos ofensivos do monstro (derivados dos ailments de blight)
+  // Ex: ["fire", "blast"] para Teostra; [] para monstros físicos
+  elements: string[]
+
   // Fraquezas elementais (escala 0–5, null = sem dado)
   weaknessFire:      number | null
   weaknessWater:     number | null

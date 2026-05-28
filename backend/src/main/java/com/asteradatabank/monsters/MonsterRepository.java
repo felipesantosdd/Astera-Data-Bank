@@ -66,17 +66,16 @@ public interface MonsterRepository extends JpaRepository<Monster, Integer> {
             """)
     List<MonsterDropRow> findDropsByMonsterId(@Param("monsterId") Integer monsterId, @Param("lang") String lang);
 
+    /**
+     * Carrega entidades completas com tradução — o mapeamento para
+     * MonsterSummaryDTO (incluindo ecology e elements derivados) é feito
+     * no MonsterService para manter o DTO limpo de lógica JPQL.
+     */
     @Query("""
-            SELECT new com.asteradatabank.monsters.dto.MonsterSummaryDTO(
-                m.id, mt.name, m.icon,
-                m.weaknessFire, m.weaknessWater, m.weaknessThunder, m.weaknessIce, m.weaknessDragon,
-                m.weaknessPoison, m.weaknessSleep, m.weaknessParalysis, m.weaknessBlast, m.weaknessStun,
-                m.pitfallTrap, m.shockTrap, m.vineTrap
-            )
-            FROM Monster m
-            JOIN MonsterText mt ON mt.id.monsterId = m.id AND mt.id.langId = :lang
-            WHERE m.size = 'large'
+            SELECT m FROM Monster m
+            JOIN FETCH m.texts mt
+            WHERE m.size = 'large' AND mt.id.langId = :lang
             ORDER BY m.orderId ASC
             """)
-    List<MonsterSummaryDTO> findAllLargeMonsters(@Param("lang") String lang);
+    List<Monster> findAllLargeMonsters(@Param("lang") String lang);
 }

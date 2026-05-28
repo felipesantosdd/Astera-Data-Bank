@@ -10,6 +10,25 @@ export interface UIStrings {
     monstersRecorded: string
     loadingError: string
     backendHint: string
+    searchPlaceholder: string
+    filterElement: string
+    filterEcology: string
+    filterAll: string
+    filterNone: string
+    clearFilters: string
+    noResults: string
+    noResultsHint: string
+  }
+  elements: {
+    fire: string
+    water: string
+    thunder: string
+    ice: string
+    dragon: string
+    blast: string
+    poison: string
+    sleep: string
+    paralysis: string
   }
   detail: {
     back: string
@@ -147,6 +166,25 @@ const en: UIStrings = {
     monstersRecorded: 'monsters recorded',
     loadingError: 'Failed to load monsters.',
     backendHint: 'Check if the backend is running on localhost:8080.',
+    searchPlaceholder: 'Search monsters...',
+    filterElement: 'Element',
+    filterEcology: 'Type',
+    filterAll: 'All',
+    filterNone: 'No element',
+    clearFilters: 'Clear filters',
+    noResults: 'No monsters found',
+    noResultsHint: 'Try adjusting your search or filters.',
+  },
+  elements: {
+    fire: 'Fire',
+    water: 'Water',
+    thunder: 'Thunder',
+    ice: 'Ice',
+    dragon: 'Dragon',
+    blast: 'Blast',
+    poison: 'Poison',
+    sleep: 'Sleep',
+    paralysis: 'Paralysis',
   },
   detail: {
     back: 'Back to Bestiary',
@@ -273,6 +311,25 @@ const pt: UIStrings = {
     monstersRecorded: 'monstros catalogados',
     loadingError: 'Falha ao carregar monstros.',
     backendHint: 'Verifique se o backend está rodando em localhost:8080.',
+    searchPlaceholder: 'Buscar monstros...',
+    filterElement: 'Elemento',
+    filterEcology: 'Tipo',
+    filterAll: 'Todos',
+    filterNone: 'Sem elemento',
+    clearFilters: 'Limpar filtros',
+    noResults: 'Nenhum monstro encontrado',
+    noResultsHint: 'Tente ajustar a busca ou os filtros.',
+  },
+  elements: {
+    fire: 'Fogo',
+    water: 'Água',
+    thunder: 'Trovão',
+    ice: 'Gelo',
+    dragon: 'Dragão',
+    blast: 'Explosão',
+    poison: 'Veneno',
+    sleep: 'Sono',
+    paralysis: 'Paralisia',
   },
   detail: {
     back: 'Voltar ao Bestiário',

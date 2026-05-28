@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +23,21 @@ public class MonsterService {
 
     public List<MonsterSummaryDTO> getLargeMonsters(String lang) {
         String language = LangUtil.normalize(lang);
-        return monsterRepository.findAllLargeMonsters(language);
+        return monsterRepository.findAllLargeMonsters(language).stream()
+                .map(m -> {
+                    MonsterText mt = m.getTexts().get(0);
+                    return new MonsterSummaryDTO(
+                            m.getId(), mt.getName(), m.getIcon(),
+                            mt.getEcology(),
+                            deriveElements(m),
+                            m.getWeaknessFire(), m.getWeaknessWater(), m.getWeaknessThunder(),
+                            m.getWeaknessIce(), m.getWeaknessDragon(),
+                            m.getWeaknessPoison(), m.getWeaknessSleep(), m.getWeaknessParalysis(),
+                            m.getWeaknessBlast(), m.getWeaknessStun(),
+                            m.getPitfallTrap(), m.getShockTrap(), m.getVineTrap()
+                    );
+                })
+                .toList();
     }
 
     public MonsterDetailDTO getMonsterById(Integer id, String lang) {
@@ -74,5 +89,27 @@ public class MonsterService {
                         r.stack(), r.percentage()
                 ))
                 .toList();
+    }
+
+    /**
+     * Deriva os elementos ofensivos do monstro a partir dos ailments de blight
+     * que ele inflige no jogador. Vazio = monstro físico / sem elemento.
+     *
+     * Exemplo: Teostra → ["fire", "blast"]
+     *          Nergigante → []
+     *          Kushala Daora → ["ice", "water"]
+     */
+    private List<String> deriveElements(Monster m) {
+        List<String> elements = new ArrayList<>();
+        if (Boolean.TRUE.equals(m.getAilmentFireblight()))    elements.add("fire");
+        if (Boolean.TRUE.equals(m.getAilmentWaterblight()))   elements.add("water");
+        if (Boolean.TRUE.equals(m.getAilmentThunderblight())) elements.add("thunder");
+        if (Boolean.TRUE.equals(m.getAilmentIceblight()))     elements.add("ice");
+        if (Boolean.TRUE.equals(m.getAilmentDragonblight()))  elements.add("dragon");
+        if (Boolean.TRUE.equals(m.getAilmentBlastblight()))   elements.add("blast");
+        if (Boolean.TRUE.equals(m.getAilmentPoison()))        elements.add("poison");
+        if (Boolean.TRUE.equals(m.getAilmentSleep()))         elements.add("sleep");
+        if (Boolean.TRUE.equals(m.getAilmentParalysis()))     elements.add("paralysis");
+        return elements;
     }
 }

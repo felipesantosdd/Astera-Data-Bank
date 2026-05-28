@@ -34,6 +34,7 @@ function goToDetail() {
     </div>
 
     <p class="monster-card__name">{{ monster.name }}</p>
+    <p v-if="monster.ecology" class="monster-card__ecology">{{ monster.ecology }}</p>
   </button>
 </template>
 
@@ -42,8 +43,8 @@ function goToDetail() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 20px 12px 16px;
+  gap: 8px;
+  padding: 20px 12px 14px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -109,5 +110,19 @@ function goToDetail() {
 
 .monster-card:hover .monster-card__name {
   color: var(--text);
+}
+
+.monster-card__ecology {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  transition: color 0.25s;
+}
+
+.monster-card:hover .monster-card__ecology {
+  color: var(--gold);
 }
 </style>
