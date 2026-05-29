@@ -3,9 +3,9 @@ import SkillTooltip from '@/components/SkillTooltip.vue'
 
 interface Skill {
   name: string
-  description?: string
+  description?: string | null
   level?: number | null
-  levels?: { level: number; description: string }[]
+  levels?: { level: number; description: string | null }[]
 }
 
 defineProps<{ skills: Skill[] }>()
@@ -19,7 +19,7 @@ defineProps<{ skills: Skill[] }>()
       :name="sk.name"
       :description="sk.description"
       :current-level="sk.level ?? undefined"
-      :levels="sk.levels"
+      :levels="sk.levels ?? []"
     >
       <span class="skill-badge">
         {{ sk.name }}<span v-if="sk.level" class="skill-badge__lv"> Lv{{ sk.level }}</span>

@@ -11,6 +11,7 @@ import WeaponTree        from '@/components/equipment/WeaponTree.vue'
 import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal.vue'
 import PaginationControls from '@/components/PaginationControls.vue'
 import SearchInput from '@/components/SearchInput.vue'
+import ElementIcon from '@/components/ElementIcon.vue'
 
 const { t } = useUI()
 
@@ -165,7 +166,8 @@ const ELEM_LABELS: Record<string, string> = {
 }
 
 function setResistance(set: import('@/types/armor').ArmorSet, elem: string): number {
-  return set.pieces.reduce((sum, p) => sum + ((p as Record<string, unknown>)[elem] as number ?? 0), 0)
+  const key = elem as 'fire' | 'water' | 'thunder' | 'ice' | 'dragon'
+  return set.pieces.reduce((sum, p) => sum + (p[key] ?? 0), 0)
 }
 
 const filteredArmor = computed(() => {
@@ -280,11 +282,12 @@ const weaponModal = ref<import('@/types/weapon').Weapon | null>(null)
 
             <span class="acc-name">{{ root.name }}</span>
 
-            <span
+            <ElementIcon
               v-if="lineElement(root.id)"
-              class="acc-element"
-              :style="{ color: ELEMENT_COLORS[lineElement(root.id)!.name] ?? 'var(--text-muted)' }"
-            >{{ lineElement(root.id)!.name }}<span v-if="lineElement(root.id)!.hidden" class="acc-hidden">*</span></span>
+              :element="lineElement(root.id)!.name"
+              :hidden="lineElement(root.id)!.hidden"
+              :size="14"
+            />
 
             <span class="acc-spacer" />
 
@@ -301,7 +304,7 @@ const weaponModal = ref<import('@/types/weapon').Weapon | null>(null)
               <WeaponTree
                 :root="root"
                 :all="weaponsOfActiveType"
-                @open-modal="w => { weaponModal = w; openLineId = null }"
+                @open-modal="w => { weaponModal = w }"
               />
             </div>
           </Transition>

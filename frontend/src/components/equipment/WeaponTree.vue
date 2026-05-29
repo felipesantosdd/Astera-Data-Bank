@@ -5,10 +5,6 @@
  */
 import { ref, computed, defineComponent, h, type PropType } from 'vue'
 import type { Weapon } from '@/types/weapon'
-import { usePlannerStore } from '@/stores/plannerStore'
-import MaterialChipList from '@/components/MaterialChipList.vue'
-import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
-import { useItems } from '@/composables/useItems'
 
 const props = defineProps<{
   root: Weapon
@@ -18,52 +14,8 @@ const props = defineProps<{
 const emit = defineEmits<{ select: [w: Weapon]; openModal: [w: Weapon] }>()
 
 const selectedId      = ref<number | null>(null)
-const plannerStore    = usePlannerStore()
-const plannerFeedback = ref<'added' | 'exists' | null>(null)
-const { data: items } = useItems()
-
-const itemById = computed(() => {
-  const map = new Map<number, { iconName: string | null; iconColor: string | null }>()
-  for (const it of items.value ?? []) map.set(it.id, { iconName: it.iconName ?? null, iconColor: it.iconColor ?? null })
-  return map
-})
-
-// Material modal state
-const selectedMaterial = ref<{ id: number; name: string; quantity: number } | null>(null)
-
-function openMaterialSources(m: { itemId: number; name: string; quantity?: number | null }) {
-  selectedMaterial.value = { id: m.itemId, name: m.name, quantity: m.quantity ?? 1 }
-}
-
-function itemMeta(itemId: number) { return itemById.value.get(itemId) }
 
 // Retorna os materiais relevantes: craft se existir, senão upgrade
-function effectiveMaterials(w: Weapon) {
-  return w.craftMaterials?.length ? w.craftMaterials : (w.upgradeMaterials ?? [])
-}
-
-function addToPlanner(w: Weapon) {
-  const mats = effectiveMaterials(w)
-  const materials = mats.map(m => ({
-    id:               `mat-${m.itemId ?? m.name}-${w.id}`,
-    materialId:       m.itemId ?? undefined,
-    name:             m.name,
-    requiredQuantity: m.quantity,
-    ownedQuantity:    0,
-    completed:        false,
-  }))
-  const added = plannerStore.addEquipmentNode({
-    equipmentId:   w.id,
-    name:          w.name,
-    equipmentType: 'weapon',
-    subtype:       w.weaponType,
-    rarity:        w.rarity,
-    materials,
-  })
-  plannerFeedback.value = added ? 'added' : 'exists'
-  setTimeout(() => { plannerFeedback.value = null }, 2200)
-}
-
 // ── Build tree ────────────────────────────────────────────────────────────────
 interface Node { weapon: Weapon; children: Node[] }
 
@@ -78,10 +30,6 @@ const tree = computed<Node[]>(() =>
 )
 
 // ── Selected weapon ───────────────────────────────────────────────────────────
-const selected = computed<Weapon | null>(() =>
-  selectedId.value == null ? null : (props.all.find(w => w.id === selectedId.value) ?? null),
-)
-
 function select(w: Weapon) {
   selectedId.value = w.id
   emit('select', w)
@@ -95,14 +43,19 @@ const ELEMENT_COLORS: Record<string, string> = {
   Blast: 'var(--el-blast)',
 }
 
+const ELEM_ICON: Record<string, string> = {
+  Fire: '/icons/ic_element_fire.svg', Water: '/icons/ic_element_water.svg',
+  Thunder: '/icons/ic_element_thunder.svg', Ice: '/icons/ic_element_ice.svg',
+  Dragon: '/icons/ic_element_dragon.svg', Poison: '/icons/ic_status_poison.svg',
+  Blast: '/icons/ic_status_blast.svg',
+}
+
+function elemIcon(el: string) { return ELEM_ICON[el] ?? '' }
+
 function rarityColor(r: number) {
   if (r <= 4) return '#6abf6a'
   if (r <= 8) return '#e0a040'
   return '#c060c0'
-}
-
-function slots(s1: number, s2: number, s3: number): string {
-  return [s1, s2, s3].filter(s => s > 0).map(s => `[${s}]`).join('') || ''
 }
 
 // ── Recursive tree node (render function component) ───────────────────────────
@@ -135,17 +88,17 @@ const TreeNode = defineComponent({
           h('span', { class: 'tn-name' }, w.name),
           // attack
           h('span', { class: 'tn-atk' }, `⚔ ${w.attack}`),
-          // element
+          // element icon
           w.element1
-            ? h('span', {
-                class: 'tn-el',
-                style: { color: ELEMENT_COLORS[w.element1] ?? 'inherit' },
-              }, `${w.element1}${w.elementHidden ? '*' : ''}`)
+            ? h('span', { class: 'tn-el', style: { color: ELEMENT_COLORS[w.element1] ?? 'inherit' } }, [
+                h('img', { src: elemIcon(w.element1), alt: w.element1, class: 'tn-el-img' }),
+                h('span', {}, `${w.element1Attack ?? ''}${w.elementHidden ? '*' : ''}`),
+              ])
             : null,
-          // slots
-          slots(w.slot1, w.slot2, w.slot3)
-            ? h('span', { class: 'tn-slots' }, slots(w.slot1, w.slot2, w.slot3))
-            : null,
+          // slot icons
+          ...[w.slot1, w.slot2, w.slot3]
+            .filter((s): s is number => !!s && s > 0)
+            .map(s => h('img', { src: `/icons/armor/slot${Math.min(s, 4)}.png`, alt: `[${s}]`, class: 'tn-slot-img' })),
           // final star
           w.isFinal ? h('span', { class: 'tn-final' }, '★') : null,
         ])
@@ -178,13 +131,6 @@ const TreeNode = defineComponent({
       />
     </div>
 
-    <!-- Modal de fontes do material -->
-    <ItemSourcesModal
-      :item-id="selectedMaterial?.id ?? null"
-      :item-name="selectedMaterial?.name ?? ''"
-      :planner-quantity="selectedMaterial?.quantity ?? 1"
-      @close="selectedMaterial = null"
-    />
   </div>
 </template>
 
@@ -268,9 +214,10 @@ const TreeNode = defineComponent({
   text-overflow: ellipsis;
 }
 
-:deep(.tn-atk)   { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
-:deep(.tn-el)    { font-size: 11px; flex-shrink: 0; }
-:deep(.tn-slots) { font-size: 10px; color: var(--gold); flex-shrink: 0; }
+:deep(.tn-atk)     { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+:deep(.tn-el)      { font-size: 11px; flex-shrink: 0; display: inline-flex; align-items: center; gap: 2px; }
+:deep(.tn-el-img)  { width: 13px; height: 13px; object-fit: contain; }
+:deep(.tn-slot-img){ width: 13px; height: 13px; object-fit: contain; flex-shrink: 0; }
 :deep(.tn-final) { font-size: 10px; color: var(--gold); flex-shrink: 0; }
 
 /* ── Detalhe ── */

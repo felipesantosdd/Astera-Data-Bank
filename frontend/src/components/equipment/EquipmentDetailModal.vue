@@ -8,6 +8,8 @@ import { useItems } from '@/composables/useItems'
 import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
 import SkillBadgeList from '@/components/SkillBadgeList.vue'
 import MaterialChipList from '@/components/MaterialChipList.vue'
+import SlotIcons from '@/components/SlotIcons.vue'
+import ElementIcon from '@/components/ElementIcon.vue'
 
 const props = defineProps<{
   weapon: Weapon | null
@@ -40,12 +42,6 @@ const WEAPON_TYPE_LABELS: Record<string, string> = {
   'bow':              'Bow',
 }
 
-const ELEMENT_COLORS: Record<string, string> = {
-  Fire: 'var(--el-fire)', Water: 'var(--el-water)', Thunder: 'var(--el-thunder)',
-  Ice: 'var(--el-ice)', Dragon: 'var(--el-dragon)', Poison: 'var(--el-poison)',
-  Blast: 'var(--el-blast)',
-}
-
 const selectedMaterial = ref<{ id: number; name: string; quantity: number | null } | null>(null)
 const itemById = computed(() => {
   const map = new Map<number, { iconName: string | null; iconColor: string | null }>()
@@ -67,13 +63,6 @@ function openMaterialSources(material: { itemId: number; name: string; quantity?
 
 function closeMaterialSources() {
   selectedMaterial.value = null
-}
-
-function slotText(s1?: number | null, s2?: number | null, s3?: number | null): string {
-  return [s1, s2, s3]
-    .filter(s => s != null && s > 0)
-    .map(s => `[${s}]`)
-    .join(' ') || '—'
 }
 
 // ── Planner — por peça de armadura ───────────────────────────────────────────
@@ -149,10 +138,7 @@ function onOverlayClick(e: MouseEvent) {
               </div>
               <div v-if="weapon.element1" class="detail-stat">
                 <span class="detail-stat__label">Elemento</span>
-                <span class="detail-stat__val" :style="{ color: ELEMENT_COLORS[weapon.element1] }">
-                  {{ weapon.element1 }} {{ weapon.element1Attack }}
-                  <span v-if="weapon.elementHidden" style="opacity:0.6"> (ocult)</span>
-                </span>
+                <ElementIcon :element="weapon.element1" :attack="weapon.element1Attack" :hidden="weapon.elementHidden" />
               </div>
               <div v-if="weapon.elderseal" class="detail-stat">
                 <span class="detail-stat__label">Elderseal</span>
@@ -160,7 +146,7 @@ function onOverlayClick(e: MouseEvent) {
               </div>
               <div class="detail-stat">
                 <span class="detail-stat__label">Slots</span>
-                <span class="detail-stat__val">{{ slotText(weapon.slot1, weapon.slot2, weapon.slot3) }}</span>
+                <SlotIcons :slot1="weapon.slot1" :slot2="weapon.slot2" :slot3="weapon.slot3" :size="18" />
               </div>
               <div v-if="weapon.phial" class="detail-stat">
                 <span class="detail-stat__label">Phial</span>
@@ -219,7 +205,7 @@ function onOverlayClick(e: MouseEvent) {
                   <span class="piece-name">{{ piece.name }}</span>
                   <div class="piece-meta">
                     <span class="piece-def">🛡 {{ piece.defenseBase }}~{{ piece.defenseMax }}</span>
-                    <span class="piece-slots">{{ slotText(piece.slot1, piece.slot2, piece.slot3) }}</span>
+                    <SlotIcons :slot1="piece.slot1" :slot2="piece.slot2" :slot3="piece.slot3" :size="14" />
                   </div>
                 </div>
               </div>

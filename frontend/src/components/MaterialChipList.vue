@@ -4,7 +4,7 @@ import ItemIcon from '@/components/ItemIcon.vue'
 interface Material {
   itemId: number
   name: string
-  quantity: number
+  quantity: number | null
   iconName?: string | null
   iconColor?: string | null
 }
@@ -27,7 +27,7 @@ const emit = defineEmits<{ click: [material: Material] }>()
     >
       <ItemIcon :name="m.iconName ?? null" :color="m.iconColor ?? null" :size="size === 'sm' ? 20 : 24" />
       <span class="mat-chip__name">{{ m.name }}</span>
-      <span class="mat-chip__qty">×{{ m.quantity }}</span>
+      <span class="mat-chip__qty">×{{ m.quantity ?? 1 }}</span>
     </button>
   </div>
 </template>
