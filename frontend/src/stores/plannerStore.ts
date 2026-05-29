@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
-import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData } from '@/types/planner'
+import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData, RegionNodeData } from '@/types/planner'
 
 const STORAGE_KEY = 'astera-planner'
 
@@ -97,6 +97,20 @@ export const usePlannerStore = defineStore('planner', () => {
     return id
   }
 
+  function addRegionNode(locationName: string) {
+    const id = `region-${locationName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`
+    const alreadyExists = nodes.value.some(n => n.id === id)
+    if (alreadyExists) return false
+    const offset = nodes.value.length * 20
+    nodes.value.push({
+      id,
+      type: 'region',
+      position: { x: 60 + offset, y: 60 + offset },
+      data: { type: 'region', locationName, done: false } satisfies RegionNodeData,
+    })
+    return true
+  }
+
   function removeNode(id: string) {
     nodes.value = nodes.value.filter(n => n.id !== id)
     edges.value = edges.value.filter(e => e.source !== id && e.target !== id)
@@ -129,6 +143,7 @@ export const usePlannerStore = defineStore('planner', () => {
     addEquipmentNode,
     addNoteNode,
     addChecklistNode,
+    addRegionNode,
     removeNode,
     updateNodeData,
     updateNodePosition,

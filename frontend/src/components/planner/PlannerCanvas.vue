@@ -15,6 +15,7 @@ import MonsterPlannerNode    from './nodes/MonsterPlannerNode.vue'
 import MaterialChecklistNode from './nodes/MaterialChecklistNode.vue'
 import NotePlannerNode       from './nodes/NotePlannerNode.vue'
 import EquipmentPlannerNode  from './nodes/EquipmentPlannerNode.vue'
+import RegionPlannerNode     from './nodes/RegionPlannerNode.vue'
 
 const store = usePlannerStore()
 
@@ -23,6 +24,7 @@ const nodeTypes: NodeTypesObject = {
   materialChecklist: markRaw(MaterialChecklistNode) as NodeTypesObject[string],
   note:              markRaw(NotePlannerNode)        as NodeTypesObject[string],
   equipment:         markRaw(EquipmentPlannerNode)  as NodeTypesObject[string],
+  region:            markRaw(RegionPlannerNode)      as NodeTypesObject[string],
 }
 
 const flowNodes = computed(() =>

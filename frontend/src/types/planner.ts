@@ -1,4 +1,4 @@
-export type PlannerNodeType = 'monster' | 'materialChecklist' | 'note' | 'equipment'
+export type PlannerNodeType = 'monster' | 'materialChecklist' | 'note' | 'equipment' | 'region'
 
 // ── Monster node ──────────────────────────────────────────────────────────────
 export interface MonsterNodeData {
@@ -49,11 +49,19 @@ export interface NoteNodeData {
   content: string
 }
 
+// ── Region node ───────────────────────────────────────────────────────────────
+export interface RegionNodeData {
+  type: 'region'
+  locationName: string
+  done: boolean
+}
+
 export type PlannerNodeData =
   | MonsterNodeData
   | EquipmentNodeData
   | MaterialChecklistNodeData
   | NoteNodeData
+  | RegionNodeData
 
 // ── Store types ───────────────────────────────────────────────────────────────
 export interface PlannerNode {

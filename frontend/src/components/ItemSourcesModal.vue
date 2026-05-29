@@ -36,6 +36,10 @@ function addMaterialToPlanner() {
       quantity: props.plannerQuantity ?? 1,
     },
   })
+  // Auto-create region cards for all gathering locations of this item
+  for (const loc of gatheringLocations.value) {
+    plannerStore.addRegionNode(loc)
+  }
   plannerFeedback.value = true
   setTimeout(() => { plannerFeedback.value = false }, 1800)
 }
