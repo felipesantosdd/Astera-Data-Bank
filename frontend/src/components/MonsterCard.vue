@@ -3,10 +3,13 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Monster } from '@/types/monster'
 import { useUI } from '@/composables/useUI'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
 const props = defineProps<{ monster: Monster }>()
 const router = useRouter()
 const { t } = useUI()
+const { isMonsterInPlanner } = usePlannerPresence()
+const isPlanned = computed(() => isMonsterInPlanner(props.monster.id))
 
 const ecologyLabel = computed(() => {
   if (!props.monster.ecology) return null
@@ -28,7 +31,8 @@ function goToDetail() {
 </script>
 
 <template>
-  <button class="monster-card" @click="goToDetail">
+  <button class="monster-card" :class="{ 'monster-card--planned': isPlanned }" @click="goToDetail">
+    <span v-if="isPlanned" class="planner-mark">✓ Planner</span>
     <div class="monster-card__icon-wrap">
       <img
         v-if="!imgFailed"
@@ -47,6 +51,7 @@ function goToDetail() {
 
 <style scoped>
 .monster-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,6 +64,25 @@ function goToDetail() {
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s, background 0.25s;
   text-align: center;
   width: 100%;
+}
+
+.monster-card--planned {
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(196, 154, 42, 0.35);
+}
+
+.planner-mark {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: var(--gold-glow);
+  color: var(--gold);
+  font-family: var(--font-heading);
+  font-size: 9px;
+  letter-spacing: 0.06em;
 }
 
 .monster-card:hover {

@@ -12,8 +12,10 @@ import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal.vu
 import PaginationControls from '@/components/PaginationControls.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import ElementIcon from '@/components/ElementIcon.vue'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
 const { t } = useUI()
+const { isEquipmentInPlanner } = usePlannerPresence()
 
 // ── Main tab ──────────────────────────────────────────────────────────────────
 type MainTab = 'weapons' | 'armor'
@@ -37,13 +39,6 @@ const WEAPON_SHORT: Record<string, string> = {
 // Label traduzido do tipo de arma (usa i18n, fallback EN)
 function weaponLabel(type: string): string {
   return (t.value.weaponTypes as Record<string, string>)[type] ?? type
-}
-
-const ELEMENT_COLORS: Record<string, string> = {
-  Fire:     'var(--el-fire)',     Water:    'var(--el-water)',
-  Thunder:  'var(--el-thunder)',  Ice:      'var(--el-ice)',
-  Dragon:   'var(--el-dragon)',   Poison:   'var(--el-poison)',
-  Blast:    'var(--el-blast)',
 }
 
 // ── Armas agrupadas por tipo ──────────────────────────────────────────────────
@@ -363,10 +358,19 @@ const weaponModal = ref<import('@/types/weapon').Weapon | null>(null)
           v-for="set in paginatedArmor"
           :key="set.id"
           class="armor-card"
-          :class="`armor-card--${set.rank.toLowerCase()}`"
+          :class="[
+            `armor-card--${set.rank.toLowerCase()}`,
+            { 'armor-card--planned': set.pieces.some(piece => isEquipmentInPlanner(piece.id, 'armor')) },
+          ]"
           @click="armorModal = set"
         >
           <!-- Foto do set com fallback em grade de peças -->
+          <span
+            v-if="set.pieces.some(piece => isEquipmentInPlanner(piece.id, 'armor'))"
+            class="armor-card__planned"
+          >
+            ✓ Planner
+          </span>
           <ArmorSetCard :set="set" />
 
           <!-- Info -->
@@ -720,6 +724,7 @@ const weaponModal = ref<import('@/types/weapon').Weapon | null>(null)
 }
 
 .armor-card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -730,6 +735,26 @@ const weaponModal = ref<import('@/types/weapon').Weapon | null>(null)
   padding: 0;
   display: flex;
   flex-direction: column;
+}
+
+.armor-card--planned {
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(196, 154, 42, 0.35);
+}
+
+.armor-card__planned {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  border: 1px solid #5cb85c;
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: rgba(92, 184, 92, 0.16);
+  color: #5cb85c;
+  font-family: var(--font-heading);
+  font-size: 9px;
+  letter-spacing: 0.06em;
 }
 
 .armor-card:hover {

@@ -6,6 +6,7 @@ import { translateCondition } from '@/i18n/dropConditions'
 import ItemIcon from '@/components/ItemIcon.vue'
 import type { MonsterDrop } from '@/types/monster'
 import { usePlannerStore } from '@/stores/plannerStore'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
 const props = defineProps<{
   monsterId: number
@@ -17,6 +18,7 @@ const monsterIdRef = toRef(props, 'monsterId')
 const { data: drops, isLoading, isError } = useMonsterDrops(monsterIdRef)
 const { t, lang } = useUI()
 const plannerStore = usePlannerStore()
+const { isMaterialInPlanner, isMaterialCompleted } = usePlannerPresence()
 
 // ── Estrutura de agrupamento ───────────────────────────────────────────
 const RANK_ORDER = ['LR', 'HR', 'MR'] as const
@@ -137,26 +139,8 @@ watch(monsterIdRef, () => { searchQuery.value = '' })
 
 function clearSearch() { searchQuery.value = '' }
 
-const completedMaterialIds = computed(() => {
-  const ids = new Set<number>()
-  for (const node of plannerStore.nodes) {
-    if (node.data.type === 'materialChecklist') {
-      for (const item of node.data.items) {
-        if (item.materialId != null && item.completed) ids.add(item.materialId)
-      }
-    }
-
-    if (node.data.type === 'equipment') {
-      for (const item of node.data.materials) {
-        if (item.materialId != null && item.completed) ids.add(item.materialId)
-      }
-    }
-  }
-  return ids
-})
-
 function isDropCompleted(drop: MonsterDrop) {
-  return completedMaterialIds.value.has(drop.itemId)
+  return isMaterialCompleted(drop.itemId)
 }
 
 function addDropToPlanner(drop: MonsterDrop) {
@@ -312,10 +296,13 @@ function addDropToPlanner(drop: MonsterDrop) {
 
           <button
             class="drop-item__planner"
-            :class="{ 'drop-item__planner--done': isDropCompleted(d) }"
+            :class="{
+              'drop-item__planner--planned': isMaterialInPlanner(d.itemId),
+              'drop-item__planner--done': isDropCompleted(d),
+            }"
             @click="addDropToPlanner(d)"
           >
-            {{ isDropCompleted(d) ? '✓' : '+ Planner' }}
+            {{ isDropCompleted(d) ? '✓' : isMaterialInPlanner(d.itemId) ? '✓ Planner' : '+ Planner' }}
           </button>
         </li>
       </ul>
@@ -614,6 +601,11 @@ function addDropToPlanner(drop: MonsterDrop) {
   transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
 .drop-item__planner:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
+.drop-item__planner--planned {
   color: var(--gold);
   border-color: var(--gold);
   background: var(--gold-glow);

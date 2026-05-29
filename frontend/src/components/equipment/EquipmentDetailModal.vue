@@ -10,6 +10,7 @@ import SkillBadgeList from '@/components/SkillBadgeList.vue'
 import MaterialChipList from '@/components/MaterialChipList.vue'
 import SlotIcons from '@/components/SlotIcons.vue'
 import ElementIcon from '@/components/ElementIcon.vue'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
 const props = defineProps<{
   weapon: Weapon | null
@@ -20,6 +21,7 @@ const emit = defineEmits<{ close: [] }>()
 
 const plannerStore = usePlannerStore()
 const { data: items } = useItems()
+const { isEquipmentInPlanner } = usePlannerPresence()
 // plannerFeedback não é mais usado (feedback é por peça via pieceFeedback)
 
 const isWeapon = computed(() => !!props.weapon)
@@ -222,9 +224,10 @@ function onOverlayClick(e: MouseEvent) {
               <div class="piece-planner">
                 <button
                   class="piece-planner__btn"
+                  :class="{ 'piece-planner__btn--planned': isEquipmentInPlanner(piece.id, 'armor') }"
                   :disabled="!piece.materials.length"
                   @click="addPieceToPlanner(piece)"
-                >＋ Planner</button>
+                >{{ isEquipmentInPlanner(piece.id, 'armor') ? '✓ Planner' : '＋ Planner' }}</button>
                 <Transition name="fade">
                   <span
                     v-if="pieceFeedback[piece.id]"
@@ -570,6 +573,12 @@ function onOverlayClick(e: MouseEvent) {
   color: var(--gold);
   border-color: var(--gold);
   background: var(--gold-glow);
+}
+
+.piece-planner__btn--planned {
+  color: #5cb85c;
+  border-color: #5cb85c;
+  background: rgba(92, 184, 92, 0.12);
 }
 
 .piece-planner__btn:disabled {

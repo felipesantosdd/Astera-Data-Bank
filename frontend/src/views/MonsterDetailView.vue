@@ -9,6 +9,7 @@ import MonsterArmorSection from '@/components/MonsterArmorSection.vue'
 import MonsterDropsSection from '@/components/MonsterDropsSection.vue'
 import type { Hitzone } from '@/types/monster'
 import { usePlannerStore } from '@/stores/plannerStore'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
 // ── Tabs ──────────────────────────────────────────────────────────────────
 type TabKey = 'combat' | 'drops' | 'equipment' | 'stats'
@@ -97,6 +98,8 @@ watch([id, () => monster.value?.name], () => { imgFailed.value = false })
 // ── Planner ───────────────────────────────────────────────────────────────────
 const plannerStore = usePlannerStore()
 const plannerFeedback = ref<'added' | 'exists' | null>(null)
+const { isMonsterInPlanner } = usePlannerPresence()
+const isPlanned = computed(() => isMonsterInPlanner(monster.value?.id))
 
 function addToPlanner() {
   if (!monster.value) return
@@ -151,8 +154,12 @@ function addToPlanner() {
 
           <!-- Planner CTA -->
           <div class="hero__planner">
-            <button class="planner-add-btn" @click="addToPlanner">
-              ＋ Adicionar ao planejamento
+            <button
+              class="planner-add-btn"
+              :class="{ 'planner-add-btn--planned': isPlanned }"
+              @click="addToPlanner"
+            >
+              {{ isPlanned ? '✓ No planejamento' : '＋ Adicionar ao planejamento' }}
             </button>
             <Transition name="fade">
               <span
@@ -486,6 +493,12 @@ function addToPlanner() {
 .planner-add-btn:hover {
   background: var(--gold-glow);
   color: var(--gold-light);
+}
+
+.planner-add-btn--planned {
+  color: #5cb85c;
+  border-color: #5cb85c;
+  background: rgba(92, 184, 92, 0.12);
 }
 
 .planner-add-feedback {

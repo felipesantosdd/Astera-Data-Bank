@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ItemIcon from '@/components/ItemIcon.vue'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
 interface Material {
   itemId: number
@@ -15,6 +16,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{ click: [material: Material] }>()
+const { isMaterialInPlanner } = usePlannerPresence()
 </script>
 
 <template>
@@ -23,11 +25,13 @@ const emit = defineEmits<{ click: [material: Material] }>()
       v-for="m in materials"
       :key="m.itemId"
       class="mat-chip"
+      :class="{ 'mat-chip--planned': isMaterialInPlanner(m.itemId) }"
       @click="emit('click', m)"
     >
       <ItemIcon :name="m.iconName ?? null" :color="m.iconColor ?? null" :size="size === 'sm' ? 20 : 24" />
       <span class="mat-chip__name">{{ m.name }}</span>
       <span class="mat-chip__qty">×{{ m.quantity ?? 1 }}</span>
+      <span v-if="isMaterialInPlanner(m.itemId)" class="mat-chip__planned">✓</span>
     </button>
   </div>
 </template>
@@ -55,8 +59,14 @@ const emit = defineEmits<{ click: [material: Material] }>()
 
 .mat-chip:hover { border-color: var(--gold); background: var(--gold-glow); }
 
+.mat-chip--planned {
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
+
 .mat-chip__name { color: var(--text); }
 .mat-chip__qty  { color: var(--text-muted); font-weight: 600; }
+.mat-chip__planned { color: #5cb85c; font-weight: 700; }
 
 .mat-chip-list--sm .mat-chip { padding: 3px 8px 3px 4px; font-size: 11px; gap: 4px; }
 </style>

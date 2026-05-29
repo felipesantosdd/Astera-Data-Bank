@@ -4,6 +4,7 @@ import { useItemSources } from '@/composables/useItemSources'
 import { useUI } from '@/composables/useUI'
 import { usePlannerStore } from '@/stores/plannerStore'
 import LocationIcon from '@/components/LocationIcon.vue'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
 const props = defineProps<{
   itemId:    number | null
@@ -23,6 +24,8 @@ const emit = defineEmits<{
 const { t, lang } = useUI()
 const plannerStore = usePlannerStore()
 const plannerFeedback = ref(false)
+const { isMaterialInPlanner } = usePlannerPresence()
+const isPlanned = computed(() => isMaterialInPlanner(props.itemId))
 
 function addMaterialToPlanner() {
   if (props.itemId == null) return
@@ -36,9 +39,8 @@ function addMaterialToPlanner() {
       quantity: props.plannerQuantity ?? 1,
     },
   })
-  // Auto-create region cards for all gathering locations of this item
-  for (const loc of gatheringLocations.value) {
-    plannerStore.addRegionNode(loc)
+  if (activeSourceTab.value === 'gathering' && activeLocation.value) {
+    plannerStore.addRegionNode(activeLocation.value)
   }
   plannerFeedback.value = true
   setTimeout(() => { plannerFeedback.value = false }, 1800)
@@ -195,8 +197,12 @@ watch(isOpen, (open) => {
               </div>
             </div>
             <div class="modal__header-actions">
-              <button class="modal__planner" @click="addMaterialToPlanner">
-                {{ plannerFeedback ? '✓' : '+ Planner' }}
+              <button
+                class="modal__planner"
+                :class="{ 'modal__planner--planned': isPlanned }"
+                @click="addMaterialToPlanner"
+              >
+                {{ plannerFeedback || isPlanned ? '✓ Planner' : '+ Planner' }}
               </button>
               <button class="modal__close" @click="emit('close')" :aria-label="t.itemSources.close">✕</button>
             </div>
@@ -539,6 +545,11 @@ watch(isOpen, (open) => {
   color: var(--gold);
   border-color: var(--gold);
   background: var(--gold-glow);
+}
+.modal__planner--planned {
+  color: #5cb85c;
+  border-color: #5cb85c;
+  background: rgba(92, 184, 92, 0.12);
 }
 
 /* ── Source-type tabs ─────────────────────────────────────────────── */

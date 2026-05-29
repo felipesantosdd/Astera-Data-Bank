@@ -2,14 +2,16 @@
 import type { ItemSummary } from '@/types/item'
 import ItemIcon from '@/components/ItemIcon.vue'
 import { usePrefetchItemSources } from '@/composables/useItemSources'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
-defineProps<{
+const props = defineProps<{
   item: ItemSummary
 }>()
 
 defineEmits<{ open: [id: number, name: string] }>()
 
 const prefetch = usePrefetchItemSources()
+const { isMaterialInPlanner } = usePlannerPresence()
 
 /** Estrelas de raridade (máx 3 para não poluir) */
 function rarityDots(rarity: number | null): number {
@@ -23,9 +25,11 @@ function rarityDots(rarity: number | null): number {
 <template>
   <button
     class="material-card"
+    :class="{ 'material-card--planned': isMaterialInPlanner(props.item.id) }"
     @mouseenter="prefetch(item.id)"
     @click="$emit('open', item.id, item.name)"
   >
+    <span v-if="isMaterialInPlanner(props.item.id)" class="planner-mark">✓</span>
     <div class="material-card__icon-wrap">
       <ItemIcon :name="item.iconName" :color="item.iconColor" :size="40" />
     </div>
@@ -46,6 +50,7 @@ function rarityDots(rarity: number | null): number {
 
 <style scoped>
 .material-card {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -57,6 +62,28 @@ function rarityDots(rarity: number | null): number {
   text-align: left;
   width: 100%;
   transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+
+.material-card--planned {
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(196, 154, 42, 0.35);
+}
+
+.planner-mark {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--gold-glow);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .material-card:hover {

@@ -5,6 +5,7 @@
  */
 import { ref, computed, defineComponent, h, type PropType } from 'vue'
 import type { Weapon } from '@/types/weapon'
+import { usePlannerPresence } from '@/composables/usePlannerPresence'
 
 const props = defineProps<{
   root: Weapon
@@ -14,6 +15,7 @@ const props = defineProps<{
 const emit = defineEmits<{ select: [w: Weapon]; openModal: [w: Weapon] }>()
 
 const selectedId      = ref<number | null>(null)
+const { isEquipmentInPlanner } = usePlannerPresence()
 
 // Retorna os materiais relevantes: craft se existir, senão upgrade
 // ── Build tree ────────────────────────────────────────────────────────────────
@@ -72,6 +74,7 @@ const TreeNode = defineComponent({
         const w          = node.weapon
         const isLast     = idx === nodes.length - 1
         const isSelected = w.id === props.selectedId
+        const isPlanned  = isEquipmentInPlanner(w.id, 'weapon')
         const hasKids    = node.children.length > 0
 
         const connector = depth === 0
@@ -79,7 +82,7 @@ const TreeNode = defineComponent({
           : h('span', { class: 'tree-connector' }, isLast ? '└─' : '├─')
 
         const nodeBtn = h('button', {
-          class: ['tree-node', isSelected && 'tree-node--active'],
+          class: ['tree-node', isSelected && 'tree-node--active', isPlanned && 'tree-node--planned'],
           onClick: () => emit('select', w),
         }, [
           // rarity
@@ -99,6 +102,7 @@ const TreeNode = defineComponent({
           ...[w.slot1, w.slot2, w.slot3]
             .filter((s): s is number => !!s && s > 0)
             .map(s => h('img', { src: `/icons/armor/slot${Math.min(s, 4)}.png`, alt: `[${s}]`, class: 'tn-slot-img' })),
+          isPlanned ? h('span', { class: 'tn-planned' }, '✓') : null,
           // final star
           w.isFinal ? h('span', { class: 'tn-final' }, '★') : null,
         ])
@@ -195,6 +199,11 @@ const TreeNode = defineComponent({
   border-color: var(--gold) !important;
 }
 
+:deep(.tree-node--planned) {
+  border-color: var(--gold);
+  box-shadow: inset 0 0 0 1px rgba(196, 154, 42, 0.25);
+}
+
 :deep(.tn-rarity) {
   font-family: var(--font-heading);
   font-size: 10px;
@@ -219,6 +228,7 @@ const TreeNode = defineComponent({
 :deep(.tn-el-img)  { width: 13px; height: 13px; object-fit: contain; }
 :deep(.tn-slot-img){ width: 13px; height: 13px; object-fit: contain; flex-shrink: 0; }
 :deep(.tn-final) { font-size: 10px; color: var(--gold); flex-shrink: 0; }
+:deep(.tn-planned) { font-size: 11px; color: #5cb85c; font-weight: 700; flex-shrink: 0; }
 
 /* ── Detalhe ── */
 .weapon-detail {
