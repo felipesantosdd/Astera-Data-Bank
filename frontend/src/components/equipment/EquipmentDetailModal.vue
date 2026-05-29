@@ -7,6 +7,7 @@ import { armorPieceImageUrl, armorSlotIcon } from '@/utils/armorImageUrl'
 import { useItems } from '@/composables/useItems'
 import ItemIcon from '@/components/ItemIcon.vue'
 import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
+import SkillTooltip from '@/components/SkillTooltip.vue'
 
 const props = defineProps<{
   weapon: Weapon | null
@@ -223,9 +224,18 @@ function onOverlayClick(e: MouseEvent) {
               </div>
 
               <div v-if="piece.skills.length" class="piece-skills">
-                <span v-for="sk in piece.skills" :key="sk.name" class="skill-badge">
-                  {{ sk.name }} Lv{{ sk.level }}
-                </span>
+                <SkillTooltip
+                  v-for="sk in piece.skills"
+                  :key="`${piece.id}-${sk.name}`"
+                  :name="sk.name"
+                  :description="sk.description"
+                  :current-level="sk.level"
+                  :levels="sk.levels"
+                >
+                  <span class="skill-badge">
+                    {{ sk.name }}<span v-if="sk.level"> Lv{{ sk.level }}</span>
+                  </span>
+                </SkillTooltip>
               </div>
 
               <div v-if="piece.materials.length" class="mat-chip-list mat-chip-list--sm">
@@ -551,6 +561,14 @@ function onOverlayClick(e: MouseEvent) {
   border-radius: 4px;
   padding: 2px 8px;
   color: var(--text-muted);
+  cursor: help;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.skill-badge:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-glow);
 }
 
 /* ── Set bonus ── */

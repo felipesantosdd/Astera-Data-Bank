@@ -1,36 +1,111 @@
 <script setup lang="ts">
+import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
 import type { SkillLevel } from '@/types/armor'
 
-defineProps<{
-  name:         string
+const props = defineProps<{
+  name: string
   description?: string | null
-  /** Level concedido pela peça/bônus atual — usado pra destacar */
   currentLevel?: number | null
-  levels:       SkillLevel[]
+  levels: SkillLevel[]
 }>()
+
+const trigger = ref<HTMLElement | null>(null)
+const isOpen = ref(false)
+const anchor = ref({ left: 0, top: 0 })
+
+const popStyle = computed(() => ({
+  left: `${anchor.value.left}px`,
+  top: `${anchor.value.top}px`,
+}))
+
+const arrowStyle = computed(() => ({
+  left: `${anchor.value.left}px`,
+  top: `${anchor.value.top}px`,
+}))
+
+function updatePosition() {
+  const el = trigger.value
+  if (!el) return
+
+  const rect = el.getBoundingClientRect()
+  const halfWidth = Math.min(170, Math.max(120, (window.innerWidth - 24) / 2))
+  const left = Math.min(
+    Math.max(rect.left + rect.width / 2, halfWidth + 12),
+    window.innerWidth - halfWidth - 12,
+  )
+
+  anchor.value = {
+    left,
+    top: Math.max(12, rect.top - 10),
+  }
+}
+
+function addListeners() {
+  window.addEventListener('resize', updatePosition)
+  window.addEventListener('scroll', updatePosition, true)
+}
+
+function removeListeners() {
+  window.removeEventListener('resize', updatePosition)
+  window.removeEventListener('scroll', updatePosition, true)
+}
+
+async function openTooltip() {
+  isOpen.value = true
+  await nextTick()
+  updatePosition()
+  addListeners()
+}
+
+function closeTooltip() {
+  isOpen.value = false
+  removeListeners()
+}
+
+onBeforeUnmount(removeListeners)
 </script>
 
 <template>
-  <span class="tt">
+  <span
+    ref="trigger"
+    class="tt"
+    tabindex="0"
+    @mouseenter="openTooltip"
+    @mouseleave="closeTooltip"
+    @focusin="openTooltip"
+    @focusout="closeTooltip"
+  >
     <slot />
+  </span>
 
-    <span class="tt__pop">
-      <span class="tt__title">{{ name }}</span>
-      <span v-if="description" class="tt__desc">{{ description }}</span>
+  <Teleport to="body">
+    <span
+      v-if="isOpen"
+      class="tt__pop"
+      :style="popStyle"
+    >
+      <span class="tt__title">{{ props.name }}</span>
+      <span v-if="props.description" class="tt__desc">{{ props.description }}</span>
 
-      <span v-if="levels.length > 0" class="tt__levels">
+      <span v-if="props.levels.length > 0" class="tt__levels">
         <span
-          v-for="lv in levels"
+          v-for="lv in props.levels"
           :key="lv.level"
           class="tt__level"
-          :class="{ 'tt__level--current': currentLevel === lv.level }"
+          :class="{ 'tt__level--current': props.currentLevel === lv.level }"
         >
           <strong>Lv{{ lv.level }}</strong>
           <span class="tt__level-desc">{{ lv.description }}</span>
         </span>
       </span>
     </span>
-  </span>
+
+    <span
+      v-if="isOpen"
+      class="tt__arrow"
+      :style="arrowStyle"
+    />
+  </Teleport>
 </template>
 
 <style scoped>
@@ -38,20 +113,23 @@ defineProps<{
   position: relative;
   cursor: help;
   border-bottom: 1px dotted var(--text-muted);
+  outline: none;
+}
+
+.tt:focus-visible {
+  border-bottom-color: var(--gold);
 }
 
 .tt__pop {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
+  position: fixed;
+  transform: translate(-50%, -100%);
 
   display: flex;
   flex-direction: column;
   gap: 6px;
 
   width: max-content;
-  max-width: 340px;
+  max-width: min(340px, calc(100vw - 24px));
   padding: 10px 14px;
 
   background: var(--surface);
@@ -60,9 +138,7 @@ defineProps<{
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
 
   pointer-events: none;
-  opacity: 0;
-  z-index: 50;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 5000;
 
   font-family: var(--font-body);
   font-weight: 400;
@@ -75,28 +151,16 @@ defineProps<{
   color: var(--text);
 }
 
-/* Setinha apontando pra baixo */
-.tt::after {
+.tt__arrow {
   content: '';
-  position: absolute;
-  bottom: calc(100% + 2px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
+  position: fixed;
+  transform: translate(-50%, -2px);
   border: 6px solid transparent;
   border-top-color: var(--gold);
   pointer-events: none;
-  opacity: 0;
-  z-index: 51;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 5001;
 }
 
-.tt:hover .tt__pop,
-.tt:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* ── Conteúdo ──────────────────────────────────────────────────────── */
 .tt__title {
   font-family: var(--font-heading);
   font-size: 13px;
@@ -137,11 +201,16 @@ defineProps<{
   color: var(--text-dim);
 }
 
-.tt__level-desc { flex: 1; }
+.tt__level-desc {
+  flex: 1;
+}
 
 .tt__level--current {
   background: var(--gold-glow);
   color: var(--text);
 }
-.tt__level--current strong { color: var(--gold); }
+
+.tt__level--current strong {
+  color: var(--gold);
+}
 </style>
