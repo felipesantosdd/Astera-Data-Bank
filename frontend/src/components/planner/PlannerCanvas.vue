@@ -2,10 +2,12 @@
 import { computed, markRaw } from 'vue'
 import {
   VueFlow,
+  MarkerType,
   type NodeChange,
   type EdgeChange,
   type Connection,
   type EdgeMouseEvent,
+  type NodeTypesObject,
 } from '@vue-flow/core'
 import { usePlannerStore } from '@/stores/plannerStore'
 import MonsterPlannerNode   from './nodes/MonsterPlannerNode.vue'
@@ -15,11 +17,11 @@ import EquipmentPlannerNode  from './nodes/EquipmentPlannerNode.vue'
 
 const store = usePlannerStore()
 
-const nodeTypes = {
-  monster:           markRaw(MonsterPlannerNode),
-  materialChecklist: markRaw(MaterialChecklistNode),
-  note:              markRaw(NotePlannerNode),
-  equipment:         markRaw(EquipmentPlannerNode),
+const nodeTypes: NodeTypesObject = {
+  monster:           markRaw(MonsterPlannerNode) as NodeTypesObject[string],
+  materialChecklist: markRaw(MaterialChecklistNode) as NodeTypesObject[string],
+  note:              markRaw(NotePlannerNode) as NodeTypesObject[string],
+  equipment:         markRaw(EquipmentPlannerNode) as NodeTypesObject[string],
 }
 
 const flowNodes = computed(() =>
@@ -38,7 +40,7 @@ const flowEdges = computed(() =>
     target:    e.target,
     label:     e.label,
     style:     { stroke: '#e74c3c', strokeWidth: 2, cursor: 'pointer' },
-    markerEnd: { type: 'arrowclosed', color: '#e74c3c' },
+    markerEnd: { type: MarkerType.ArrowClosed, color: '#e74c3c' },
     class:     'planner-edge',
   })),
 )

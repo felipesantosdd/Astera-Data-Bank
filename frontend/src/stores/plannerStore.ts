@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
-import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData, ChecklistItem } from '@/types/planner'
+import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData } from '@/types/planner'
 
 const STORAGE_KEY = 'astera-planner'
 

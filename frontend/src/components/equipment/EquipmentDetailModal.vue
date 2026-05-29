@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { Weapon } from '@/types/weapon'
-import type { ArmorSet, ArmorPiece } from '@/types/armor'
+import type { ArmorSet } from '@/types/armor'
 import { usePlannerStore } from '@/stores/plannerStore'
 import { armorPieceImageUrl, armorSlotIcon } from '@/utils/armorImageUrl'
 
@@ -13,7 +13,7 @@ const props = defineProps<{
 const emit = defineEmits<{ close: [] }>()
 
 const plannerStore = usePlannerStore()
-const plannerFeedback = ref<'added' | 'exists' | null>(null)
+// plannerFeedback não é mais usado (feedback é por peça via pieceFeedback)
 
 const isWeapon = computed(() => !!props.weapon)
 const title    = computed(() => props.weapon?.name ?? props.armor?.name ?? '')
