@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import MonsterCard from '@/components/MonsterCard.vue'
+import PaginationControls from '@/components/PaginationControls.vue'
+import SearchInput from '@/components/SearchInput.vue'
 import { useMonsters } from '@/composables/useMonsters'
 import { useUI } from '@/composables/useUI'
 
@@ -105,24 +107,7 @@ function goTo(page: number) {
     <!-- Barra de busca e filtros -->
     <div v-if="!isLoading && !isError" class="filter-bar">
       <!-- Busca por nome -->
-      <div class="filter-bar__search">
-        <svg class="filter-bar__search-icon" viewBox="0 0 20 20" fill="none">
-          <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M13 13l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-        <input
-          v-model="search"
-          class="filter-bar__input"
-          type="text"
-          :placeholder="t.listing.searchPlaceholder"
-        />
-        <button
-          v-if="search"
-          class="filter-bar__clear-input"
-          @click="search = ''"
-          aria-label="Clear search"
-        >×</button>
-      </div>
+      <SearchInput v-model="search" :placeholder="t.listing.searchPlaceholder" />
 
       <!-- Filtro por elemento -->
       <div class="filter-bar__select-wrap">
@@ -181,24 +166,10 @@ function goTo(page: number) {
       </div>
 
       <!-- Paginação -->
-      <div v-if="totalPages > 1" class="pagination">
-        <button class="pagination__btn" :disabled="currentPage === 1" @click="goTo(currentPage - 1)">‹</button>
-        <template v-for="p in totalPages" :key="p">
-          <template v-if="p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1">
-            <button
-              class="pagination__btn"
-              :class="{ 'pagination__btn--active': p === currentPage }"
-              @click="goTo(p)"
-            >{{ p }}</button>
-          </template>
-          <span v-else-if="p === 2 && currentPage > 4"           class="pagination__ellipsis">…</span>
-          <span v-else-if="p === totalPages - 1 && currentPage < totalPages - 3" class="pagination__ellipsis">…</span>
-        </template>
-        <button class="pagination__btn" :disabled="currentPage === totalPages" @click="goTo(currentPage + 1)">›</button>
-      </div>
+      <PaginationControls :current-page="currentPage" :total-pages="totalPages" @go-to="goTo" />
 
       <!-- Estado vazio -->
-      <div v-else-if="filtered.length === 0" class="monsters-page__empty">
+      <div v-if="filtered.length === 0" class="monsters-page__empty">
         <p class="monsters-page__empty-title">{{ t.listing.noResults }}</p>
         <p class="monsters-page__empty-hint">{{ t.listing.noResultsHint }}</p>
         <button class="filter-bar__clear-btn filter-bar__clear-btn--center" @click="clearFilters">

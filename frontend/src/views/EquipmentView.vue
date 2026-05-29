@@ -9,6 +9,8 @@ import type { ArmorSet } from '@/types/armor'
 import WeaponTypeIcon    from '@/components/equipment/WeaponTypeIcon.vue'
 import WeaponTree        from '@/components/equipment/WeaponTree.vue'
 import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal.vue'
+import PaginationControls from '@/components/PaginationControls.vue'
+import SearchInput from '@/components/SearchInput.vue'
 
 const { t } = useUI()
 
@@ -231,10 +233,7 @@ const armorModal = ref<ArmorSet | null>(null)
           <h2 class="type-header__name">{{ weaponLabel(activeType) }}</h2>
           <span class="type-header__count">{{ filteredRoots.length }} linhas</span>
         </div>
-        <div class="eq-search">
-          <span class="eq-search__icon">⌕</span>
-          <input v-model="searchWeapon" class="eq-search__input" placeholder="Buscar arma..." />
-        </div>
+        <SearchInput v-model="searchWeapon" placeholder="Buscar arma..." />
       </div>
 
       <!-- Loading -->
@@ -294,17 +293,7 @@ const armorModal = ref<ArmorSet | null>(null)
       </div>
 
       <!-- Paginação de linhas de arma -->
-      <div v-if="weaponTotalPages > 1" class="weapon-pagination">
-        <button class="pagination__btn" :disabled="weaponPage === 1" @click="goToWeaponPage(weaponPage - 1)">‹</button>
-        <template v-for="p in weaponTotalPages" :key="p">
-          <template v-if="p === 1 || p === weaponTotalPages || Math.abs(p - weaponPage) <= 1">
-            <button class="pagination__btn" :class="{ 'pagination__btn--active': p === weaponPage }" @click="goToWeaponPage(p)">{{ p }}</button>
-          </template>
-          <span v-else-if="p === 2 && weaponPage > 4" class="pagination__ellipsis">…</span>
-          <span v-else-if="p === weaponTotalPages - 1 && weaponPage < weaponTotalPages - 3" class="pagination__ellipsis">…</span>
-        </template>
-        <button class="pagination__btn" :disabled="weaponPage === weaponTotalPages" @click="goToWeaponPage(weaponPage + 1)">›</button>
-      </div>
+      <PaginationControls :current-page="weaponPage" :total-pages="weaponTotalPages" @go-to="goToWeaponPage" />
 
     </template>
 
@@ -323,10 +312,7 @@ const armorModal = ref<ArmorSet | null>(null)
       </div>
 
       <div class="armor-toolbar">
-        <div class="eq-search">
-          <span class="eq-search__icon">⌕</span>
-          <input v-model="searchArmor" class="eq-search__input" :placeholder="`Buscar set ${armorRankTab}...`" />
-        </div>
+        <SearchInput v-model="searchArmor" :placeholder="`Buscar set ${armorRankTab}...`" />
         <span class="armor-count">{{ filteredArmor.length }} sets</span>
       </div>
 
@@ -401,17 +387,7 @@ const armorModal = ref<ArmorSet | null>(null)
       </div>
 
       <!-- Paginação de armaduras -->
-      <div v-if="armorTotalPages > 1" class="weapon-pagination">
-        <button class="pagination__btn" :disabled="armorPage === 1" @click="goToArmorPage(armorPage - 1)">‹</button>
-        <template v-for="p in armorTotalPages" :key="p">
-          <template v-if="p === 1 || p === armorTotalPages || Math.abs(p - armorPage) <= 1">
-            <button class="pagination__btn" :class="{ 'pagination__btn--active': p === armorPage }" @click="goToArmorPage(p)">{{ p }}</button>
-          </template>
-          <span v-else-if="p === 2 && armorPage > 4" class="pagination__ellipsis">…</span>
-          <span v-else-if="p === armorTotalPages - 1 && armorPage < armorTotalPages - 3" class="pagination__ellipsis">…</span>
-        </template>
-        <button class="pagination__btn" :disabled="armorPage === armorTotalPages" @click="goToArmorPage(armorPage + 1)">›</button>
-      </div>
+      <PaginationControls :current-page="armorPage" :total-pages="armorTotalPages" @go-to="goToArmorPage" />
 
       <EquipmentDetailModal
         v-if="armorModal"

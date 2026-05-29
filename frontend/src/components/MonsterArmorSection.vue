@@ -4,10 +4,11 @@ import { useMonsterArmor } from '@/composables/useMonsterArmor'
 import { useUI } from '@/composables/useUI'
 import { useItems } from '@/composables/useItems'
 import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
-import ItemIcon from '@/components/ItemIcon.vue'
 import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal.vue'
 import SkillTooltip from '@/components/SkillTooltip.vue'
 import InfoTooltip from '@/components/InfoTooltip.vue'
+import SkillBadgeList from '@/components/SkillBadgeList.vue'
+import MaterialChipList from '@/components/MaterialChipList.vue'
 import type { ArmorSet, ArmorPiece, ArmorMaterial } from '@/types/armor'
 import { armorPieceImageUrl, armorSlotIcon } from '@/utils/armorImageUrl'
 
@@ -265,39 +266,18 @@ function resistances(p: ArmorPiece): Array<{ key: string, value: number }> {
               <!-- Skills -->
               <div v-if="piece.skills.length > 0" class="piece__skills">
                 <p class="piece__sub">{{ t.armor.skills }}</p>
-                <ul>
-                  <li v-for="(sk, i) in piece.skills" :key="i">
-                    <span class="skill-dot">▸</span>
-                    <SkillTooltip
-                      :name="sk.name"
-                      :description="sk.description"
-                      :current-level="sk.level"
-                      :levels="sk.levels"
-                    >
-                      <span class="skill-name">{{ sk.name }}</span>
-                    </SkillTooltip>
-                    <span class="skill-lvl">lv{{ sk.level }}</span>
-                  </li>
-                </ul>
+                <SkillBadgeList :skills="piece.skills" />
               </div>
 
               <!-- Materiais -->
-              <details v-if="piece.materials.length > 0" class="piece__mats" @click.stop>
-                <summary>{{ t.armor.materials }} ({{ piece.materials.length }})</summary>
-                <ul>
-                  <li
-                    v-for="(m, i) in piece.materials"
-                    :key="i"
-                    class="mat-item"
-                    @click="openItemSources(m)"
-                  >
-                    <ItemIcon :name="itemMeta(m.itemId)?.iconName ?? null" :color="itemMeta(m.itemId)?.iconColor ?? null" :size="20" />
-                    <span class="mat-qty">×{{ m.quantity }}</span>
-                    <span class="mat-name">{{ m.name }}</span>
-                    <span class="mat-arrow">→</span>
-                  </li>
-                </ul>
-              </details>
+              <div v-if="piece.materials.length > 0" class="piece__mats" @click.stop>
+                <p class="piece__sub">{{ t.armor.materials }}</p>
+                <MaterialChipList
+                  size="sm"
+                  :materials="piece.materials.map(m => ({ ...m, iconName: itemMeta(m.itemId)?.iconName, iconColor: itemMeta(m.itemId)?.iconColor }))"
+                  @click="openItemSources"
+                />
+              </div>
             </article>
           </div>
         </div>

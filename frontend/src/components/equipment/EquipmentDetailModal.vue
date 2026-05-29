@@ -5,9 +5,9 @@ import type { ArmorSet } from '@/types/armor'
 import { usePlannerStore } from '@/stores/plannerStore'
 import { armorPieceImageUrl, armorSlotIcon } from '@/utils/armorImageUrl'
 import { useItems } from '@/composables/useItems'
-import ItemIcon from '@/components/ItemIcon.vue'
 import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
-import SkillTooltip from '@/components/SkillTooltip.vue'
+import SkillBadgeList from '@/components/SkillBadgeList.vue'
+import MaterialChipList from '@/components/MaterialChipList.vue'
 
 const props = defineProps<{
   weapon: Weapon | null
@@ -175,18 +175,10 @@ function onOverlayClick(e: MouseEvent) {
             <!-- Materiais de craft -->
             <section v-if="weapon.craftMaterials.length" class="materials-section">
               <h3 class="section-title">Materiais de Craft</h3>
-              <div class="mat-chip-list">
-                <button
-                  v-for="m in weapon.craftMaterials"
-                  :key="m.itemId"
-                  class="mat-chip"
-                  @click="openMaterialSources(m)"
-                >
-                  <ItemIcon :name="itemMeta(m.itemId)?.iconName ?? null" :color="itemMeta(m.itemId)?.iconColor ?? null" :size="24" />
-                  <span class="mat-name">{{ m.name }}</span>
-                  <span class="mat-qty">×{{ m.quantity }}</span>
-                </button>
-              </div>
+              <MaterialChipList
+                :materials="weapon.craftMaterials.map(m => ({ ...m, iconName: itemMeta(m.itemId)?.iconName, iconColor: itemMeta(m.itemId)?.iconColor }))"
+                @click="openMaterialSources"
+              />
             </section>
           </template>
 
@@ -223,33 +215,13 @@ function onOverlayClick(e: MouseEvent) {
                 </div>
               </div>
 
-              <div v-if="piece.skills.length" class="piece-skills">
-                <SkillTooltip
-                  v-for="sk in piece.skills"
-                  :key="`${piece.id}-${sk.name}`"
-                  :name="sk.name"
-                  :description="sk.description"
-                  :current-level="sk.level"
-                  :levels="sk.levels"
-                >
-                  <span class="skill-badge">
-                    {{ sk.name }}<span v-if="sk.level"> Lv{{ sk.level }}</span>
-                  </span>
-                </SkillTooltip>
-              </div>
+              <SkillBadgeList :skills="piece.skills" />
 
-              <div v-if="piece.materials.length" class="mat-chip-list mat-chip-list--sm">
-                <button
-                  v-for="m in piece.materials"
-                  :key="m.itemId"
-                  class="mat-chip"
-                  @click="openMaterialSources(m)"
-                >
-                  <ItemIcon :name="itemMeta(m.itemId)?.iconName ?? null" :color="itemMeta(m.itemId)?.iconColor ?? null" :size="22" />
-                  <span class="mat-name">{{ m.name }}</span>
-                  <span class="mat-qty">×{{ m.quantity }}</span>
-                </button>
-              </div>
+              <MaterialChipList
+                size="sm"
+                :materials="piece.materials.map(m => ({ ...m, iconName: itemMeta(m.itemId)?.iconName, iconColor: itemMeta(m.itemId)?.iconColor }))"
+                @click="openMaterialSources"
+              />
 
               <!-- Botão por peça -->
               <div class="piece-planner">
