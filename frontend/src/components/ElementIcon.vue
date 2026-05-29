@@ -48,15 +48,15 @@ const ELEM_COLOR: Record<string, string> = {
 }
 
 .elem-icon {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .elem-icon__atk {
   font-family: var(--font-heading);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
