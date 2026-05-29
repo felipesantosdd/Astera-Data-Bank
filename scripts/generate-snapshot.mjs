@@ -51,6 +51,7 @@ async function main() {
   console.log(`Limpando ${OUT}...`)
   await rm(OUT, { recursive: true, force: true })
 
+  // ── Monstros ──
   console.log('Gerando listas de monstros...')
   const monstersByLang = {}
   for (const lang of LANGS) {
@@ -76,7 +77,6 @@ async function main() {
       const drops = await fetchJson(`${API}/monsters/${m.id}/drops?lang=${lang}`)
       await writeJson(`${OUT}/monsters/${m.id}/drops-${lang}.json`, drops)
 
-      // Coleta IDs de item só uma vez (a partir de 'en')
       if (lang === 'en') {
         for (const set of armor) {
           for (const piece of set.pieces) {
@@ -92,6 +92,35 @@ async function main() {
     }
   }
 
+  // ── Armaduras global ──
+  console.log('Gerando listagem global de armaduras...')
+  await pool(LANGS, async (lang) => {
+    const armor = await fetchJson(`${API}/armor?lang=${lang}`)
+    await writeJson(`${OUT}/armor-${lang}.json`, armor)
+    if (lang === 'en') {
+      for (const set of armor) {
+        for (const piece of set.pieces) {
+          for (const mat of piece.materials) itemIds.add(mat.itemId)
+        }
+      }
+    }
+  })
+  console.log(`  ${LANGS.length} idiomas`)
+
+  // ── Armas ──
+  console.log('Gerando listagem de armas...')
+  await pool(LANGS, async (lang) => {
+    const weapons = await fetchJson(`${API}/weapons?lang=${lang}`)
+    await writeJson(`${OUT}/weapons-${lang}.json`, weapons)
+    if (lang === 'en') {
+      for (const w of weapons) {
+        for (const mat of w.craftMaterials ?? []) itemIds.add(mat.itemId)
+      }
+    }
+  })
+  console.log(`  ${LANGS.length} idiomas`)
+
+  // ── Items (sources) ──
   console.log(`Itens únicos encontrados: ${itemIds.size}`)
   console.log('Gerando sources de cada item...')
   done = 0

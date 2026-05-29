@@ -3,7 +3,7 @@
  * Idiomas não cobertos caem em inglês.
  */
 export interface UIStrings {
-  nav: { monsters: string; materials: string }
+  nav: { monsters: string; materials: string; equipment: string; planner: string }
   materials: {
     title: string
     subtitle: string
@@ -198,7 +198,7 @@ export interface UIStrings {
 }
 
 const en: UIStrings = {
-  nav: { monsters: 'Monsters', materials: 'Materials' },
+  nav: { monsters: 'Monsters', materials: 'Materials', equipment: 'Equipment', planner: 'Planner' },
   materials: {
     title: 'Materials',
     subtitle: 'Materials & Resources',
@@ -381,7 +381,7 @@ const en: UIStrings = {
 }
 
 const pt: UIStrings = {
-  nav: { monsters: 'Monstros', materials: 'Materiais' },
+  nav: { monsters: 'Monstros', materials: 'Materiais', equipment: 'Forja', planner: 'Planner' },
   materials: {
     title: 'Materiais',
     subtitle: 'Materiais & Recursos',

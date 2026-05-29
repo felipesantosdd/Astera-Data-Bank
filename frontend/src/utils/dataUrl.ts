@@ -37,4 +37,14 @@ export const dataUrl = {
     STATIC
       ? `/data/items-${lang}.json`
       : `/api/items?lang=${lang}`,
+
+  weapons: (lang: string) =>
+    STATIC
+      ? `/data/weapons-${lang}.json`
+      : `/api/weapons?lang=${lang}`,
+
+  armor: (lang: string) =>
+    STATIC
+      ? `/data/armor-${lang}.json`
+      : `/api/armor?lang=${lang}`,
 }

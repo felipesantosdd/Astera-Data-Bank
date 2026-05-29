@@ -24,6 +24,16 @@ public interface ArmorRepository extends JpaRepository<Armorset, Integer> {
             """)
     List<ArmorSetRow> findSetsByMonsterId(@Param("monsterId") Integer monsterId, @Param("lang") String lang);
 
+    @Query("""
+            SELECT new com.asteradatabank.armor.dto.ArmorSetRow(
+                s.id, st.name, s.rank, s.armorsetBonusId
+            )
+            FROM Armorset s
+            JOIN ArmorsetText st ON st.id.armorsetId = s.id AND st.id.langId = :lang
+            ORDER BY s.rank ASC, s.id ASC
+            """)
+    List<ArmorSetRow> findAllSets(@Param("lang") String lang);
+
     /**
      * Peças de armadura de um conjunto de sets.
      */

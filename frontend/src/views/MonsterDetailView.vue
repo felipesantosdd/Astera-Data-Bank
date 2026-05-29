@@ -8,6 +8,7 @@ import ElementBadge from '@/components/ElementBadge.vue'
 import MonsterArmorSection from '@/components/MonsterArmorSection.vue'
 import MonsterDropsSection from '@/components/MonsterDropsSection.vue'
 import type { Hitzone } from '@/types/monster'
+import { usePlannerStore } from '@/stores/plannerStore'
 
 // ── Tabs ──────────────────────────────────────────────────────────────────
 type TabKey = 'combat' | 'drops' | 'equipment' | 'stats'
@@ -92,6 +93,22 @@ const initials   = computed(() =>
 
 // Reseta o fallback ao mudar de monstro ou idioma (mesmo problema do MonsterCard)
 watch([id, () => monster.value?.name], () => { imgFailed.value = false })
+
+// ── Planner ───────────────────────────────────────────────────────────────────
+const plannerStore = usePlannerStore()
+const plannerFeedback = ref<'added' | 'exists' | null>(null)
+
+function addToPlanner() {
+  if (!monster.value) return
+  const added = plannerStore.addMonsterNode({
+    monsterId: monster.value.id,
+    name: monster.value.name,
+    icon: null,
+    ecology: monster.value.ecology ?? '',
+  })
+  plannerFeedback.value = added ? 'added' : 'exists'
+  setTimeout(() => { plannerFeedback.value = null }, 2500)
+}
 </script>
 
 <template>
@@ -131,6 +148,22 @@ watch([id, () => monster.value?.name], () => { imgFailed.value = false })
           <h1 class="hero__title">{{ monster.name }}</h1>
           <p v-if="monster.ecology" class="hero__ecology">{{ monster.ecology }}</p>
           <p v-if="monster.description" class="hero__description">{{ monster.description }}</p>
+
+          <!-- Planner CTA -->
+          <div class="hero__planner">
+            <button class="planner-add-btn" @click="addToPlanner">
+              ＋ Adicionar ao planejamento
+            </button>
+            <Transition name="fade">
+              <span
+                v-if="plannerFeedback"
+                class="planner-add-feedback"
+                :class="{ 'planner-add-feedback--exists': plannerFeedback === 'exists' }"
+              >
+                {{ plannerFeedback === 'added' ? '✓ Monstro adicionado ao planejamento' : '⚠ Já está no planejamento' }}
+              </span>
+            </Transition>
+          </div>
         </div>
       </section>
 
@@ -420,6 +453,52 @@ watch([id, () => monster.value?.name], () => { imgFailed.value = false })
   color: var(--text);
   margin: 0;
   max-width: 70ch;
+}
+
+/* ── Planner CTA ─────────────────────────────────────────────────────── */
+.hero__planner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.planner-add-btn {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.planner-add-btn:hover {
+  background: var(--gold-glow);
+  color: var(--gold-light);
+}
+
+.planner-add-feedback {
+  font-size: 12px;
+  color: #5cb85c;
+}
+
+.planner-add-feedback--exists {
+  color: var(--text-muted);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 /* ── Divisor dourado ─────────────────────────────────────────────────── */
