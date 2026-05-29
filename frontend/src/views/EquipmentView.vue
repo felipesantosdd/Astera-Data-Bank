@@ -155,16 +155,30 @@ function lineElement(rootId: number): { name: string; hidden: boolean } | null {
 }
 
 // ── Filtros armadura ──────────────────────────────────────────────────────────
-const searchArmor   = ref('')
-const armorRankTab  = ref<'LR' | 'HR' | 'MR'>('LR')
+const searchArmor    = ref('')
+const armorRankTab   = ref<'LR' | 'HR' | 'MR'>('LR')
+const armorElemFilter = ref('')
 const RANKS = ['LR', 'HR', 'MR'] as const
+const ELEM_KEYS = ['fire', 'water', 'thunder', 'ice', 'dragon'] as const
+const ELEM_LABELS: Record<string, string> = {
+  fire: 'Fogo', water: 'Água', thunder: 'Trovão', ice: 'Gelo', dragon: 'Dragão',
+}
+
+function setResistance(set: import('@/types/armor').ArmorSet, elem: string): number {
+  return set.pieces.reduce((sum, p) => sum + ((p as Record<string, unknown>)[elem] as number ?? 0), 0)
+}
 
 const filteredArmor = computed(() => {
   const q = searchArmor.value.toLowerCase()
-  return (armorSets.value ?? []).filter(s => {
+  let list = (armorSets.value ?? []).filter(s => {
     if (s.rank !== armorRankTab.value) return false
     return !q || s.name.toLowerCase().includes(q)
   })
+  if (armorElemFilter.value) {
+    const elem = armorElemFilter.value
+    list = [...list].sort((a, b) => setResistance(b, elem) - setResistance(a, elem))
+  }
+  return list
 })
 
 // ── Paginação de armaduras ────────────────────────────────────────────────────
@@ -184,8 +198,9 @@ function goToArmorPage(p: number) {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-// ── Modal de armadura ─────────────────────────────────────────────────────────
-const armorModal = ref<ArmorSet | null>(null)
+// ── Modais ────────────────────────────────────────────────────────────────────
+const armorModal  = ref<ArmorSet | null>(null)
+const weaponModal = ref<import('@/types/weapon').Weapon | null>(null)
 </script>
 
 <template>
@@ -286,6 +301,7 @@ const armorModal = ref<ArmorSet | null>(null)
               <WeaponTree
                 :root="root"
                 :all="weaponsOfActiveType"
+                @open-modal="w => { weaponModal = w; openLineId = null }"
               />
             </div>
           </Transition>
@@ -294,6 +310,14 @@ const armorModal = ref<ArmorSet | null>(null)
 
       <!-- Paginação de linhas de arma -->
       <PaginationControls :current-page="weaponPage" :total-pages="weaponTotalPages" @go-to="goToWeaponPage" />
+
+      <!-- Modal de detalhe da arma -->
+      <EquipmentDetailModal
+        v-if="weaponModal"
+        :weapon="weaponModal"
+        :armor="null"
+        @close="weaponModal = null"
+      />
 
     </template>
 
@@ -307,12 +331,20 @@ const armorModal = ref<ArmorSet | null>(null)
           :key="r"
           class="armor-rank-tab"
           :class="[`armor-rank-tab--${r.toLowerCase()}`, { 'armor-rank-tab--active': armorRankTab === r }]"
-          @click="armorRankTab = r; searchArmor = ''; armorPage = 1"
+          @click="armorRankTab = r; searchArmor = ''; armorElemFilter = ''; armorPage = 1"
         >{{ r }}</button>
       </div>
 
       <div class="armor-toolbar">
         <SearchInput v-model="searchArmor" :placeholder="`Buscar set ${armorRankTab}...`" />
+        <select
+          v-model="armorElemFilter"
+          class="armor-elem-select"
+          @change="armorPage = 1"
+        >
+          <option value="">Todos elementos</option>
+          <option v-for="e in ELEM_KEYS" :key="e" :value="e">↑ {{ ELEM_LABELS[e] }}</option>
+        </select>
         <span class="armor-count">{{ filteredArmor.length }} sets</span>
       </div>
 
@@ -892,6 +924,20 @@ const armorModal = ref<ArmorSet | null>(null)
 
 .rank-pill--active { border-color: var(--gold); color: var(--gold); background: var(--gold-glow); }
 .armor-count { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+
+.armor-elem-select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 12px;
+  font-family: var(--font-heading);
+  padding: 7px 10px;
+  cursor: pointer;
+  transition: border-color .2s;
+  flex-shrink: 0;
+}
+.armor-elem-select:focus { outline: none; border-color: var(--gold); }
 
 .armor-list {
   border: 1px solid var(--border);

@@ -174,9 +174,18 @@ function onOverlayClick(e: MouseEvent) {
 
             <!-- Materiais de craft -->
             <section v-if="weapon.craftMaterials.length" class="materials-section">
-              <h3 class="section-title">Materiais de Craft</h3>
+              <h3 class="section-title">Craft (do zero)</h3>
               <MaterialChipList
                 :materials="weapon.craftMaterials.map(m => ({ ...m, iconName: itemMeta(m.itemId)?.iconName, iconColor: itemMeta(m.itemId)?.iconColor }))"
+                @click="openMaterialSources"
+              />
+            </section>
+
+            <!-- Materiais de upgrade -->
+            <section v-if="weapon.upgradeMaterials?.length" class="materials-section">
+              <h3 class="section-title">Upgrade</h3>
+              <MaterialChipList
+                :materials="weapon.upgradeMaterials.map(m => ({ ...m, iconName: itemMeta(m.itemId)?.iconName, iconColor: itemMeta(m.itemId)?.iconColor }))"
                 @click="openMaterialSources"
               />
             </section>

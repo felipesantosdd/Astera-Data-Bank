@@ -6,17 +6,36 @@
 import { ref, computed, defineComponent, h, type PropType } from 'vue'
 import type { Weapon } from '@/types/weapon'
 import { usePlannerStore } from '@/stores/plannerStore'
+import MaterialChipList from '@/components/MaterialChipList.vue'
+import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
+import { useItems } from '@/composables/useItems'
 
 const props = defineProps<{
   root: Weapon
-  all:  Weapon[]   // todas as armas do mesmo tipo
+  all:  Weapon[]
 }>()
 
-const emit = defineEmits<{ select: [w: Weapon] }>()
+const emit = defineEmits<{ select: [w: Weapon]; openModal: [w: Weapon] }>()
 
-const selectedId    = ref<number | null>(null)
-const plannerStore  = usePlannerStore()
+const selectedId      = ref<number | null>(null)
+const plannerStore    = usePlannerStore()
 const plannerFeedback = ref<'added' | 'exists' | null>(null)
+const { data: items } = useItems()
+
+const itemById = computed(() => {
+  const map = new Map<number, { iconName: string | null; iconColor: string | null }>()
+  for (const it of items.value ?? []) map.set(it.id, { iconName: it.iconName ?? null, iconColor: it.iconColor ?? null })
+  return map
+})
+
+// Material modal state
+const selectedMaterial = ref<{ id: number; name: string; quantity: number } | null>(null)
+
+function openMaterialSources(m: { itemId: number; name: string; quantity?: number | null }) {
+  selectedMaterial.value = { id: m.itemId, name: m.name, quantity: m.quantity ?? 1 }
+}
+
+function itemMeta(itemId: number) { return itemById.value.get(itemId) }
 
 // Retorna os materiais relevantes: craft se existir, senão upgrade
 function effectiveMaterials(w: Weapon) {
@@ -64,8 +83,9 @@ const selected = computed<Weapon | null>(() =>
 )
 
 function select(w: Weapon) {
-  selectedId.value = selectedId.value === w.id ? null : w.id
+  selectedId.value = w.id
   emit('select', w)
+  emit('openModal', w)
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -150,7 +170,6 @@ const TreeNode = defineComponent({
 
 <template>
   <div class="weapon-tree">
-    <!-- Árvore -->
     <div class="weapon-tree__nodes">
       <TreeNode
         :nodes="tree"
@@ -159,109 +178,13 @@ const TreeNode = defineComponent({
       />
     </div>
 
-    <!-- Painel de detalhes inline -->
-    <Transition name="slide">
-      <div v-if="selected" class="weapon-detail">
-        <div class="wd-header">
-          <div class="wd-title-row">
-            <span class="wd-rarity" :style="{ color: selected.rarity <= 4 ? '#6abf6a' : selected.rarity <= 8 ? '#e0a040' : '#c060c0' }">
-              R{{ selected.rarity }}
-            </span>
-            <h4 class="wd-name">{{ selected.name }}</h4>
-            <span v-if="selected.isFinal" class="wd-final">FINAL</span>
-          </div>
-        </div>
-
-        <div class="wd-stats">
-          <div class="wd-stat">
-            <span class="wd-stat__lbl">Ataque</span>
-            <span class="wd-stat__val">{{ selected.attack }}</span>
-          </div>
-          <div class="wd-stat">
-            <span class="wd-stat__lbl">Afinidade</span>
-            <span
-              class="wd-stat__val"
-              :class="{ 'val-pos': selected.affinity > 0, 'val-neg': selected.affinity < 0 }"
-            >{{ selected.affinity > 0 ? '+' : '' }}{{ selected.affinity }}%</span>
-          </div>
-          <div v-if="selected.defense" class="wd-stat">
-            <span class="wd-stat__lbl">Defesa</span>
-            <span class="wd-stat__val">+{{ selected.defense }}</span>
-          </div>
-          <div v-if="selected.element1" class="wd-stat">
-            <span class="wd-stat__lbl">Elemento</span>
-            <span class="wd-stat__val" :style="{ color: ELEMENT_COLORS[selected.element1] }">
-              {{ selected.element1 }} {{ selected.element1Attack }}
-              <span v-if="selected.elementHidden" class="val-hidden">(ocult)</span>
-            </span>
-          </div>
-          <div v-if="selected.elderseal" class="wd-stat">
-            <span class="wd-stat__lbl">Elderseal</span>
-            <span class="wd-stat__val">{{ selected.elderseal }}</span>
-          </div>
-          <div class="wd-stat">
-            <span class="wd-stat__lbl">Slots</span>
-            <span class="wd-stat__val">
-              {{ [selected.slot1, selected.slot2, selected.slot3].filter(s => s > 0).map(s => `[${s}]`).join(' ') || '—' }}
-            </span>
-          </div>
-          <div v-if="selected.phial" class="wd-stat">
-            <span class="wd-stat__lbl">Phial</span>
-            <span class="wd-stat__val">{{ selected.phial }}<span v-if="selected.phialPower"> {{ selected.phialPower }}</span></span>
-          </div>
-          <div v-if="selected.shelling" class="wd-stat">
-            <span class="wd-stat__lbl">Shelling</span>
-            <span class="wd-stat__val">{{ selected.shelling }} Lv{{ selected.shellingLevel }}</span>
-          </div>
-          <div v-if="selected.kinsectBonus" class="wd-stat">
-            <span class="wd-stat__lbl">Kinsect</span>
-            <span class="wd-stat__val">{{ selected.kinsectBonus }}</span>
-          </div>
-        </div>
-
-        <!-- Materiais de craft -->
-        <div v-if="selected.craftMaterials?.length" class="wd-craft">
-          <p class="wd-craft__title">Craft (do zero)</p>
-          <ul class="wd-craft__list">
-            <li v-for="m in selected.craftMaterials" :key="m.itemId ?? m.name" class="wd-craft__item">
-              <span>{{ m.name }}</span>
-              <span class="wd-craft__qty">× {{ m.quantity }}</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Materiais de upgrade -->
-        <div v-if="selected.upgradeMaterials?.length" class="wd-craft">
-          <p class="wd-craft__title">Upgrade</p>
-          <ul class="wd-craft__list">
-            <li v-for="m in selected.upgradeMaterials" :key="m.itemId ?? m.name" class="wd-craft__item">
-              <span>{{ m.name }}</span>
-              <span class="wd-craft__qty">× {{ m.quantity }}</span>
-            </li>
-          </ul>
-        </div>
-
-        <div v-if="!selected.craftMaterials?.length && !selected.upgradeMaterials?.length" class="wd-no-mats">
-          Sem materiais disponíveis.
-        </div>
-
-        <!-- Planner -->
-        <div class="wd-planner">
-          <button
-            class="wd-planner__btn"
-            :disabled="!effectiveMaterials(selected).length"
-            @click="addToPlanner(selected)"
-          >＋ Adicionar ao Planner</button>
-          <Transition name="fade">
-            <span
-              v-if="plannerFeedback"
-              class="wd-planner__feedback"
-              :class="{ 'wd-planner__feedback--exists': plannerFeedback === 'exists' }"
-            >{{ plannerFeedback === 'added' ? '✓ Adicionado' : '⚠ Já existe' }}</span>
-          </Transition>
-        </div>
-      </div>
-    </Transition>
+    <!-- Modal de fontes do material -->
+    <ItemSourcesModal
+      :item-id="selectedMaterial?.id ?? null"
+      :item-name="selectedMaterial?.name ?? ''"
+      :planner-quantity="selectedMaterial?.quantity ?? 1"
+      @close="selectedMaterial = null"
+    />
   </div>
 </template>
 
