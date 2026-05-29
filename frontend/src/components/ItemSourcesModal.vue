@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue'
 import { useItemSources } from '@/composables/useItemSources'
 import { useUI } from '@/composables/useUI'
 import { usePlannerStore } from '@/stores/plannerStore'
+import LocationIcon from '@/components/LocationIcon.vue'
 
 const props = defineProps<{
   itemId:    number | null
@@ -323,7 +324,10 @@ watch(isOpen, (open) => {
                   class="loc-tab"
                   :class="{ 'loc-tab--active': activeLocation === loc }"
                   @click="activeLocation = loc"
-                >{{ loc }}</button>
+                >
+                  <LocationIcon :location-name="loc" :size="22" />
+                  <span>{{ loc }}</span>
+                </button>
               </div>
               <div class="modal__table-wrap">
                 <table class="src-table">
@@ -638,7 +642,10 @@ watch(isOpen, (open) => {
 }
 
 .loc-tab {
-  padding: 5px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 6px;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 20px;
