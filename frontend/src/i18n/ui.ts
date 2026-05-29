@@ -213,7 +213,7 @@ const en: UIStrings = {
     noSources: 'No sources recorded for this material.',
     groupMonsterPart: 'Monster Parts',
     groupMineral: 'Minerals',
-    groupPlant: 'Plants & Bugs',
+    groupPlant: 'Insects & Nature',
     groupOther: 'Other',
   },
   listing: {
@@ -396,7 +396,7 @@ const pt: UIStrings = {
     noSources: 'Nenhuma fonte registrada para este material.',
     groupMonsterPart: 'Partes de Monstro',
     groupMineral: 'Minerais',
-    groupPlant: 'Plantas & Insetos',
+    groupPlant: 'Insetos & Naturais',
     groupOther: 'Outros',
   },
   listing: {

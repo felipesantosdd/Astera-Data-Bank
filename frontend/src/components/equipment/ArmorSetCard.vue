@@ -66,10 +66,10 @@ const gridClass = computed(() => {
   position: relative;
 }
 
-/* Tint de fundo por rank */
-.asc__wrap--lr { background: #1a2a1a; }
-.asc__wrap--hr { background: #2a1e10; }
-.asc__wrap--mr { background: #1e1020; }
+/* Fundo neutro uniforme para todos os ranks */
+.asc__wrap--lr,
+.asc__wrap--hr,
+.asc__wrap--mr { background: var(--surface-2); }
 
 /* Foto do set */
 .asc__set-img {

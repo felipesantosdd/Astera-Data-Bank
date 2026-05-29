@@ -2,6 +2,8 @@
 import { computed, markRaw } from 'vue'
 import {
   VueFlow,
+  Controls,
+  MiniMap,
   MarkerType,
   type NodeChange,
   type EdgeChange,
@@ -10,7 +12,7 @@ import {
   type NodeTypesObject,
 } from '@vue-flow/core'
 import { usePlannerStore } from '@/stores/plannerStore'
-import MonsterPlannerNode   from './nodes/MonsterPlannerNode.vue'
+import MonsterPlannerNode    from './nodes/MonsterPlannerNode.vue'
 import MaterialChecklistNode from './nodes/MaterialChecklistNode.vue'
 import NotePlannerNode       from './nodes/NotePlannerNode.vue'
 import EquipmentPlannerNode  from './nodes/EquipmentPlannerNode.vue'
@@ -18,10 +20,10 @@ import EquipmentPlannerNode  from './nodes/EquipmentPlannerNode.vue'
 const store = usePlannerStore()
 
 const nodeTypes: NodeTypesObject = {
-  monster:           markRaw(MonsterPlannerNode) as NodeTypesObject[string],
+  monster:           markRaw(MonsterPlannerNode)    as NodeTypesObject[string],
   materialChecklist: markRaw(MaterialChecklistNode) as NodeTypesObject[string],
-  note:              markRaw(NotePlannerNode) as NodeTypesObject[string],
-  equipment:         markRaw(EquipmentPlannerNode) as NodeTypesObject[string],
+  note:              markRaw(NotePlannerNode)        as NodeTypesObject[string],
+  equipment:         markRaw(EquipmentPlannerNode)  as NodeTypesObject[string],
 }
 
 const flowNodes = computed(() =>
@@ -68,7 +70,6 @@ function onConnect(connection: Connection) {
   })
 }
 
-// Clique numa aresta → remover imediatamente
 function onEdgeClick({ edge }: EdgeMouseEvent) {
   store.removeEdge(edge.id)
 }
@@ -82,14 +83,24 @@ function onEdgeClick({ edge }: EdgeMouseEvent) {
     fit-view-on-init
     class="planner-canvas"
     :default-viewport="{ zoom: 1 }"
+    :min-zoom="0.2"
+    :max-zoom="3"
     @nodes-change="onNodesChange"
     @edges-change="onEdgesChange"
     @connect="onConnect"
     @edge-click="onEdgeClick"
   >
+    <!-- Controles de zoom/pan — essenciais para mobile -->
+    <Controls
+      :show-fit-view="true"
+      :show-interactive="false"
+      position="bottom-right"
+      class="planner-controls"
+    />
+
     <template #empty>
       <div class="planner-canvas__empty">
-        <p>Quadro vazio. Adicione monstros ou equipamentos pelo botões acima ou pela tela de detalhes.</p>
+        <p>Quadro vazio. Adicione monstros ou equipamentos pelos botões acima ou pela tela de detalhes.</p>
       </div>
     </template>
   </VueFlow>
@@ -103,6 +114,35 @@ function onEdgeClick({ edge }: EdgeMouseEvent) {
 .planner-edge:hover .vue-flow__edge-path {
   stroke-width: 4 !important;
   stroke: #ff6b6b !important;
+}
+
+/* Estiliza os controles de zoom no tema MHW */
+.planner-controls.vue-flow__controls {
+  background: var(--surface-2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,.4) !important;
+  gap: 2px !important;
+  padding: 4px !important;
+}
+
+.planner-controls .vue-flow__controls-button {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 5px !important;
+  color: var(--text-muted) !important;
+  width: 32px !important;
+  height: 32px !important;
+  transition: color .15s, border-color .15s !important;
+}
+
+.planner-controls .vue-flow__controls-button:hover {
+  color: var(--gold) !important;
+  border-color: var(--gold) !important;
+}
+
+.planner-controls .vue-flow__controls-button svg {
+  fill: currentColor !important;
 }
 </style>
 

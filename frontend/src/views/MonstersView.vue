@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import MonsterCard from '@/components/MonsterCard.vue'
 import { useMonsters } from '@/composables/useMonsters'
 import { useUI } from '@/composables/useUI'
@@ -66,6 +66,23 @@ function elementLabel(key: string): string {
 // Label traduzida para uma ecologia
 function ecologyLabel(key: string): string {
   return (t.value.ecologies as Record<string, string>)[key] ?? key
+}
+
+// ── Paginação ────────────────────────────────────────────────────────────────
+const MONSTERS_PER_PAGE = 42
+const currentPage = ref(1)
+const totalPages  = computed(() => Math.ceil(filtered.value.length / MONSTERS_PER_PAGE))
+
+const paginated = computed(() => {
+  const start = (currentPage.value - 1) * MONSTERS_PER_PAGE
+  return filtered.value.slice(start, start + MONSTERS_PER_PAGE)
+})
+
+watch(filtered, () => { currentPage.value = 1 })
+
+function goTo(page: number) {
+  currentPage.value = Math.max(1, Math.min(page, totalPages.value))
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 </script>
 
@@ -157,14 +174,31 @@ function ecologyLabel(key: string): string {
     <template v-else>
       <div v-if="filtered.length > 0" class="monsters-grid">
         <MonsterCard
-          v-for="monster in filtered"
+          v-for="monster in paginated"
           :key="`${lang}-${monster.id}`"
           :monster="monster"
         />
       </div>
 
+      <!-- Paginação -->
+      <div v-if="totalPages > 1" class="pagination">
+        <button class="pagination__btn" :disabled="currentPage === 1" @click="goTo(currentPage - 1)">‹</button>
+        <template v-for="p in totalPages" :key="p">
+          <template v-if="p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1">
+            <button
+              class="pagination__btn"
+              :class="{ 'pagination__btn--active': p === currentPage }"
+              @click="goTo(p)"
+            >{{ p }}</button>
+          </template>
+          <span v-else-if="p === 2 && currentPage > 4"           class="pagination__ellipsis">…</span>
+          <span v-else-if="p === totalPages - 1 && currentPage < totalPages - 3" class="pagination__ellipsis">…</span>
+        </template>
+        <button class="pagination__btn" :disabled="currentPage === totalPages" @click="goTo(currentPage + 1)">›</button>
+      </div>
+
       <!-- Estado vazio -->
-      <div v-else class="monsters-page__empty">
+      <div v-else-if="filtered.length === 0" class="monsters-page__empty">
         <p class="monsters-page__empty-title">{{ t.listing.noResults }}</p>
         <p class="monsters-page__empty-hint">{{ t.listing.noResultsHint }}</p>
         <button class="filter-bar__clear-btn filter-bar__clear-btn--center" @click="clearFilters">
@@ -363,6 +397,41 @@ function ecologyLabel(key: string): string {
 @media (min-width: 640px)  { .monsters-grid { grid-template-columns: repeat(5, 1fr); } }
 @media (min-width: 900px)  { .monsters-grid { grid-template-columns: repeat(6, 1fr); } }
 @media (min-width: 1100px) { .monsters-grid { grid-template-columns: repeat(7, 1fr); } }
+
+/* ── Paginação ── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.pagination__btn {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+
+.pagination__btn:hover:not(:disabled) { color: var(--text); border-color: var(--gold); }
+.pagination__btn:disabled             { opacity: .35; cursor: not-allowed; }
+.pagination__btn--active              { color: var(--gold); border-color: var(--gold); background: var(--gold-glow); }
+
+.pagination__ellipsis {
+  color: var(--text-muted);
+  padding: 0 4px;
+  font-size: 14px;
+  align-self: flex-end;
+}
 
 /* ── Filtros mobile ── */
 @media (max-width: 640px) {

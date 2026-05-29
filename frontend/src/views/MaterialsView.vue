@@ -24,13 +24,13 @@ const MONSTER_PARTS = new Set([
   'Mantle','Plate','Sac','Scale','Tail','Webbing','Wing',
 ])
 const MINERALS = new Set(['Ore','CharmOre','Feystone','Sphere','Streamstone'])
-const PLANTS   = new Set(['Bug','Herb','Honey','Mushroom','Seed'])
+const BUGS     = new Set(['Bug','Herb','Honey','Mushroom','Seed'])  // insetos e itens naturais
 
 function iconGroup(iconName: string | null): string {
   if (!iconName) return 'other'
   if (MONSTER_PARTS.has(iconName)) return 'monster_part'
   if (MINERALS.has(iconName))      return 'mineral'
-  if (PLANTS.has(iconName))        return 'plant'
+  if (BUGS.has(iconName))          return 'bug'
   return 'other'
 }
 
@@ -41,7 +41,7 @@ const tabs = computed(() => [
   { key: 'all',          label: t.value.materials.filterAll },
   { key: 'monster_part', label: t.value.materials.groupMonsterPart },
   { key: 'mineral',      label: t.value.materials.groupMineral },
-  { key: 'plant',        label: t.value.materials.groupPlant },
+  { key: 'bug',          label: t.value.materials.groupPlant },
   { key: 'other',        label: t.value.materials.groupOther },
 ])
 
