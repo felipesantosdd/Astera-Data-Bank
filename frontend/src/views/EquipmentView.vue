@@ -759,4 +759,43 @@ const armorModal = ref<ArmorSet | null>(null)
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
 
 .eq-empty { color: var(--text-muted); font-size: 14px; text-align: center; padding: 64px; }
+
+/* ── Responsivo ── */
+@media (max-width: 768px) {
+  .eq-page { padding: 20px 16px 60px; }
+
+  /* Header empilha */
+  .eq-header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+  .eq-header__title { font-size: 22px; }
+  .eq-main-tabs { width: 100%; }
+  .eq-main-tab { flex: 1; text-align: center; }
+
+  /* Type tabs menores */
+  .type-tab { padding: 8px 10px; }
+  .type-tab__label { font-size: 8px; }
+
+  /* Sub-header */
+  .type-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .eq-search { min-width: 0; width: 100%; }
+
+  /* Accordion header */
+  .accordion-header { padding: 10px 12px; gap: 8px; }
+
+  /* Armor rank tabs */
+  .armor-rank-tab { padding: 10px 20px; flex: 1; text-align: center; }
+
+  /* Armor toolbar */
+  .armor-toolbar { gap: 10px; }
+  .armor-toolbar .eq-search { min-width: 0; flex: 1; }
+
+  /* Armor grid menor */
+  .armor-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+  .armor-grid-skeleton { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+  .armor-card__name { font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .armor-grid { grid-template-columns: repeat(2, 1fr); }
+  .armor-grid-skeleton { grid-template-columns: repeat(2, 1fr); }
+}
 </style>

@@ -426,4 +426,16 @@ function goTo(page: number) {
   font-size: 13px;
   color: var(--text-dim);
 }
+
+/* ── Responsivo ── */
+@media (max-width: 640px) {
+  .materials-page { padding: 20px 16px 60px; }
+
+  /* Barra de filtros */
+  .search-bar__wrap { max-width: 100%; }
+  .filter-bar { flex-direction: column; align-items: stretch; gap: 8px; }
+
+  /* Paginação com alvos de toque maiores */
+  .pagination__btn { min-width: 44px; height: 44px; }
+}
 </style>

@@ -358,6 +358,10 @@ function addToPlanner() {
   padding: 40px 24px 80px;
 }
 
+@media (max-width: 640px) {
+  .detail-page { padding: 20px 16px 60px; }
+}
+
 /* ── Botão de voltar ─────────────────────────────────────────────────── */
 .back-btn {
   font-family: var(--font-heading);
@@ -712,4 +716,32 @@ function addToPlanner() {
   background: var(--gold-glow);
 }
 .hz-table tbody tr:hover { background: var(--surface-2); }
+
+/* ── Responsivo ── */
+@media (max-width: 640px) {
+  .hero             { gap: 16px; }
+  .hero__icon-wrap  { width: 96px; height: 96px; flex-shrink: 0; }
+  .hero__initials   { font-size: 32px; }
+  .hero__title      { font-size: 22px; }
+  .hero__description { font-size: 13px; }
+
+  /* Tabs scroll horizontal */
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 1px;
+    gap: 0;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { padding: 10px 14px; font-size: 11px; letter-spacing: 0.1em; white-space: nowrap; flex-shrink: 0; }
+
+  /* Cards */
+  .card { padding: 14px 14px; }
+  .divider { margin: 20px 0; }
+
+  /* Planner CTA */
+  .hero__planner { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .planner-add-btn { width: 100%; justify-content: center; }
+}
 </style>

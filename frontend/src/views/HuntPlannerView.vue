@@ -91,6 +91,15 @@ const store = usePlannerStore()
   border-color: var(--gold);
 }
 
+/* ── Responsivo ── */
+@media (max-width: 640px) {
+  .planner-toolbar { padding: 8px 14px; flex-wrap: wrap; gap: 8px; }
+  .planner-toolbar__hint { display: none; }
+  .planner-toolbar__title { font-size: 15px; }
+  .planner-toolbar__actions { gap: 6px; }
+  .planner-btn { padding: 6px 12px; }
+}
+
 /* ── Canvas ── */
 .planner-canvas-wrap {
   flex: 1;

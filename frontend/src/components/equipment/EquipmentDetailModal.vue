@@ -543,4 +543,20 @@ function onOverlayClick(e: MouseEvent) {
 
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
 .fade-enter-from, .fade-leave-to       { opacity: 0; }
+
+/* ── Responsivo ── */
+@media (max-width: 640px) {
+  .modal-overlay { padding: 0; align-items: flex-end; }
+  .modal {
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 16px 16px 0 0;
+  }
+  .modal__header  { padding: 16px 16px 12px; }
+  .modal__body    { padding: 14px 16px; }
+  .modal__footer  { padding: 10px 16px; }
+  .modal__title   { font-size: 16px; }
+  .detail-grid    { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .piece-img-wrap { width: 48px; height: 48px; }
+}
 </style>

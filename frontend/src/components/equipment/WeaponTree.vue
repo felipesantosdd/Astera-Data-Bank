@@ -469,4 +469,23 @@ const TreeNode = defineComponent({
 
 .fade-enter-active, .fade-leave-active { transition: opacity .25s; }
 .fade-enter-from, .fade-leave-to       { opacity: 0; }
+
+/* ── Responsivo ── */
+@media (max-width: 768px) {
+  /* Empilha árvore + detalhes verticalmente */
+  .weapon-tree { flex-direction: column; }
+
+  .weapon-detail {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    position: static;       /* cancela o sticky */
+    max-height: none;
+    padding: 14px 12px;
+  }
+
+  /* Árvore mais compacta */
+  :deep(.tree-node) { padding: 7px 8px; }
+  :deep(.tn-atk), :deep(.tn-slots) { display: none; } /* hide na mobile, espaço curto */
+}
 </style>

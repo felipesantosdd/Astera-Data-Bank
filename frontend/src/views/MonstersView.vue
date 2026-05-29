@@ -183,6 +183,10 @@ function ecologyLabel(key: string): string {
   padding: 40px 24px 80px;
 }
 
+@media (max-width: 640px) {
+  .monsters-page { padding: 24px 16px 60px; }
+}
+
 /* ── Cabeçalho ── */
 .monsters-page__header {
   margin-bottom: 20px;
@@ -350,14 +354,23 @@ function ecologyLabel(key: string): string {
 /* ── Grid ── */
 .monsters-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
+@media (min-width: 400px)  { .monsters-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 480px)  { .monsters-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 640px)  { .monsters-grid { grid-template-columns: repeat(5, 1fr); } }
 @media (min-width: 900px)  { .monsters-grid { grid-template-columns: repeat(6, 1fr); } }
 @media (min-width: 1100px) { .monsters-grid { grid-template-columns: repeat(7, 1fr); } }
+
+/* ── Filtros mobile ── */
+@media (max-width: 640px) {
+  .filter-bar { gap: 8px; }
+  .filter-bar__search { min-width: 0; width: 100%; }
+  .filter-bar__select-wrap { min-width: 0; flex: 1; }
+  .filter-bar__clear-btn { width: 100%; justify-content: center; }
+}
 
 /* ── Skeleton loading ── */
 .skeleton-card {
