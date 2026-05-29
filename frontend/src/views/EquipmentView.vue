@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useWeapons } from '@/composables/useWeapons'
 import { useArmors }  from '@/composables/useArmors'
+import { useUI }      from '@/composables/useUI'
 import { WEAPON_TYPES, type Weapon, type WeaponType } from '@/types/weapon'
 import ArmorSetCard from '@/components/equipment/ArmorSetCard.vue'
 import type { ArmorSet } from '@/types/armor'
 import WeaponTypeIcon    from '@/components/equipment/WeaponTypeIcon.vue'
 import WeaponTree        from '@/components/equipment/WeaponTree.vue'
 import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal.vue'
+
+const { t } = useUI()
 
 // ── Main tab ──────────────────────────────────────────────────────────────────
 type MainTab = 'weapons' | 'armor'
@@ -20,21 +23,17 @@ const { data: armorSets, isLoading: loadingArmor }  = useArmors()
 // ── Weapon type tab ───────────────────────────────────────────────────────────
 const activeType = ref<WeaponType>('great-sword')
 
-const WEAPON_META: Record<string, { label: string; short: string }> = {
-  'great-sword':      { label: 'Great Sword',    short: 'GS'  },
-  'sword-and-shield': { label: 'Sword & Shield', short: 'SnS' },
-  'dual-blades':      { label: 'Dual Blades',    short: 'DB'  },
-  'long-sword':       { label: 'Long Sword',     short: 'LS'  },
-  'hammer':           { label: 'Hammer',         short: 'HAM' },
-  'hunting-horn':     { label: 'Hunting Horn',   short: 'HH'  },
-  'lance':            { label: 'Lance',          short: 'LAN' },
-  'gunlance':         { label: 'Gunlance',       short: 'GL'  },
-  'switch-axe':       { label: 'Switch Axe',     short: 'SA'  },
-  'charge-blade':     { label: 'Charge Blade',   short: 'CB'  },
-  'insect-glaive':    { label: 'Insect Glaive',  short: 'IG'  },
-  'light-bowgun':     { label: 'Light Bowgun',   short: 'LBG' },
-  'heavy-bowgun':     { label: 'Heavy Bowgun',   short: 'HBG' },
-  'bow':              { label: 'Bow',            short: 'BOW' },
+const WEAPON_SHORT: Record<string, string> = {
+  'great-sword': 'GS', 'long-sword': 'LS', 'sword-and-shield': 'SnS',
+  'dual-blades': 'DB', 'hammer': 'HAM', 'hunting-horn': 'HH',
+  'lance': 'LAN', 'gunlance': 'GL', 'switch-axe': 'SA',
+  'charge-blade': 'CB', 'insect-glaive': 'IG', 'light-bowgun': 'LBG',
+  'heavy-bowgun': 'HBG', 'bow': 'BOW',
+}
+
+// Label traduzido do tipo de arma (usa i18n, fallback EN)
+function weaponLabel(type: string): string {
+  return (t.value.weaponTypes as Record<string, string>)[type] ?? type
 }
 
 const ELEMENT_COLORS: Record<string, string> = {
@@ -91,11 +90,30 @@ function toggleLine(id: number) {
   openLineId.value = openLineId.value === id ? null : id
 }
 
-// Ao trocar de tipo, fecha o acordeão aberto
-function switchType(t: WeaponType) {
-  activeType.value = t
+// Ao trocar de tipo, fecha o acordeão aberto e reseta página
+function switchType(type: WeaponType) {
+  activeType.value = type
   openLineId.value = null
   searchWeapon.value = ''
+  weaponPage.value = 1
+}
+
+// ── Paginação das linhas de arma ──────────────────────────────────────────────
+const WEAPONS_PER_PAGE = 20
+const weaponPage  = ref(1)
+const weaponTotalPages = computed(() => Math.ceil(filteredRoots.value.length / WEAPONS_PER_PAGE))
+
+const paginatedRoots = computed(() => {
+  const start = (weaponPage.value - 1) * WEAPONS_PER_PAGE
+  return filteredRoots.value.slice(start, start + WEAPONS_PER_PAGE)
+})
+
+// Reseta página ao filtrar
+watch(filteredRoots, () => { weaponPage.value = 1 })
+
+function goToWeaponPage(p: number) {
+  weaponPage.value = Math.max(1, Math.min(p, weaponTotalPages.value))
+  openLineId.value = null
 }
 
 // ── Helpers de rarity ─────────────────────────────────────────────────────────
@@ -184,7 +202,7 @@ const armorModal = ref<ArmorSet | null>(null)
             @click="switchType(t)"
           >
             <WeaponTypeIcon :type="t" :size="28" :rank="activeType === t ? 6 : 4" />
-            <span class="type-tab__label">{{ WEAPON_META[t]?.short }}</span>
+            <span class="type-tab__label">{{ WEAPON_SHORT[t] }}</span>
           </button>
         </div>
       </div>
@@ -193,7 +211,7 @@ const armorModal = ref<ArmorSet | null>(null)
       <div class="type-header">
         <div class="type-header__left">
           <WeaponTypeIcon :type="activeType" :size="32" :rank="8" />
-          <h2 class="type-header__name">{{ WEAPON_META[activeType]?.label }}</h2>
+          <h2 class="type-header__name">{{ weaponLabel(activeType) }}</h2>
           <span class="type-header__count">{{ filteredRoots.length }} linhas</span>
         </div>
         <div class="eq-search">
@@ -212,7 +230,7 @@ const armorModal = ref<ArmorSet | null>(null)
       <!-- Acordeão de linhas de arma -->
       <div v-else class="accordion">
         <div
-          v-for="root in filteredRoots"
+          v-for="root in paginatedRoots"
           :key="root.id"
           class="accordion-item"
           :class="[
@@ -256,6 +274,19 @@ const armorModal = ref<ArmorSet | null>(null)
             </div>
           </Transition>
         </div>
+      </div>
+
+      <!-- Paginação de linhas de arma -->
+      <div v-if="weaponTotalPages > 1" class="weapon-pagination">
+        <button class="pagination__btn" :disabled="weaponPage === 1" @click="goToWeaponPage(weaponPage - 1)">‹</button>
+        <template v-for="p in weaponTotalPages" :key="p">
+          <template v-if="p === 1 || p === weaponTotalPages || Math.abs(p - weaponPage) <= 1">
+            <button class="pagination__btn" :class="{ 'pagination__btn--active': p === weaponPage }" @click="goToWeaponPage(p)">{{ p }}</button>
+          </template>
+          <span v-else-if="p === 2 && weaponPage > 4" class="pagination__ellipsis">…</span>
+          <span v-else-if="p === weaponTotalPages - 1 && weaponPage < weaponTotalPages - 3" class="pagination__ellipsis">…</span>
+        </template>
+        <button class="pagination__btn" :disabled="weaponPage === weaponTotalPages" @click="goToWeaponPage(weaponPage + 1)">›</button>
       </div>
 
     </template>
@@ -759,6 +790,41 @@ const armorModal = ref<ArmorSet | null>(null)
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
 
 .eq-empty { color: var(--text-muted); font-size: 14px; text-align: center; padding: 64px; }
+
+/* ── Paginação de armas ── */
+.weapon-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.pagination__btn {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+
+.pagination__btn:hover:not(:disabled) { color: var(--text); border-color: var(--gold); }
+.pagination__btn:disabled             { opacity: .35; cursor: not-allowed; }
+.pagination__btn--active              { color: var(--gold); border-color: var(--gold); background: var(--gold-glow); }
+
+.pagination__ellipsis {
+  color: var(--text-muted);
+  padding: 0 4px;
+  font-size: 14px;
+  align-self: flex-end;
+}
 
 /* ── Responsivo ── */
 @media (max-width: 768px) {

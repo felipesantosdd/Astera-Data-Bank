@@ -4,6 +4,13 @@
  */
 export interface UIStrings {
   nav: { monsters: string; materials: string; equipment: string; planner: string }
+  weaponTypes: {
+    'great-sword': string; 'long-sword': string; 'sword-and-shield': string
+    'dual-blades': string; 'hammer': string; 'hunting-horn': string
+    'lance': string; 'gunlance': string; 'switch-axe': string
+    'charge-blade': string; 'insect-glaive': string; 'light-bowgun': string
+    'heavy-bowgun': string; 'bow': string
+  }
   materials: {
     title: string
     subtitle: string
@@ -378,6 +385,22 @@ const en: UIStrings = {
     'Piscine Wyvern': 'Piscine Wyvern',
     'Relict':         'Relict',
   },
+  weaponTypes: {
+    'great-sword':      'Great Sword',
+    'long-sword':       'Long Sword',
+    'sword-and-shield': 'Sword & Shield',
+    'dual-blades':      'Dual Blades',
+    'hammer':           'Hammer',
+    'hunting-horn':     'Hunting Horn',
+    'lance':            'Lance',
+    'gunlance':         'Gunlance',
+    'switch-axe':       'Switch Axe',
+    'charge-blade':     'Charge Blade',
+    'insect-glaive':    'Insect Glaive',
+    'light-bowgun':     'Light Bowgun',
+    'heavy-bowgun':     'Heavy Bowgun',
+    'bow':              'Bow',
+  },
 }
 
 const pt: UIStrings = {
@@ -611,6 +634,22 @@ const pt: UIStrings = {
     'Wound Right Wing':              'Ferir Asa Direita',
     'Wound Tail':                    'Ferir Cauda',
     'Wound Wings':                   'Ferir Asas',
+  },
+  weaponTypes: {
+    'great-sword':      'Espadão',
+    'long-sword':       'Katana',
+    'sword-and-shield': 'Espada e Escudo',
+    'dual-blades':      'Lâminas Duplas',
+    'hammer':           'Martelo',
+    'hunting-horn':     'Trompa de Caça',
+    'lance':            'Lança',
+    'gunlance':         'Lança de Fogo',
+    'switch-axe':       'Machado Transformável',
+    'charge-blade':     'Lâmina Carregada',
+    'insect-glaive':    'Lança Inseto',
+    'light-bowgun':     'Besta Leve',
+    'heavy-bowgun':     'Besta Pesada',
+    'bow':              'Arco',
   },
   ecologies: {
     'Bird Wyvern':    'Serpe Pássaro',

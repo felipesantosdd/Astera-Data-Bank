@@ -475,17 +475,23 @@ const TreeNode = defineComponent({
   /* Empilha árvore + detalhes verticalmente */
   .weapon-tree { flex-direction: column; }
 
+  /* Árvore scroll horizontal quando tem indentação profunda */
+  .weapon-tree__nodes {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .weapon-detail {
     width: 100%;
     border-left: none;
     border-top: 1px solid var(--border);
-    position: static;       /* cancela o sticky */
+    position: static;
     max-height: none;
     padding: 14px 12px;
   }
 
   /* Árvore mais compacta */
   :deep(.tree-node) { padding: 7px 8px; }
-  :deep(.tn-atk), :deep(.tn-slots) { display: none; } /* hide na mobile, espaço curto */
+  :deep(.tn-atk), :deep(.tn-slots) { display: none; }
 }
 </style>

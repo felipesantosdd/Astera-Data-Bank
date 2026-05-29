@@ -47,4 +47,6 @@ export const dataUrl = {
     STATIC
       ? `/data/armor-${lang}.json`
       : `/api/armor?lang=${lang}`,
+
+  consumables: (lang: string) => `/data/consumables-${lang}.json`,
 }

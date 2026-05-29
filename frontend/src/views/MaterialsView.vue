@@ -2,11 +2,16 @@
 import { ref, computed, watch } from 'vue'
 import MaterialCard from '@/components/MaterialCard.vue'
 import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
-import { useItems } from '@/composables/useItems'
+import { useItems }       from '@/composables/useItems'
+import { useConsumables } from '@/composables/useConsumables'
 import { useUI } from '@/composables/useUI'
 
-const { data: items, isLoading, isError } = useItems()
+const { data: materials, isLoading: loadingMaterials, isError } = useItems()
+const { data: consumables, isLoading: loadingConsumables }       = useConsumables()
 const { t } = useUI()
+
+// Aba principal: materiais de craft vs consumíveis
+const mainTab = ref<'materials' | 'consumables'>('materials')
 
 // ── Modal ────────────────────────────────────────────────────────────────────
 const activeItemId   = ref<number | null>(null)
@@ -48,14 +53,45 @@ const tabs = computed(() => [
 // ── Busca ─────────────────────────────────────────────────────────────────────
 const search = ref('')
 
+// Fonte de dados ativa
+const items = computed(() =>
+  mainTab.value === 'consumables' ? consumables.value : materials.value,
+)
+const isLoading = computed(() =>
+  mainTab.value === 'consumables' ? loadingConsumables.value : loadingMaterials.value,
+)
+
+// Grupos de consumíveis
+const NATURAL_ICONS  = new Set(['Herb','Mushroom','Seed','Honey','Bait'])
+const UTILITY_ICONS  = new Set(['Liquid','Pellets','Meat','Barrel','BarrelBomb','Trap','TrapTool','Smoke','Dung'])
+
+function consumableGroup(iconName: string | null): string {
+  if (!iconName) return 'other'
+  if (NATURAL_ICONS.has(iconName))  return 'natural'
+  if (UTILITY_ICONS.has(iconName))  return 'utility'
+  return 'other'
+}
+
+const consumableTabs = computed(() => [
+  { key: 'all',     label: t.value.materials.filterAll },
+  { key: 'natural', label: 'Naturais' },
+  { key: 'utility', label: 'Utilidades' },
+])
+
 // ── Filtro combinado ──────────────────────────────────────────────────────────
 const filtered = computed(() => {
   if (!items.value) return []
   const q   = search.value.trim().toLowerCase()
   const tab = activeTab.value
+
   return items.value.filter(m => {
     if (q && !m.name.toLowerCase().includes(q)) return false
-    if (tab !== 'all' && iconGroup(m.iconName) !== tab) return false
+    if (tab !== 'all') {
+      const group = mainTab.value === 'consumables'
+        ? consumableGroup(m.iconName)
+        : iconGroup(m.iconName)
+      if (group !== tab) return false
+    }
     return true
   })
 })
@@ -78,8 +114,9 @@ const paginated = computed(() => {
   return filtered.value.slice(start, start + ITEMS_PER_PAGE)
 })
 
-// Volta pra página 1 ao trocar filtro/busca
-watch([search, activeTab], () => { currentPage.value = 1 })
+// Volta pra página 1 ao trocar filtro/busca/aba principal
+watch([search, activeTab, mainTab], () => { currentPage.value = 1 })
+watch(mainTab, () => { activeTab.value = 'all'; search.value = '' })
 
 function goTo(page: number) {
   currentPage.value = Math.max(1, Math.min(page, totalPages.value))
@@ -103,6 +140,16 @@ function goTo(page: number) {
 
     <div class="divider" />
 
+    <!-- Abas principais: Materiais | Consumíveis -->
+    <div class="main-tabs">
+      <button class="main-tab" :class="{ 'main-tab--active': mainTab === 'materials' }" @click="mainTab = 'materials'">
+        Materiais
+      </button>
+      <button class="main-tab" :class="{ 'main-tab--active': mainTab === 'consumables' }" @click="mainTab = 'consumables'">
+        Consumíveis
+      </button>
+    </div>
+
     <!-- Barra de busca -->
     <div v-if="!isLoading && !isError" class="search-bar">
       <div class="search-bar__wrap">
@@ -123,10 +170,10 @@ function goTo(page: number) {
       </button>
     </div>
 
-    <!-- Abas de tipo -->
+    <!-- Abas de filtro dinâmicas -->
     <div v-if="!isLoading && !isError" class="tabs">
       <button
-        v-for="tab in tabs"
+        v-for="tab in (mainTab === 'consumables' ? consumableTabs : tabs)"
         :key="tab.key"
         class="tab"
         :class="{ 'tab--active': activeTab === tab.key }"
@@ -231,8 +278,35 @@ function goTo(page: number) {
 .divider {
   height: 1px;
   background: linear-gradient(to right, var(--gold), var(--border) 60%, transparent);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
+
+/* ── Abas principais (Materiais | Consumíveis) ── */
+.main-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px;
+  width: fit-content;
+  margin-bottom: 16px;
+}
+
+.main-tab {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  letter-spacing: .06em;
+  padding: 7px 20px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color .15s, background .15s;
+}
+
+.main-tab--active { background: var(--gold-glow); color: var(--gold); }
 
 /* ── Busca ── */
 .search-bar {
