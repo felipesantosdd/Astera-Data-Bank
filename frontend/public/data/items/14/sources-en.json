@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Nutrients","first":"Bitterbug","firstId":49,"second":"Blue Mushroom","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Mega Nutrients","resultId":15,"first":"Nutrients","firstId":14,"second":"Honey","secondId":31,"quantity":1}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"ذخيرة الإرهاق 1","first":"ذخيرة عادية 1","firstId":559,"second":"فطر التّشويق","secondId":47,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"ذخيرة الإرهاق 2","resultId":586,"first":"ذخيرة الإرهاق 1","firstId":585,"second":"المحفز","secondId":58,"quantity":1}]}}

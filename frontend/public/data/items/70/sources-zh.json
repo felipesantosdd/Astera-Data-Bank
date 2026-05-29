@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"爆藥","first":"火藥草","firstId":34,"second":"爆炸菇","secondId":43,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"大爆彈桶","resultId":76,"first":"爆藥","firstId":70,"second":"大桶","secondId":75,"quantity":1}]}}

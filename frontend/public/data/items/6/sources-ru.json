@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Травяное лекарство","first":"Противоядие","firstId":5,"second":"Синий гриб","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Травяной порошок","resultId":28,"first":"Божественный жук","firstId":51,"second":"Травяное лекарство","secondId":6,"quantity":1}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Nutrienti","first":"Insetto amaro","firstId":49,"second":"Fungo blu","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Mega nutrienti","resultId":15,"first":"Nutrienti","firstId":14,"second":"Miele","secondId":31,"quantity":1}]}}

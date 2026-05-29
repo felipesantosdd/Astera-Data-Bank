@@ -4,6 +4,9 @@ import type { Weapon } from '@/types/weapon'
 import type { ArmorSet } from '@/types/armor'
 import { usePlannerStore } from '@/stores/plannerStore'
 import { armorPieceImageUrl, armorSlotIcon } from '@/utils/armorImageUrl'
+import { useItems } from '@/composables/useItems'
+import ItemIcon from '@/components/ItemIcon.vue'
+import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
 
 const props = defineProps<{
   weapon: Weapon | null
@@ -13,6 +16,7 @@ const props = defineProps<{
 const emit = defineEmits<{ close: [] }>()
 
 const plannerStore = usePlannerStore()
+const { data: items } = useItems()
 // plannerFeedback não é mais usado (feedback é por peça via pieceFeedback)
 
 const isWeapon = computed(() => !!props.weapon)
@@ -39,6 +43,29 @@ const ELEMENT_COLORS: Record<string, string> = {
   Fire: 'var(--el-fire)', Water: 'var(--el-water)', Thunder: 'var(--el-thunder)',
   Ice: 'var(--el-ice)', Dragon: 'var(--el-dragon)', Poison: 'var(--el-poison)',
   Blast: 'var(--el-blast)',
+}
+
+const selectedMaterial = ref<{ id: number; name: string; quantity: number | null } | null>(null)
+const itemById = computed(() => {
+  const map = new Map<number, { iconName: string | null; iconColor: string | null }>()
+  for (const item of items.value ?? []) map.set(item.id, item)
+  return map
+})
+
+function itemMeta(itemId: number) {
+  return itemById.value.get(itemId)
+}
+
+function openMaterialSources(material: { itemId: number; name: string; quantity?: number | null }) {
+  selectedMaterial.value = {
+    id: material.itemId,
+    name: material.name,
+    quantity: material.quantity ?? 1,
+  }
+}
+
+function closeMaterialSources() {
+  selectedMaterial.value = null
 }
 
 function slotText(s1?: number | null, s2?: number | null, s3?: number | null): string {
@@ -147,12 +174,18 @@ function onOverlayClick(e: MouseEvent) {
             <!-- Materiais de craft -->
             <section v-if="weapon.craftMaterials.length" class="materials-section">
               <h3 class="section-title">Materiais de Craft</h3>
-              <ul class="mat-list">
-                <li v-for="m in weapon.craftMaterials" :key="m.itemId" class="mat-item">
+              <div class="mat-chip-list">
+                <button
+                  v-for="m in weapon.craftMaterials"
+                  :key="m.itemId"
+                  class="mat-chip"
+                  @click="openMaterialSources(m)"
+                >
+                  <ItemIcon :name="itemMeta(m.itemId)?.iconName ?? null" :color="itemMeta(m.itemId)?.iconColor ?? null" :size="24" />
                   <span class="mat-name">{{ m.name }}</span>
-                  <span class="mat-qty">× {{ m.quantity }}</span>
-                </li>
-              </ul>
+                  <span class="mat-qty">×{{ m.quantity }}</span>
+                </button>
+              </div>
             </section>
           </template>
 
@@ -195,12 +228,18 @@ function onOverlayClick(e: MouseEvent) {
                 </span>
               </div>
 
-              <ul v-if="piece.materials.length" class="mat-list mat-list--sm">
-                <li v-for="m in piece.materials" :key="m.itemId" class="mat-item">
+              <div v-if="piece.materials.length" class="mat-chip-list mat-chip-list--sm">
+                <button
+                  v-for="m in piece.materials"
+                  :key="m.itemId"
+                  class="mat-chip"
+                  @click="openMaterialSources(m)"
+                >
+                  <ItemIcon :name="itemMeta(m.itemId)?.iconName ?? null" :color="itemMeta(m.itemId)?.iconColor ?? null" :size="22" />
                   <span class="mat-name">{{ m.name }}</span>
-                  <span class="mat-qty">× {{ m.quantity }}</span>
-                </li>
-              </ul>
+                  <span class="mat-qty">×{{ m.quantity }}</span>
+                </button>
+              </div>
 
               <!-- Botão por peça -->
               <div class="piece-planner">
@@ -232,6 +271,15 @@ function onOverlayClick(e: MouseEvent) {
 
       </div>
     </div>
+
+    <ItemSourcesModal
+      :item-id="selectedMaterial?.id ?? null"
+      :item-name="selectedMaterial?.name ?? ''"
+      :item-icon-name="selectedMaterial ? itemMeta(selectedMaterial.id)?.iconName ?? null : null"
+      :item-icon-color="selectedMaterial ? itemMeta(selectedMaterial.id)?.iconColor ?? null : null"
+      :planner-quantity="selectedMaterial?.quantity ?? 1"
+      @close="closeMaterialSources"
+    />
   </Teleport>
 </template>
 
@@ -384,6 +432,43 @@ function onOverlayClick(e: MouseEvent) {
 }
 
 .mat-qty { color: var(--gold); font-family: var(--font-heading); }
+
+.mat-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mat-chip-list--sm {
+  gap: 6px;
+}
+
+.mat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 5px 8px 5px 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.mat-chip:hover {
+  color: var(--gold-light);
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
+
+.mat-chip .mat-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* ── Armor pieces ── */
 .armor-piece {

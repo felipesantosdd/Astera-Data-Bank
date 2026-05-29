@@ -2,13 +2,12 @@
 import { computed, markRaw } from 'vue'
 import {
   VueFlow,
-  Controls,
-  MiniMap,
   MarkerType,
   type NodeChange,
   type EdgeChange,
   type Connection,
   type EdgeMouseEvent,
+  type OnConnectStartParams,
   type NodeTypesObject,
 } from '@vue-flow/core'
 import { usePlannerStore } from '@/stores/plannerStore'
@@ -36,15 +35,23 @@ const flowNodes = computed(() =>
 )
 
 const flowEdges = computed(() =>
-  store.edges.map(e => ({
-    id:        e.id,
-    source:    e.source,
-    target:    e.target,
-    label:     e.label,
-    style:     { stroke: '#e74c3c', strokeWidth: 2, cursor: 'pointer' },
-    markerEnd: { type: MarkerType.ArrowClosed, color: '#e74c3c' },
-    class:     'planner-edge',
-  })),
+  store.edges.map((e, _, edges) => {
+    const targetIndex = edges
+      .filter(edge => edge.target === e.target)
+      .findIndex(edge => edge.id === e.id)
+
+    return {
+      id:        e.id,
+      source:    e.source,
+      target:    e.target,
+      sourceHandle: e.sourceHandle ?? 'source',
+      targetHandle: `target-${Math.max(0, targetIndex)}`,
+      label:     e.label,
+      style:     { stroke: '#e74c3c', strokeWidth: 2, cursor: 'pointer' },
+      markerEnd: { type: MarkerType.ArrowClosed, color: '#e74c3c' },
+      class:     'planner-edge',
+    }
+  }),
 )
 
 function onNodesChange(changes: NodeChange[]) {
@@ -62,16 +69,28 @@ function onEdgesChange(changes: EdgeChange[]) {
 }
 
 function onConnect(connection: Connection) {
+  store.isConnecting = false
   if (!connection.source || !connection.target) return
+  const incomingCount = store.edges.filter(edge => edge.target === connection.target).length
   store.addEdge({
     id:     `edge-${connection.source}-${connection.target}-${Date.now()}`,
     source: connection.source,
     target: connection.target,
+    sourceHandle: connection.sourceHandle ?? 'source',
+    targetHandle: `target-${incomingCount}`,
   })
 }
 
 function onEdgeClick({ edge }: EdgeMouseEvent) {
   store.removeEdge(edge.id)
+}
+
+function onConnectStart(params: { event?: MouseEvent | TouchEvent } & OnConnectStartParams) {
+  store.isConnecting = params.handleType === 'source'
+}
+
+function onConnectEnd() {
+  store.isConnecting = false
 }
 </script>
 
@@ -88,16 +107,10 @@ function onEdgeClick({ edge }: EdgeMouseEvent) {
     @nodes-change="onNodesChange"
     @edges-change="onEdgesChange"
     @connect="onConnect"
+    @connect-start="onConnectStart"
+    @connect-end="onConnectEnd"
     @edge-click="onEdgeClick"
   >
-    <!-- Controles de zoom/pan — essenciais para mobile -->
-    <Controls
-      :show-fit-view="true"
-      :show-interactive="false"
-      position="bottom-right"
-      class="planner-controls"
-    />
-
     <template #empty>
       <div class="planner-canvas__empty">
         <p>Quadro vazio. Adicione monstros ou equipamentos pelos botões acima ou pela tela de detalhes.</p>
@@ -116,45 +129,23 @@ function onEdgeClick({ edge }: EdgeMouseEvent) {
   stroke: #ff6b6b !important;
 }
 
-/* Estiliza os controles de zoom no tema MHW */
-.planner-controls.vue-flow__controls {
-  background: var(--surface-2) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,.4) !important;
-  gap: 2px !important;
-  padding: 4px !important;
-}
-
-.planner-controls .vue-flow__controls-button {
-  background: var(--surface) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 5px !important;
-  color: var(--text-muted) !important;
-  width: 32px !important;
-  height: 32px !important;
-  transition: color .15s, border-color .15s !important;
-}
-
-.planner-controls .vue-flow__controls-button:hover {
-  color: var(--gold) !important;
-  border-color: var(--gold) !important;
-}
-
-.planner-controls .vue-flow__controls-button svg {
-  fill: currentColor !important;
-}
 </style>
 
 <style scoped>
 .planner-canvas {
   width: 100%;
   height: 100%;
-  background: var(--bg);
+  background:
+    radial-gradient(circle, rgba(196, 154, 42, 0.18) 1px, transparent 1.5px),
+    var(--bg);
+  background-size: 24px 24px;
 }
 
-.planner-canvas :deep(.vue-flow__background) {
-  background: var(--bg);
+.planner-canvas :deep(.vue-flow__pane) {
+  background:
+    radial-gradient(circle, rgba(196, 154, 42, 0.18) 1px, transparent 1.5px),
+    var(--bg);
+  background-size: 24px 24px;
 }
 
 .planner-canvas__empty {

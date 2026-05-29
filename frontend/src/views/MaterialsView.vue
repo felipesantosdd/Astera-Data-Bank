@@ -13,15 +13,24 @@ const { t } = useUI()
 // Aba principal: materiais de craft vs consumíveis
 const mainTab = ref<'materials' | 'consumables'>('materials')
 
-// ── Modal ────────────────────────────────────────────────────────────────────
-const activeItemId   = ref<number | null>(null)
-const activeItemName = ref('')
+// ── Modal com pilha de navegação ─────────────────────────────────────────────
+interface ModalEntry { id: number; name: string }
+const modalStack = ref<ModalEntry[]>([])
+
+const activeItemId   = computed(() => modalStack.value[modalStack.value.length - 1]?.id   ?? null)
+const activeItemName = computed(() => modalStack.value[modalStack.value.length - 1]?.name ?? '')
 
 function openModal(id: number, name: string) {
-  activeItemId.value   = id
-  activeItemName.value = name
+  modalStack.value = [{ id, name }]
 }
-function closeModal() { activeItemId.value = null }
+function closeModal() { modalStack.value = [] }
+function navigateModal(id: number, name: string) {
+  modalStack.value = [...modalStack.value, { id, name }]
+}
+function backModal() {
+  if (modalStack.value.length > 1) modalStack.value = modalStack.value.slice(0, -1)
+  else modalStack.value = []
+}
 
 // ── Grupos por iconName ───────────────────────────────────────────────────────
 const MONSTER_PARTS = new Set([
@@ -235,7 +244,10 @@ function goTo(page: number) {
     <ItemSourcesModal
       :item-id="activeItemId"
       :item-name="activeItemName"
+      :can-go-back="modalStack.length > 1"
       @close="closeModal"
+      @navigate="(id, name) => navigateModal(id, name)"
+      @back="backModal"
     />
 
   </div>

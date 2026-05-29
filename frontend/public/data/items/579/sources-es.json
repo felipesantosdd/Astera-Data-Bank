@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"D veneno nv1","first":"D normal nv1","firstId":559,"second":"Hongo","secondId":46,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"D veneno nv2","resultId":580,"first":"D veneno nv1","firstId":579,"second":"Catalizador","secondId":58,"quantity":1}]}}

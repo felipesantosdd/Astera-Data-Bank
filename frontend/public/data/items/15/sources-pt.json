@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Meganutrientes","first":"Nutrientes","firstId":14,"second":"Mel","secondId":31,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Poção Máxima","resultId":3,"first":"Meganutrientes","firstId":15,"second":"Mandrágora","secondId":42,"quantity":1}]}}

@@ -32,7 +32,7 @@ interface IconEntry {
 const monsterIcons = ref<IconEntry[]>([])
 const timers: number[] = []
 
-function randomEdgeStart(vw: number, vh: number): { sx: number; sy: number } {
+function randomEdgeStart(): { sx: number; sy: number } {
   const edge = Math.floor(Math.random() * 4) // 0=top 1=right 2=bottom 3=left
   switch (edge) {
     case 0: return { sx: Math.random() * 140 - 20, sy: -30 }
@@ -57,8 +57,8 @@ onMounted(() => {
   const avgSize = 200
   const count = Math.min(Math.ceil((vw * vh * 4) / (avgSize * avgSize)), 100)
 
-  monsterIcons.value = Array.from({ length: count }, (_, i) => {
-    const { sx, sy } = randomEdgeStart(vw, vh)
+  monsterIcons.value = Array.from({ length: count }, () => {
+    const { sx, sy } = randomEdgeStart()
     return {
       id: largeMonsterIds[Math.floor(Math.random() * largeMonsterIds.length)],
       tx: Math.random() * 100,
@@ -223,11 +223,11 @@ onBeforeUnmount(() => {
   }
 
   15% {
-    opacity: 0.75;
+    opacity: 1;
   }
 
   100% {
-    opacity: 0.55;
+    opacity: 1;
     transform: translate(0, 0) rotate(var(--rotate)) scale(1);
   }
 }

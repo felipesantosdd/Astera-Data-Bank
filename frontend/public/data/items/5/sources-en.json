@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Antidote","first":"Antidote Herb","firstId":33,"second":null,"secondId":null,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Herbal Medicine","resultId":6,"first":"Antidote","firstId":5,"second":"Blue Mushroom","secondId":41,"quantity":1}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Bomba-Ricochete","first":"Nitromelo","firstId":43,"second":"Barrilete","secondId":71,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Megabomba-ricochete","resultId":74,"first":"Nitromelo","firstId":43,"second":"Bomba-Ricochete","secondId":73,"quantity":1}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Lähmung I","first":"Normal I","firstId":559,"second":"Lähmpilz","secondId":45,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Lähmung II","resultId":582,"first":"Lähmung I","firstId":581,"second":"Beschleuniger","secondId":58,"quantity":1}]}}

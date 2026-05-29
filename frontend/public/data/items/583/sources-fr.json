@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Somnifère","first":"Normal","firstId":559,"second":"Herbe du sommeil","secondId":37,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Somnifère II","resultId":584,"first":"Somnifère","firstId":583,"second":"Catalyseur","secondId":58,"quantity":1}]}}

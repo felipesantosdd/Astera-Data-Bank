@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { RouterView, RouterLink, useRoute } from 'vue-router'
+import { RouterView, RouterLink } from 'vue-router'
+import AppIntro from '@/components/AppIntro.vue'
 import LanguagePicker from '@/components/LanguagePicker.vue'
 import { useUI } from '@/composables/useUI'
 
 const { t } = useUI()
-const route = useRoute()
 const menuOpen = ref(false)
+const showIntro = ref(true)
 
 function closeMenu() { menuOpen.value = false }
 </script>
 
 <template>
+  <AppIntro v-if="showIntro" @finished="showIntro = false" />
+
   <div class="app-shell">
 
     <!-- Navbar -->

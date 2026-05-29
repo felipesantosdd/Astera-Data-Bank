@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Handle, Position } from '@vue-flow/core'
 import type { NoteNodeData } from '@/types/planner'
 import { usePlannerStore } from '@/stores/plannerStore'
+import PlannerHandles from '@/components/planner/PlannerHandles.vue'
 
 const props = defineProps<{ id: string; data: NoteNodeData }>()
 
@@ -26,8 +26,7 @@ function remove() {
 
 <template>
   <div class="note-node">
-    <Handle type="target" :position="Position.Left" class="node-handle" />
-    <Handle type="source" :position="Position.Right" class="node-handle" />
+    <PlannerHandles :node-id="id" />
 
     <!-- Cabeçalho -->
     <div class="note-node__header">

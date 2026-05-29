@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"LV1 멸기탄","first":"LV1 통상탄","firstId":559,"second":"두근두근버섯","secondId":47,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"LV2 멸기탄","resultId":586,"first":"LV1 멸기탄","firstId":585,"second":"증강제","secondId":58,"quantity":1}]}}

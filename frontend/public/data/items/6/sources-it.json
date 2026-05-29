@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Rimedio erboristico","first":"Antidoto","firstId":5,"second":"Fungo blu","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Polvere d'erbe","resultId":28,"first":"Insetto divino","firstId":51,"second":"Rimedio erboristico","secondId":6,"quantity":1}]}}

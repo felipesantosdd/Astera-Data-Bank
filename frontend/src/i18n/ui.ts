@@ -174,6 +174,12 @@ export interface UIStrings {
     rewardGroupA: string
     rewardGroupB: string
     rewardGroupC: string
+    combinations: string
+    recipe: string
+    usedIn: string
+    colIngredient: string
+    colResult: string
+    colQty: string
   }
   tabs: {
     combat: string
@@ -346,6 +352,12 @@ const en: UIStrings = {
     rewardGroupA: 'Primary',
     rewardGroupB: 'Bonus 1',
     rewardGroupC: 'Bonus 2',
+    combinations: 'Combinations',
+    recipe: 'Recipe',
+    usedIn: 'Used In',
+    colIngredient: 'Ingredients',
+    colResult: 'Result',
+    colQty: 'Qty',
   },
   tabs: {
     combat: 'Combat',
@@ -545,6 +557,12 @@ const pt: UIStrings = {
     rewardGroupA: 'Primária',
     rewardGroupB: 'Bônus 1',
     rewardGroupC: 'Bônus 2',
+    combinations: 'Combinações',
+    recipe: 'Receita',
+    usedIn: 'Usado em',
+    colIngredient: 'Ingredientes',
+    colResult: 'Resultado',
+    colQty: 'Qtd',
   },
   tabs: {
     combat: 'Combate',

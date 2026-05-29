@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"해독약","first":"해독초","firstId":33,"second":null,"secondId":null,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"한방약","resultId":6,"first":"해독약","firstId":5,"second":"푸른버섯","secondId":41,"quantity":1}]}}

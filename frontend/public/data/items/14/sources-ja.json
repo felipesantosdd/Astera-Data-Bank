@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"栄養剤","first":"にが虫","firstId":49,"second":"アオキノコ","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"栄養剤グレート","resultId":15,"first":"栄養剤","firstId":14,"second":"ハチミツ","secondId":31,"quantity":1}]}}

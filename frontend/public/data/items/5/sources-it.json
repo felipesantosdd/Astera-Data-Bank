@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Antidoto","first":"Erba antidoto","firstId":33,"second":null,"secondId":null,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Rimedio erboristico","resultId":6,"first":"Antidoto","firstId":5,"second":"Fungo blu","secondId":41,"quantity":1}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"그레이트 영양제","first":"영양제","firstId":14,"second":"벌꿀","secondId":31,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"비약","resultId":3,"first":"그레이트 영양제","firstId":15,"second":"만드라고라","secondId":42,"quantity":1}]}}

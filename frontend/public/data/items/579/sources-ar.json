@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"ذخيرة سامة 1","first":"ذخيرة عادية 1","firstId":559,"second":"كمأة","secondId":46,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"ذخيرة سامة 2","resultId":580,"first":"ذخيرة سامة 1","firstId":579,"second":"المحفز","secondId":58,"quantity":1}]}}

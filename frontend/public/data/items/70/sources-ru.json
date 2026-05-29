@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Порох","first":"Огненная трава","firstId":34,"second":"Нитрогриб","secondId":43,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Большая бочковая бомба","resultId":76,"first":"Порох","firstId":70,"second":"Большая бочка","secondId":75,"quantity":1}]}}

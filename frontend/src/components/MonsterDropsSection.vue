@@ -5,12 +5,18 @@ import { useUI } from '@/composables/useUI'
 import { translateCondition } from '@/i18n/dropConditions'
 import ItemIcon from '@/components/ItemIcon.vue'
 import type { MonsterDrop } from '@/types/monster'
+import { usePlannerStore } from '@/stores/plannerStore'
 
-const props = defineProps<{ monsterId: number }>()
+const props = defineProps<{
+  monsterId: number
+  monsterName?: string
+  monsterEcology?: string | null
+}>()
 const monsterIdRef = toRef(props, 'monsterId')
 
 const { data: drops, isLoading, isError } = useMonsterDrops(monsterIdRef)
 const { t, lang } = useUI()
+const plannerStore = usePlannerStore()
 
 // ── Estrutura de agrupamento ───────────────────────────────────────────
 const RANK_ORDER = ['LR', 'HR', 'MR'] as const
@@ -130,6 +136,64 @@ const displayedDrops = computed<MonsterDrop[]>(() =>
 watch(monsterIdRef, () => { searchQuery.value = '' })
 
 function clearSearch() { searchQuery.value = '' }
+
+const completedMaterialIds = computed(() => {
+  const ids = new Set<number>()
+  for (const node of plannerStore.nodes) {
+    if (node.data.type === 'materialChecklist') {
+      for (const item of node.data.items) {
+        if (item.materialId != null && item.completed) ids.add(item.materialId)
+      }
+    }
+
+    if (node.data.type === 'equipment') {
+      for (const item of node.data.materials) {
+        if (item.materialId != null && item.completed) ids.add(item.materialId)
+      }
+    }
+  }
+  return ids
+})
+
+function isDropCompleted(drop: MonsterDrop) {
+  return completedMaterialIds.value.has(drop.itemId)
+}
+
+function addDropToPlanner(drop: MonsterDrop) {
+  const monsterNodeId = `monster-${props.monsterId}`
+  const hasMonsterNode = plannerStore.nodes.some(node => node.id === monsterNodeId)
+
+  if (!hasMonsterNode && props.monsterName) {
+    plannerStore.addMonsterNode({
+      monsterId: props.monsterId,
+      name: props.monsterName,
+      icon: null,
+      ecology: props.monsterEcology ?? '',
+    })
+  }
+
+  const materialNodeId = plannerStore.addChecklistNode({
+    title: drop.itemName,
+    iconName: drop.iconName,
+    iconColor: drop.iconColor,
+    item: {
+      materialId: drop.itemId,
+      name: drop.itemName,
+      iconName: drop.iconName,
+      iconColor: drop.iconColor,
+      quantity: drop.stack ?? 1,
+    },
+  })
+
+  if (props.monsterName) {
+    plannerStore.addEdge({
+      id: `edge-${monsterNodeId}-${materialNodeId}-${Date.now()}`,
+      source: monsterNodeId,
+      target: materialNodeId,
+      sourceHandle: 'source',
+    })
+  }
+}
 </script>
 
 <template>
@@ -222,10 +286,18 @@ function clearSearch() { searchQuery.value = '' }
 
       <!-- Lista de drops -->
       <ul v-if="displayedDrops.length > 0" class="drop-list">
-        <li v-for="(d, i) in displayedDrops" :key="i" class="drop-item">
+        <li
+          v-for="(d, i) in displayedDrops"
+          :key="i"
+          class="drop-item"
+          :class="{ 'drop-item--completed': isDropCompleted(d) }"
+        >
           <ItemIcon :name="d.iconName" :color="d.iconColor" :size="32" />
 
-          <span class="drop-item__name">{{ d.itemName }}</span>
+          <span class="drop-item__name">
+            {{ d.itemName }}
+            <span v-if="isDropCompleted(d)" class="drop-item__done">✓</span>
+          </span>
 
           <span class="drop-item__qty">×{{ d.stack }}</span>
 
@@ -237,6 +309,14 @@ function clearSearch() { searchQuery.value = '' }
           <span class="drop-item__pct" :style="{ '--p': (d.percentage ?? 0) + '%' }">
             <strong>{{ d.percentage }}%</strong>
           </span>
+
+          <button
+            class="drop-item__planner"
+            :class="{ 'drop-item__planner--done': isDropCompleted(d) }"
+            @click="addDropToPlanner(d)"
+          >
+            {{ isDropCompleted(d) ? '✓' : '+ Planner' }}
+          </button>
         </li>
       </ul>
     </template>
@@ -436,7 +516,7 @@ function clearSearch() { searchQuery.value = '' }
 
 .drop-item {
   display: grid;
-  grid-template-columns: 32px 1fr auto auto 140px;
+  grid-template-columns: 32px 1fr auto auto 140px auto;
   align-items: center;
   gap: 12px;
   padding: 8px 12px;
@@ -451,12 +531,30 @@ function clearSearch() { searchQuery.value = '' }
   background: var(--surface);
 }
 
+.drop-item--completed {
+  border-color: rgba(92, 184, 92, 0.5);
+}
+
 .drop-item__name {
   color: var(--text);
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.drop-item__done {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: rgba(92, 184, 92, 0.18);
+  color: #5cb85c;
+  font-size: 12px;
+  font-weight: 800;
 }
 .drop-item__qty {
   font-family: var(--font-heading);
@@ -502,6 +600,30 @@ function clearSearch() { searchQuery.value = '' }
   z-index: 1;
 }
 
+.drop-item__planner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text-muted);
+  padding: 5px 9px;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.drop-item__planner:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
+.drop-item__planner--done {
+  color: #5cb85c;
+  border-color: rgba(92, 184, 92, 0.5);
+  background: rgba(92, 184, 92, 0.12);
+}
+
 /* Mobile: empilha colunas */
 @media (max-width: 640px) {
   .drop-item {
@@ -517,6 +639,11 @@ function clearSearch() { searchQuery.value = '' }
   .drop-item__pct {
     grid-column: 3;
     grid-row: 1;
+  }
+  .drop-item__planner {
+    grid-column: 2 / -1;
+    grid-row: 3;
+    justify-self: start;
   }
 }
 </style>

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"漢方藥","first":"解毒藥","firstId":5,"second":"青菇","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"漢方粉塵","resultId":28,"first":"不死蟲","firstId":51,"second":"漢方藥","secondId":6,"quantity":1}]}}

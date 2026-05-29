@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Paralysant","first":"Normal","firstId":559,"second":"Champaralysie","secondId":45,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Paralysant II","resultId":582,"first":"Paralysant","firstId":581,"second":"Catalyseur","secondId":58,"quantity":1}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"D fatiga nv1","first":"D normal nv1","firstId":559,"second":"Seta excitante","secondId":47,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"D fatiga nv2","resultId":586,"first":"D fatiga nv1","firstId":585,"second":"Catalizador","secondId":58,"quantity":1}]}}

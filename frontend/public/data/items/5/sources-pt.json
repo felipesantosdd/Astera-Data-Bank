@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Antídoto","first":"Erva Antídoto","firstId":33,"second":null,"secondId":null,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Ervas Medicinais","resultId":6,"first":"Antídoto","firstId":5,"second":"Cogumelo Azul","secondId":41,"quantity":1}]}}

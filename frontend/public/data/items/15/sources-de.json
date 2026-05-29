@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Mega-Nährstoffe","first":"Nährstoffe","firstId":14,"second":"Honig","secondId":31,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Maxi-Trank","resultId":3,"first":"Mega-Nährstoffe","firstId":15,"second":"Mandragora","secondId":42,"quantity":1}]}}

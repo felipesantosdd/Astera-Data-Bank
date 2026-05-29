@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"D recuperación nv1","first":"D normal nv1","firstId":559,"second":"Poción","secondId":1,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"D recuperación nv2","resultId":588,"first":"D recuperación nv1","firstId":587,"second":"Catalizador","secondId":58,"quantity":2}]}}

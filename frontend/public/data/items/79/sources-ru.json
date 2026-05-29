@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Сеть","first":"Плющ","firstId":38,"second":"Паутина","secondId":78,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Волчья яма","resultId":81,"first":"Инструмент для ловушек","firstId":80,"second":"Сеть","secondId":79,"quantity":1}]}}

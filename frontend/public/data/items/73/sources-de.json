@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Abprallbombe","first":"Nitropilz","firstId":43,"second":"Kleines Fass","secondId":71,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Mega-Abprallbombe","resultId":74,"first":"Nitropilz","firstId":43,"second":"Abprallbombe","secondId":73,"quantity":1}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Kräutermedizin","first":"Gegengift","firstId":5,"second":"Blaupilz","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Kräuterpulver","resultId":28,"first":"Götterkäfer","firstId":51,"second":"Kräutermedizin","secondId":6,"quantity":1}]}}

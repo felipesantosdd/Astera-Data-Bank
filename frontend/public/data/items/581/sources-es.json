@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"D paralizante nv1","first":"D normal nv1","firstId":559,"second":"Paraliseta","secondId":45,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"D paralizante nv2","resultId":582,"first":"D paralizante nv1","firstId":581,"second":"Catalizador","secondId":58,"quantity":1}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"폭약","first":"화약초","firstId":34,"second":"니트로버섯","secondId":43,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"대형나무통폭탄","resultId":76,"first":"폭약","firstId":70,"second":"대형나무통","secondId":75,"quantity":1}]}}

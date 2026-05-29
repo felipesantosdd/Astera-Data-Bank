@@ -2,15 +2,42 @@
 import { ref, computed, watch } from 'vue'
 import { useItemSources } from '@/composables/useItemSources'
 import { useUI } from '@/composables/useUI'
+import { usePlannerStore } from '@/stores/plannerStore'
 
 const props = defineProps<{
-  itemId:   number | null
-  itemName: string
+  itemId:    number | null
+  itemName:  string
+  itemIconName?: string | null
+  itemIconColor?: string | null
+  plannerQuantity?: number | null
+  canGoBack?: boolean
 }>()
 
-const emit = defineEmits<{ close: [] }>()
+const emit = defineEmits<{
+  close:    []
+  navigate: [id: number, name: string]
+  back:     []
+}>()
 
 const { t, lang } = useUI()
+const plannerStore = usePlannerStore()
+const plannerFeedback = ref(false)
+
+function addMaterialToPlanner() {
+  if (props.itemId == null) return
+  plannerStore.addChecklistNode({
+    title: props.itemName,
+    item: {
+      materialId: props.itemId,
+      name: props.itemName,
+      iconName: props.itemIconName,
+      iconColor: props.itemIconColor,
+      quantity: props.plannerQuantity ?? 1,
+    },
+  })
+  plannerFeedback.value = true
+  setTimeout(() => { plannerFeedback.value = false }, 1800)
+}
 
 // ── Helpers de tradução ───────────────────────────────────────────────────────
 function translateCondition(cond: string): string {
@@ -34,67 +61,102 @@ function groupLabel(group: string): string {
 
 // ── Dados ─────────────────────────────────────────────────────────────────────
 const itemIdRef = computed(() => props.itemId)
-const { data: sources, isLoading } = useItemSources(itemIdRef)
+const { data: sources, isLoading, isError } = useItemSources(itemIdRef)
 
 const isOpen  = computed(() => props.itemId !== null)
 const isEmpty = computed(() =>
   !!sources.value &&
-  sources.value.rewards.length  === 0 &&
+  sources.value.rewards.length   === 0 &&
   sources.value.gathering.length === 0 &&
-  (sources.value.quests?.length ?? 0) === 0
+  (sources.value.quests?.length ?? 0) === 0 &&
+  (sources.value.combinations?.produces?.length ?? 0) === 0 &&
+  (sources.value.combinations?.usedIn?.length   ?? 0) === 0
 )
 
-// ── Abas de rank ──────────────────────────────────────────────────────────────
-const RANKS = ['LR', 'HR', 'MR'] as const
-type Rank = typeof RANKS[number]
+const hasCombinations = computed(() =>
+  (sources.value?.combinations?.produces?.length ?? 0) > 0 ||
+  (sources.value?.combinations?.usedIn?.length   ?? 0) > 0
+)
 
-/** Quais ranks têm dados (pelo menos 1 item em qualquer seção) */
-const availableRanks = computed<Rank[]>(() => {
+// ── Abas de tipo de fonte ─────────────────────────────────────────────────────
+type SourceTab = 'drops' | 'gathering' | 'quests'
+
+const availableSourceTabs = computed<SourceTab[]>(() => {
   if (!sources.value) return []
-  return RANKS.filter(r =>
-    sources.value!.rewards.some(x => x.rank === r)        ||
-    sources.value!.gathering.some(x => x.rank === r || x.rank == null) ||
-    (sources.value!.quests ?? []).some(x => x.rank === r)
-  )
+  const tabs: SourceTab[] = []
+  if (sources.value.rewards.length > 0)            tabs.push('drops')
+  if (sources.value.gathering.length > 0)           tabs.push('gathering')
+  if ((sources.value.quests?.length ?? 0) > 0)     tabs.push('quests')
+  return tabs
 })
 
-const activeRank = ref<Rank>('LR')
+const activeSourceTab = ref<SourceTab>('drops')
 
-// Reseta para o primeiro rank disponível quando abre um novo item
 watch(() => props.itemId, () => {
-  activeRank.value = 'LR'
+  activeSourceTab.value = 'drops'
+  activeDropRank.value  = 'LR'
+  activeQuestRank.value = 'LR'
+  activeLocation.value  = ''
 })
-watch(availableRanks, (ranks) => {
-  if (ranks.length && !ranks.includes(activeRank.value)) {
-    activeRank.value = ranks[0]
+watch(availableSourceTabs, (tabs) => {
+  if (tabs.length && !tabs.includes(activeSourceTab.value)) {
+    activeSourceTab.value = tabs[0]
   }
 }, { immediate: true })
 
-/** Label do tab de rank */
+function sourceTabLabel(tab: SourceTab): string {
+  if (tab === 'drops')    return t.value.itemSources.monsterDrops
+  if (tab === 'gathering') return t.value.itemSources.gathering
+  return t.value.itemSources.questRewards
+}
+
+// ── Sub-tabs de rank para Drops e Missões ─────────────────────────────────────
+const RANKS = ['LR', 'HR', 'MR'] as const
+type Rank = typeof RANKS[number]
+
 function rankLabel(r: Rank): string {
   if (r === 'LR') return t.value.armor.lowRank
   if (r === 'HR') return t.value.armor.highRank
   return t.value.armor.masterRank
 }
 
-// ── Dados filtrados por rank ativo ────────────────────────────────────────────
-const rankRewards = computed(() =>
-  sources.value?.rewards.filter(x => x.rank === activeRank.value) ?? []
+const activeDropRank = ref<Rank>('LR')
+const availableDropRanks = computed<Rank[]>(() =>
+  RANKS.filter(r => sources.value?.rewards.some(x => x.rank === r))
 )
+watch(availableDropRanks, (ranks) => {
+  if (ranks.length && !ranks.includes(activeDropRank.value)) activeDropRank.value = ranks[0]
+}, { immediate: true })
 
-/** Gathering inclui rank null (itens disponíveis em todos os ranks) */
-const rankGathering = computed(() =>
-  sources.value?.gathering.filter(x => x.rank === activeRank.value || x.rank == null) ?? []
+const activeQuestRank = ref<Rank>('LR')
+const availableQuestRanks = computed<Rank[]>(() =>
+  RANKS.filter(r => (sources.value?.quests ?? []).some(x => x.rank === r))
 )
+watch(availableQuestRanks, (ranks) => {
+  if (ranks.length && !ranks.includes(activeQuestRank.value)) activeQuestRank.value = ranks[0]
+}, { immediate: true })
 
-const rankQuests = computed(() =>
-  (sources.value?.quests ?? []).filter(x => x.rank === activeRank.value)
-)
+const filteredDrops  = computed(() => sources.value?.rewards.filter(x => x.rank === activeDropRank.value) ?? [])
+const filteredQuests = computed(() => (sources.value?.quests ?? []).filter(x => x.rank === activeQuestRank.value))
 
-const rankIsEmpty = computed(() =>
-  rankRewards.value.length === 0 &&
-  rankGathering.value.length === 0 &&
-  rankQuests.value.length === 0
+// ── Sub-tabs de localização para Coleta ───────────────────────────────────────
+const gatheringLocations = computed<string[]>(() => {
+  const seen = new Set<string>()
+  const locs: string[] = []
+  for (const g of sources.value?.gathering ?? []) {
+    if (!seen.has(g.locationName)) { seen.add(g.locationName); locs.push(g.locationName) }
+  }
+  return locs
+})
+
+const activeLocation = ref('')
+
+watch(gatheringLocations, (locs) => {
+  if (locs.length && !locs.includes(activeLocation.value)) activeLocation.value = locs[0]
+}, { immediate: true })
+
+const filteredGathering = computed(() =>
+  sources.value?.gathering.filter(g => g.locationName === activeLocation.value) ?? []
 )
 
 // ── ESC + scroll lock ─────────────────────────────────────────────────────────
@@ -120,11 +182,19 @@ watch(isOpen, (open) => {
 
           <!-- Header -->
           <header class="modal__header">
-            <div class="modal__heading">
-              <p class="modal__label">{{ t.itemSources.title }}</p>
-              <h2 class="modal__title">{{ itemName }}</h2>
+            <div class="modal__header-left">
+              <button v-if="canGoBack" class="modal__back" @click="emit('back')" aria-label="Voltar">‹</button>
+              <div class="modal__heading">
+                <p class="modal__label">{{ t.itemSources.title }}</p>
+                <h2 class="modal__title">{{ itemName }}</h2>
+              </div>
             </div>
-            <button class="modal__close" @click="emit('close')" :aria-label="t.itemSources.close">✕</button>
+            <div class="modal__header-actions">
+              <button class="modal__planner" @click="addMaterialToPlanner">
+                {{ plannerFeedback ? '✓' : '+ Planner' }}
+              </button>
+              <button class="modal__close" @click="emit('close')" :aria-label="t.itemSources.close">✕</button>
+            </div>
           </header>
 
           <!-- Loading -->
@@ -132,6 +202,15 @@ watch(isOpen, (open) => {
             <div class="modal__state">
               <div class="modal__skel" />
               <div class="modal__skel" />
+            </div>
+          </div>
+
+          <!-- Erro ao carregar -->
+          <div v-else-if="isError" class="modal__body">
+            <div class="modal__empty">
+              <div class="modal__empty-icon">!</div>
+              <p class="modal__empty-title">{{ t.itemSources.noSources }}</p>
+              <p class="modal__empty-hint">{{ t.itemSources.noSourcesHint }}</p>
             </div>
           </div>
 
@@ -144,131 +223,175 @@ watch(isOpen, (open) => {
             </div>
           </div>
 
-          <!-- Abas de rank + conteúdo -->
+          <!-- Conteúdo principal -->
           <template v-else-if="sources">
-            <!-- Tabs de rank -->
-            <div class="rank-tabs">
+
+            <!-- Combinações (sem rank, sempre acima) -->
+            <div v-if="hasCombinations" class="modal__body modal__body--combinations">
+              <section v-if="sources.combinations!.produces.length > 0" class="modal__section">
+                <h3 class="modal__section-title">{{ t.itemSources.recipe }}</h3>
+                <div class="combo-list">
+                  <div v-for="(c, i) in sources.combinations!.produces" :key="i" class="combo-row">
+                    <button class="combo-ing combo-ing--link" @click="c.firstId && emit('navigate', c.firstId, c.first)">{{ c.first }}</button>
+                    <span v-if="c.second" class="combo-plus">+</span>
+                    <button v-if="c.second" class="combo-ing combo-ing--link" @click="c.secondId && emit('navigate', c.secondId, c.second)">{{ c.second }}</button>
+                    <span class="combo-arrow">→</span>
+                    <span class="combo-result">{{ c.resultName }}</span>
+                    <span class="combo-qty">×{{ c.quantity }}</span>
+                  </div>
+                </div>
+              </section>
+              <section v-if="sources.combinations!.usedIn.length > 0" class="modal__section">
+                <h3 class="modal__section-title">{{ t.itemSources.usedIn }}</h3>
+                <div class="modal__table-wrap">
+                  <table class="src-table">
+                    <thead><tr>
+                      <th>{{ t.itemSources.colIngredient }}</th>
+                      <th>{{ t.itemSources.colResult }}</th>
+                      <th>{{ t.itemSources.colQty }}</th>
+                    </tr></thead>
+                    <tbody>
+                      <tr v-for="(c, i) in sources.combinations!.usedIn" :key="i">
+                        <td class="src-table__name">
+                          <button class="combo-ing--link" @click="c.firstId && emit('navigate', c.firstId, c.first)">{{ c.first }}</button>
+                          <span v-if="c.second"><span class="combo-sep"> + </span><button class="combo-ing--link" @click="c.secondId && emit('navigate', c.secondId, c.second!)">{{ c.second }}</button></span>
+                        </td>
+                        <td class="src-table__name combo-result-cell">
+                          <button class="combo-ing--link" @click="c.resultId && emit('navigate', c.resultId, c.resultName)">{{ c.resultName }}</button>
+                        </td>
+                        <td class="src-table__stack">×{{ c.quantity }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+
+            <!-- Abas de tipo de fonte -->
+            <div v-if="availableSourceTabs.length > 0" class="source-tabs">
               <button
-                v-for="r in availableRanks"
-                :key="r"
-                class="rank-tab"
-                :class="[`rank-tab--${r.toLowerCase()}`, { 'rank-tab--active': activeRank === r }]"
-                @click="activeRank = r"
-              >
-                {{ rankLabel(r) }}
-              </button>
+                v-for="tab in availableSourceTabs"
+                :key="tab"
+                class="source-tab"
+                :class="{ 'source-tab--active': activeSourceTab === tab }"
+                @click="activeSourceTab = tab"
+              >{{ sourceTabLabel(tab) }}</button>
             </div>
 
-            <!-- Corpo scrollável -->
-            <div class="modal__body">
-
-              <!-- Rank sem dados -->
-              <div v-if="rankIsEmpty" class="modal__state" style="font-style: italic; color: var(--text-dim)">
-                {{ t.itemSources.noSourcesForRank }}
+            <!-- Painel: Drops de Monstros -->
+            <div v-if="activeSourceTab === 'drops' && availableSourceTabs.includes('drops')" class="modal__body">
+              <!-- Sub-tabs de rank -->
+              <div v-if="availableDropRanks.length > 1" class="rank-tabs rank-tabs--inner">
+                <button
+                  v-for="r in availableDropRanks" :key="r"
+                  class="rank-tab"
+                  :class="[`rank-tab--${r.toLowerCase()}`, { 'rank-tab--active': activeDropRank === r }]"
+                  @click="activeDropRank = r"
+                >{{ rankLabel(r) }}</button>
               </div>
-
-              <template v-else>
-                <!-- Drops de monstros -->
-                <section v-if="rankRewards.length > 0" class="modal__section">
-                  <h3 class="modal__section-title">{{ t.itemSources.monsterDrops }}</h3>
-                  <div class="modal__table-wrap">
-                    <table class="src-table">
-                      <thead>
-                        <tr>
-                          <th class="src-table__col-name">{{ t.itemSources.colMonster }}</th>
-                          <th>{{ t.itemSources.colCondition }}</th>
-                          <th class="src-table__col-pct">{{ t.itemSources.colChance }}</th>
-                          <th>{{ t.itemSources.colStack }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(r, i) in rankRewards" :key="i">
-                          <td class="src-table__name">{{ r.monsterName }}</td>
-                          <td class="src-table__cond">{{ translateCondition(r.condition) }}</td>
-                          <td class="src-table__pct">
-                            <span class="pct-bar" :style="{ '--p': (r.percentage ?? 0) + '%' }">
-                              <strong>{{ r.percentage }}%</strong>
-                            </span>
-                          </td>
-                          <td class="src-table__stack">×{{ r.stack }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </section>
-
-                <!-- Coleta em mapas -->
-                <section v-if="rankGathering.length > 0" class="modal__section">
-                  <h3 class="modal__section-title">{{ t.itemSources.gathering }}</h3>
-                  <div class="modal__table-wrap">
-                    <table class="src-table">
-                      <thead>
-                        <tr>
-                          <th class="src-table__col-name">{{ t.itemSources.colLocation }}</th>
-                          <th>{{ t.itemSources.colArea }}</th>
-                          <th class="src-table__col-pct">{{ t.itemSources.colChance }}</th>
-                          <th>{{ t.itemSources.colStack }}</th>
-                          <th>{{ t.itemSources.colNodes }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(g, i) in rankGathering" :key="i">
-                          <td class="src-table__name">{{ g.locationName }}</td>
-                          <td>{{ t.itemSources.areaPrefix }} {{ g.area }}</td>
-                          <td class="src-table__pct">
-                            <span class="pct-bar" :style="{ '--p': (g.percentage ?? 0) + '%' }">
-                              <strong>{{ g.percentage }}%</strong>
-                            </span>
-                          </td>
-                          <td class="src-table__stack">×{{ g.stack }}</td>
-                          <td>{{ g.nodes }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </section>
-
-                <!-- Recompensas de missão -->
-                <section v-if="rankQuests.length > 0" class="modal__section">
-                  <h3 class="modal__section-title">{{ t.itemSources.questRewards }}</h3>
-                  <div class="modal__table-wrap">
-                    <table class="src-table">
-                      <thead>
-                        <tr>
-                          <th class="src-table__col-name">{{ t.itemSources.colQuest }}</th>
-                          <th>{{ t.itemSources.colCategory }}</th>
-                          <th>{{ t.itemSources.colStars }}</th>
-                          <th>{{ t.itemSources.colGroup }}</th>
-                          <th class="src-table__col-pct">{{ t.itemSources.colChance }}</th>
-                          <th>{{ t.itemSources.colStack }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(q, i) in rankQuests" :key="i">
-                          <td class="src-table__name">{{ q.questName }}</td>
-                          <td>
-                            <span class="quest-cat" :class="`quest-cat--${q.category}`">
-                              {{ questCategory(q.category) }}
-                            </span>
-                          </td>
-                          <td class="src-table__stars">
-                            {{ q.stars ? '★'.repeat(Math.min(q.stars, 5)) : '—' }}
-                          </td>
-                          <td class="src-table__group">{{ groupLabel(q.rewardGroup) }}</td>
-                          <td class="src-table__pct">
-                            <span class="pct-bar" :style="{ '--p': (q.percentage ?? 0) + '%' }">
-                              <strong>{{ q.percentage }}%</strong>
-                            </span>
-                          </td>
-                          <td class="src-table__stack">×{{ q.stack }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </section>
-              </template>
-
+              <div v-else-if="availableDropRanks.length === 1" class="rank-badge-row">
+                <span class="rank-badge" :class="`rank-badge--${availableDropRanks[0].toLowerCase()}`">{{ rankLabel(availableDropRanks[0]) }}</span>
+              </div>
+              <div class="modal__table-wrap">
+                <table class="src-table">
+                  <thead><tr>
+                    <th class="src-table__col-name">{{ t.itemSources.colMonster }}</th>
+                    <th>{{ t.itemSources.colCondition }}</th>
+                    <th class="src-table__col-pct">{{ t.itemSources.colChance }}</th>
+                    <th>{{ t.itemSources.colStack }}</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr v-for="(r, i) in filteredDrops" :key="i">
+                      <td class="src-table__name">{{ r.monsterName }}</td>
+                      <td class="src-table__cond">{{ translateCondition(r.condition) }}</td>
+                      <td class="src-table__pct">
+                        <span class="pct-bar" :style="{ '--p': (r.percentage ?? 0) + '%' }"><strong>{{ r.percentage }}%</strong></span>
+                      </td>
+                      <td class="src-table__stack">×{{ r.stack }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+
+            <!-- Painel: Coleta em Mapas -->
+            <div v-if="activeSourceTab === 'gathering' && availableSourceTabs.includes('gathering')" class="modal__body modal__body--gathering">
+              <!-- Sub-tabs por localização -->
+              <div class="loc-tabs">
+                <button
+                  v-for="loc in gatheringLocations" :key="loc"
+                  class="loc-tab"
+                  :class="{ 'loc-tab--active': activeLocation === loc }"
+                  @click="activeLocation = loc"
+                >{{ loc }}</button>
+              </div>
+              <div class="modal__table-wrap">
+                <table class="src-table">
+                  <thead><tr>
+                    <th>{{ t.itemSources.colArea }}</th>
+                    <th>{{ t.itemSources.colRank }}</th>
+                    <th class="src-table__col-pct">{{ t.itemSources.colChance }}</th>
+                    <th>{{ t.itemSources.colStack }}</th>
+                    <th>{{ t.itemSources.colNodes }}</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr v-for="(g, i) in filteredGathering" :key="i">
+                      <td>{{ t.itemSources.areaPrefix }} {{ g.area }}</td>
+                      <td>
+                        <span v-if="g.rank" class="rank-badge" :class="`rank-badge--${g.rank.toLowerCase()}`">{{ rankLabel(g.rank as any) }}</span>
+                        <span v-else class="rank-badge rank-badge--all">ALL</span>
+                      </td>
+                      <td class="src-table__pct">
+                        <span class="pct-bar" :style="{ '--p': (g.percentage ?? 0) + '%' }"><strong>{{ g.percentage }}%</strong></span>
+                      </td>
+                      <td class="src-table__stack">×{{ g.stack }}</td>
+                      <td>{{ g.nodes ?? '—' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Painel: Recompensas de Missão -->
+            <div v-if="activeSourceTab === 'quests' && availableSourceTabs.includes('quests')" class="modal__body">
+              <!-- Sub-tabs de rank -->
+              <div v-if="availableQuestRanks.length > 1" class="rank-tabs rank-tabs--inner">
+                <button
+                  v-for="r in availableQuestRanks" :key="r"
+                  class="rank-tab"
+                  :class="[`rank-tab--${r.toLowerCase()}`, { 'rank-tab--active': activeQuestRank === r }]"
+                  @click="activeQuestRank = r"
+                >{{ rankLabel(r) }}</button>
+              </div>
+              <div v-else-if="availableQuestRanks.length === 1" class="rank-badge-row">
+                <span class="rank-badge" :class="`rank-badge--${availableQuestRanks[0].toLowerCase()}`">{{ rankLabel(availableQuestRanks[0]) }}</span>
+              </div>
+              <div class="modal__table-wrap">
+                <table class="src-table">
+                  <thead><tr>
+                    <th class="src-table__col-name">{{ t.itemSources.colQuest }}</th>
+                    <th>{{ t.itemSources.colCategory }}</th>
+                    <th>{{ t.itemSources.colStars }}</th>
+                    <th>{{ t.itemSources.colGroup }}</th>
+                    <th class="src-table__col-pct">{{ t.itemSources.colChance }}</th>
+                    <th>{{ t.itemSources.colStack }}</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr v-for="(q, i) in filteredQuests" :key="i">
+                      <td class="src-table__name">{{ q.questName }}</td>
+                      <td><span class="quest-cat" :class="`quest-cat--${q.category}`">{{ questCategory(q.category) }}</span></td>
+                      <td class="src-table__stars">{{ q.stars ? '★'.repeat(Math.min(q.stars, 5)) : '—' }}</td>
+                      <td class="src-table__group">{{ groupLabel(q.rewardGroup) }}</td>
+                      <td class="src-table__pct">
+                        <span class="pct-bar" :style="{ '--p': (q.percentage ?? 0) + '%' }"><strong>{{ q.percentage }}%</strong></span>
+                      </td>
+                      <td class="src-table__stack">×{{ q.stack }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
           </template>
 
         </div>
@@ -324,6 +447,32 @@ watch(isOpen, (open) => {
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
+
+.modal__header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.modal__back {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.modal__back:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
 .modal__label {
   font-family: var(--font-heading);
   font-size: 10px;
@@ -357,17 +506,45 @@ watch(isOpen, (open) => {
   background: var(--gold-glow);
 }
 
-/* ── Rank tabs ────────────────────────────────────────────────────── */
-.rank-tabs {
+.modal__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.modal__planner {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  min-width: 84px;
+  height: 32px;
+  border-radius: 6px;
+  padding: 0 12px;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.modal__planner:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
+
+/* ── Source-type tabs ─────────────────────────────────────────────── */
+.source-tabs {
   display: flex;
   gap: 0;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   padding: 0 24px;
+  background: var(--surface);
 }
 
-.rank-tab {
-  padding: 10px 18px;
+.source-tab {
+  padding: 10px 16px;
   background: none;
   border: none;
   border-bottom: 3px solid transparent;
@@ -380,23 +557,109 @@ watch(isOpen, (open) => {
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
   color: var(--text-dim);
+  white-space: nowrap;
+}
+.source-tab--active,
+.source-tab:hover { color: var(--gold); }
+.source-tab--active { border-bottom-color: var(--gold); }
+
+/* ── Rank tabs dentro do painel ───────────────────────────────────── */
+.rank-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  padding: 0 24px;
+  background: var(--surface-2);
 }
 
-/* Cores por rank */
-.rank-tab--lr { }
+.rank-tabs--inner {
+  margin: 0 -24px;
+  padding: 0 24px;
+}
+
+.rank-tab {
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  color: var(--text-dim);
+}
+
 .rank-tab--lr.rank-tab--active,
 .rank-tab--lr:hover { color: #8fb88f; }
 .rank-tab--lr.rank-tab--active { border-bottom-color: #8fb88f; }
 
-.rank-tab--hr { }
 .rank-tab--hr.rank-tab--active,
 .rank-tab--hr:hover { color: var(--gold); }
 .rank-tab--hr.rank-tab--active { border-bottom-color: var(--gold); }
 
-.rank-tab--mr { }
 .rank-tab--mr.rank-tab--active,
 .rank-tab--mr:hover { color: var(--el-fire); }
 .rank-tab--mr.rank-tab--active { border-bottom-color: var(--el-fire); }
+
+/* ── Rank badge (inline / single rank) ───────────────────────────── */
+.rank-badge-row {
+  padding: 8px 0 4px;
+}
+.rank-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+.rank-badge--lr { color: #8fb88f; border-color: #3a6e54; }
+.rank-badge--hr { color: var(--gold); border-color: #6e5424; }
+.rank-badge--mr { color: var(--el-fire); border-color: #7a3a2a; }
+.rank-badge--all { color: var(--text-dim); border-color: var(--border); }
+
+/* ── Location tabs (gathering) ────────────────────────────────────── */
+.loc-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  padding: 12px 0 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.loc-tab {
+  padding: 5px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  color: var(--text-muted);
+}
+.loc-tab--active,
+.loc-tab:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
+
+/* Body especial para gathering (sem padding-top extra) */
+.modal__body--gathering {
+  padding-top: 0;
+}
 
 /* ── Body (scrollável) ────────────────────────────────────────────── */
 .modal__body {
@@ -529,6 +792,82 @@ watch(isOpen, (open) => {
   color: var(--text);
   font-weight: 700;
   z-index: 1;
+}
+
+/* ── Combinations ─────────────────────────────────────────────────── */
+.modal__body--combinations {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.combo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.combo-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.combo-ing {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.combo-ing--link {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  font-family: inherit;
+}
+.combo-ing--link:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-glow);
+}
+
+.combo-plus {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.combo-arrow {
+  color: var(--gold);
+  font-size: 15px;
+}
+
+.combo-result {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.combo-qty {
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+.combo-sep {
+  color: var(--text-dim);
+}
+
+.combo-result-cell {
+  color: var(--gold) !important;
 }
 
 /* ── Quest category badge ─────────────────────────────────────────── */

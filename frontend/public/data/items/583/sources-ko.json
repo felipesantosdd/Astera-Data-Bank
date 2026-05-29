@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"LV1 수면탄","first":"LV1 통상탄","firstId":559,"second":"수면초","secondId":37,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"LV2 수면탄","resultId":584,"first":"LV1 수면탄","firstId":583,"second":"증강제","secondId":58,"quantity":1}]}}

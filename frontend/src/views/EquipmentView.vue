@@ -14,7 +14,7 @@ const { t } = useUI()
 
 // ── Main tab ──────────────────────────────────────────────────────────────────
 type MainTab = 'weapons' | 'armor'
-const mainTab = ref<MainTab>('weapons')
+const mainTab = ref<MainTab>('armor')
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 const { data: weapons, isLoading: loadingWeapons } = useWeapons()
@@ -165,6 +165,23 @@ const filteredArmor = computed(() => {
   })
 })
 
+// ── Paginação de armaduras ────────────────────────────────────────────────────
+const ARMOR_PER_PAGE = 9
+const armorPage = ref(1)
+const armorTotalPages = computed(() => Math.ceil(filteredArmor.value.length / ARMOR_PER_PAGE))
+
+const paginatedArmor = computed(() => {
+  const start = (armorPage.value - 1) * ARMOR_PER_PAGE
+  return filteredArmor.value.slice(start, start + ARMOR_PER_PAGE)
+})
+
+watch(filteredArmor, () => { armorPage.value = 1 })
+
+function goToArmorPage(p: number) {
+  armorPage.value = Math.max(1, Math.min(p, armorTotalPages.value))
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
 // ── Modal de armadura ─────────────────────────────────────────────────────────
 const armorModal = ref<ArmorSet | null>(null)
 </script>
@@ -179,11 +196,11 @@ const armorModal = ref<ArmorSet | null>(null)
         <h1 class="eq-header__title">Armas &amp; Armaduras</h1>
       </div>
       <div class="eq-main-tabs">
-        <button class="eq-main-tab" :class="{ 'eq-main-tab--active': mainTab === 'weapons' }" @click="mainTab = 'weapons'">
-          Armas
-        </button>
         <button class="eq-main-tab" :class="{ 'eq-main-tab--active': mainTab === 'armor' }" @click="mainTab = 'armor'">
           Armaduras
+        </button>
+        <button class="eq-main-tab" :class="{ 'eq-main-tab--active': mainTab === 'weapons' }" @click="mainTab = 'weapons'">
+          Armas
         </button>
       </div>
     </header>
@@ -301,7 +318,7 @@ const armorModal = ref<ArmorSet | null>(null)
           :key="r"
           class="armor-rank-tab"
           :class="[`armor-rank-tab--${r.toLowerCase()}`, { 'armor-rank-tab--active': armorRankTab === r }]"
-          @click="armorRankTab = r; searchArmor = ''"
+          @click="armorRankTab = r; searchArmor = ''; armorPage = 1"
         >{{ r }}</button>
       </div>
 
@@ -322,7 +339,7 @@ const armorModal = ref<ArmorSet | null>(null)
       <!-- Grid de cards com foto -->
       <div v-else class="armor-grid">
         <button
-          v-for="set in filteredArmor"
+          v-for="set in paginatedArmor"
           :key="set.id"
           class="armor-card"
           :class="`armor-card--${set.rank.toLowerCase()}`"
@@ -333,15 +350,67 @@ const armorModal = ref<ArmorSet | null>(null)
 
           <!-- Info -->
           <div class="armor-card__body">
-            <p class="armor-card__name">{{ set.name }}</p>
-            <div class="armor-card__meta">
-              <span class="armor-card__def">
-                🛡 {{ set.pieces.reduce((s, p) => s + (p.defenseBase ?? 0), 0) }}
+            <!-- Nome + Raridade -->
+            <div class="armor-card__header">
+              <p class="armor-card__name">{{ set.name }}</p>
+              <span class="armor-card__rarity" :class="`armor-card__rarity--r${Math.min(set.pieces[0]?.rarity ?? 1, 12)}`">
+                R{{ set.pieces[0]?.rarity ?? '?' }}
               </span>
-              <span v-if="set.bonus" class="armor-card__bonus">★ bônus</span>
             </div>
+
+            <!-- Grid: Defesa (esq) | Decoração + Slots (dir) -->
+            <div class="armor-card__row">
+              <!-- Célula esquerda: defesa -->
+              <div class="armor-card__def-cell">
+                <img src="/icons/armor/defense.png" class="acard-icon" alt="def" />
+                <span class="armor-card__def-val">{{ set.pieces.reduce((s, p) => s + (p.defenseBase ?? 0), 0) }}</span>
+                <span v-if="set.bonus" class="armor-card__bonus">★</span>
+              </div>
+              <!-- Célula direita: slots -->
+              <div class="armor-card__slots-cell">
+                <img src="/icons/armor/decoration.png" class="acard-icon" alt="deco" />
+                <span class="armor-card__slots">
+                  <template v-for="lvl in [4,3,2,1]" :key="lvl">
+                    <template v-if="set.pieces.flatMap(p=>[p.slot1,p.slot2,p.slot3]).filter(s=>s===lvl).length > 0">
+                      <img :src="`/icons/armor/slot${lvl}.png`" class="slot-icon" :alt="`lv${lvl}`" />
+                      <span class="slot-count">×{{ set.pieces.flatMap(p=>[p.slot1,p.slot2,p.slot3]).filter(s=>s===lvl).length }}</span>
+                    </template>
+                  </template>
+                  <span v-if="set.pieces.flatMap(p=>[p.slot1,p.slot2,p.slot3]).every(s=>!s)" class="slot-none">—</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Grid de 5 colunas: elementos -->
+            <div class="armor-card__elems">
+              <div v-for="[icon, key] in [['fire','fire'],['water','water'],['thunder','thunder'],['ice','ice'],['dragon','dragon']]"
+                   :key="key" class="armor-card__elem-cell">
+                <img :src="`/icons/armor/${icon}.png`" class="acard-icon acard-icon--elem" :alt="key" />
+                <span class="elem-val"
+                  :class="{
+                    'elem-val--pos': set.pieces.reduce((s,p)=>s+(p[key as 'fire']??0),0) > 0,
+                    'elem-val--neg': set.pieces.reduce((s,p)=>s+(p[key as 'fire']??0),0) < 0
+                  }">
+                  {{ set.pieces.reduce((s, p) => s + (p[key as 'fire'] ?? 0), 0) }}
+                </span>
+              </div>
+            </div>
+
           </div>
         </button>
+      </div>
+
+      <!-- Paginação de armaduras -->
+      <div v-if="armorTotalPages > 1" class="weapon-pagination">
+        <button class="pagination__btn" :disabled="armorPage === 1" @click="goToArmorPage(armorPage - 1)">‹</button>
+        <template v-for="p in armorTotalPages" :key="p">
+          <template v-if="p === 1 || p === armorTotalPages || Math.abs(p - armorPage) <= 1">
+            <button class="pagination__btn" :class="{ 'pagination__btn--active': p === armorPage }" @click="goToArmorPage(p)">{{ p }}</button>
+          </template>
+          <span v-else-if="p === 2 && armorPage > 4" class="pagination__ellipsis">…</span>
+          <span v-else-if="p === armorTotalPages - 1 && armorPage < armorTotalPages - 3" class="pagination__ellipsis">…</span>
+        </template>
+        <button class="pagination__btn" :disabled="armorPage === armorTotalPages" @click="goToArmorPage(armorPage + 1)">›</button>
       </div>
 
       <EquipmentDetailModal
@@ -635,18 +704,18 @@ const armorModal = ref<ArmorSet | null>(null)
 /* ── Armor grid de cards ── */
 .armor-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
 }
 
 .armor-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
   text-align: left;
-  transition: border-color .2s, transform .15s;
+  transition: border-color .2s, transform .15s, box-shadow .2s;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -654,22 +723,22 @@ const armorModal = ref<ArmorSet | null>(null)
 
 .armor-card:hover {
   border-color: var(--gold);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.4);
 }
 
-/* O visual do wrap de imagem é gerenciado pelo ArmorSetCard */
-
 .armor-card__body {
-  padding: 8px 10px;
+  padding: 10px 14px 12px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  border-top: 1px solid var(--border);
 }
 
 .armor-card__name {
   font-family: var(--font-heading);
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text);
   margin: 0;
   white-space: nowrap;
@@ -677,20 +746,142 @@ const armorModal = ref<ArmorSet | null>(null)
   text-overflow: ellipsis;
 }
 
-.armor-card__meta {
+/* ── Header: nome + raridade ── */
+.armor-card__header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 6px;
 }
 
-.armor-card__def   { font-size: 11px; color: var(--text-muted); }
-.armor-card__bonus { font-size: 11px; color: var(--gold); }
+.armor-card__rarity {
+  font-family: var(--font-heading);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+.armor-card__rarity--r1,
+.armor-card__rarity--r2  { color: #aaa; border-color: #555; }
+.armor-card__rarity--r3,
+.armor-card__rarity--r4  { color: #78c878; border-color: #3a6a3a; }
+.armor-card__rarity--r5,
+.armor-card__rarity--r6  { color: #6ab4e8; border-color: #2a5a80; }
+.armor-card__rarity--r7,
+.armor-card__rarity--r8  { color: #c878e0; border-color: #6a3a80; }
+.armor-card__rarity--r9,
+.armor-card__rarity--r10 { color: #e0a840; border-color: #806020; }
+.armor-card__rarity--r11,
+.armor-card__rarity--r12 { color: #e06040; border-color: #802820; }
+
+/* ── Grid de stats: defesa | slots ── */
+.armor-card__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  align-items: center;
+  background: var(--surface-2);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+/* Célula esquerda: defesa */
+.armor-card__def-cell {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Célula direita: slots */
+.armor-card__slots-cell {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.acard-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.acard-icon--elem { width: 16px; height: 16px; }
+
+.armor-card__def-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.armor-card__slots {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.slot-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.slot-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-right: 3px;
+}
+
+.slot-none {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.armor-card__bonus {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* ── Grid de elementos: 5 colunas ── */
+.armor-card__elems {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: var(--surface-2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.armor-card__elem-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 4px;
+  border-right: 1px solid var(--border);
+}
+.armor-card__elem-cell:last-child { border-right: none; }
+
+.elem-val {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+.elem-val--pos { color: #78c878; }
+.elem-val--neg { color: #e06060; }
 
 /* Skeletons para o grid */
 .armor-grid-skeleton {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
 }
 
 .armor-card-skeleton {
@@ -854,14 +1045,14 @@ const armorModal = ref<ArmorSet | null>(null)
   .armor-toolbar { gap: 10px; }
   .armor-toolbar .eq-search { min-width: 0; flex: 1; }
 
-  /* Armor grid menor */
-  .armor-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
-  .armor-grid-skeleton { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
-  .armor-card__name { font-size: 11px; }
+  /* Armor grid menor em mobile */
+  .armor-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+  .armor-grid-skeleton { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+  .armor-card__name { font-size: 13px; }
 }
 
 @media (max-width: 480px) {
-  .armor-grid { grid-template-columns: repeat(2, 1fr); }
-  .armor-grid-skeleton { grid-template-columns: repeat(2, 1fr); }
+  .armor-grid { grid-template-columns: 1fr; }
+  .armor-grid-skeleton { grid-template-columns: 1fr; }
 }
 </style>

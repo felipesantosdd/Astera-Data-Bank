@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Bounce Bomb","first":"Nitroshroom","firstId":43,"second":"Small Barrel","secondId":71,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Mega Bounce Bomb","resultId":74,"first":"Nitroshroom","firstId":43,"second":"Bounce Bomb","secondId":73,"quantity":1}]}}

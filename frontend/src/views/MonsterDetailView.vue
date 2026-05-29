@@ -331,6 +331,8 @@ function addToPlanner() {
       <MonsterDropsSection
         v-else-if="activeTab === 'drops'"
         :monster-id="id"
+        :monster-name="monster.name"
+        :monster-ecology="monster.ecology"
       />
 
       <!-- ── Tab: Equipamentos ─────────────────────────────────────────── -->

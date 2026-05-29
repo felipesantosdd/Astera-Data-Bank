@@ -27,6 +27,8 @@ export interface ChecklistItem {
   id: string
   materialId?: number
   name: string
+  iconName?: string | null
+  iconColor?: string | null
   requiredQuantity: number
   ownedQuantity: number
   completed: boolean
@@ -35,6 +37,8 @@ export interface ChecklistItem {
 export interface MaterialChecklistNodeData {
   type: 'materialChecklist'
   title: string
+  iconName?: string | null
+  iconColor?: string | null
   items: ChecklistItem[]
 }
 
@@ -63,5 +67,7 @@ export interface PlannerEdge {
   id: string
   source: string
   target: string
+  sourceHandle?: string | null
+  targetHandle?: string | null
   label?: string
 }

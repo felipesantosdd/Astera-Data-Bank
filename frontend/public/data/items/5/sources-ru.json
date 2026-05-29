@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Противоядие","first":"Противоядная трава","firstId":33,"second":null,"secondId":null,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Травяное лекарство","resultId":6,"first":"Противоядие","firstId":5,"second":"Синий гриб","secondId":41,"quantity":1}]}}

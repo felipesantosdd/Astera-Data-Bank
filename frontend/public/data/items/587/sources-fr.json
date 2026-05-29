@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Guérison","first":"Normal","firstId":559,"second":"Potion","secondId":1,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Guérison II","resultId":588,"first":"Guérison","firstId":587,"second":"Catalyseur","secondId":58,"quantity":2}]}}

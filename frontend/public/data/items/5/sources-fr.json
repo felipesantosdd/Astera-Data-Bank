@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Antidote","first":"Herbe à antidote","firstId":33,"second":null,"secondId":null,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Remède d'herbe","resultId":6,"first":"Antidote","firstId":5,"second":"Champignon bleu","secondId":41,"quantity":1}]}}

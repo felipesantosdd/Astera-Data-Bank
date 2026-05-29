@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Schlaf I","first":"Normal I","firstId":559,"second":"Schlafkraut","secondId":37,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Schlaf II","resultId":584,"first":"Schlaf I","firstId":583,"second":"Beschleuniger","secondId":58,"quantity":1}]}}

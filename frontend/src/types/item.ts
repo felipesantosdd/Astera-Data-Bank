@@ -38,8 +38,25 @@ export interface QuestReward {
   percentage:   number | null
 }
 
+export interface CombinationEntry {
+  type:       'recipe' | 'usedIn'
+  resultName: string
+  resultId:   number | null
+  first:      string
+  firstId:    number | null
+  second:     string | null
+  secondId:   number | null
+  quantity:   number
+}
+
+export interface ItemCombinations {
+  produces: CombinationEntry[]
+  usedIn:   CombinationEntry[]
+}
+
 export interface ItemSources {
-  rewards:   MonsterReward[]
-  gathering: LocationItem[]
-  quests:    QuestReward[]
+  rewards:      MonsterReward[]
+  gathering:    LocationItem[]
+  quests:       QuestReward[]
+  combinations: ItemCombinations | null
 }

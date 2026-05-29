@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"그물","first":"넝쿨의 잎","firstId":38,"second":"거미집","secondId":78,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"구멍 함정","resultId":81,"first":"트랩툴","firstId":80,"second":"그물","secondId":79,"quantity":1}]}}

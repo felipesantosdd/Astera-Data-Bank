@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { Handle, Position } from '@vue-flow/core'
 import type { EquipmentNodeData, ChecklistItem } from '@/types/planner'
 import { usePlannerStore } from '@/stores/plannerStore'
 import { armorSlotIcon } from '@/utils/armorImageUrl'
+import PlannerHandles from '@/components/planner/PlannerHandles.vue'
 
 const props = defineProps<{ id: string; data: EquipmentNodeData }>()
 const store = usePlannerStore()
@@ -87,8 +87,7 @@ const typeLabel = computed(() =>
     }"
     @click="onCardClick"
   >
-    <Handle type="target" :position="Position.Left"  class="node-handle" />
-    <Handle type="source" :position="Position.Right" class="node-handle" />
+    <PlannerHandles :node-id="id" />
 
     <!-- Linha de cabeçalho: ícone + nome + progresso -->
     <div class="eq-node__header">

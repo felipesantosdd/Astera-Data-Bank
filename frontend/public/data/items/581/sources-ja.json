@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"LV1 麻痺弾","first":"LV1 通常弾","firstId":559,"second":"マヒダケ","secondId":45,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"LV2 麻痺弾","resultId":582,"first":"LV1 麻痺弾","firstId":581,"second":"増強剤","secondId":58,"quantity":1}]}}

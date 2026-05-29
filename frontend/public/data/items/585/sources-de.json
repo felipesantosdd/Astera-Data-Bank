@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Ermüdung I","first":"Normal I","firstId":559,"second":"Reizpilz","secondId":47,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Ermüdung II","resultId":586,"first":"Ermüdung I","firstId":585,"second":"Beschleuniger","secondId":58,"quantity":1}]}}

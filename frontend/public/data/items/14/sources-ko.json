@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"영양제","first":"씁쓸충","firstId":49,"second":"푸른버섯","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"그레이트 영양제","resultId":15,"first":"영양제","firstId":14,"second":"벌꿀","secondId":31,"quantity":1}]}}

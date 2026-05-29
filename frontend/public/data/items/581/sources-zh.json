@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"LV1麻痺彈","first":"LV1通常彈","firstId":559,"second":"麻痺菇","secondId":45,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"LV2麻痺彈","resultId":582,"first":"LV1麻痺彈","firstId":581,"second":"增強劑","secondId":58,"quantity":1}]}}

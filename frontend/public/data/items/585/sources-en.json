@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Exhaust Ammo 1","first":"Normal Ammo 1","firstId":559,"second":"Exciteshroom","secondId":47,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Exhaust Ammo 2","resultId":586,"first":"Exhaust Ammo 1","firstId":585,"second":"Catalyst","secondId":58,"quantity":1}]}}

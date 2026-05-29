@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Sleep Ammo 1","first":"Normal Ammo 1","firstId":559,"second":"Sleep Herb","secondId":37,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Sleep Ammo 2","resultId":584,"first":"Sleep Ammo 1","firstId":583,"second":"Catalyst","secondId":58,"quantity":1}]}}

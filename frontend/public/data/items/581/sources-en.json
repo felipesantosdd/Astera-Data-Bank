@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Paralysis Ammo 1","first":"Normal Ammo 1","firstId":559,"second":"Parashroom","secondId":45,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Paralysis Ammo 2","resultId":582,"first":"Paralysis Ammo 1","firstId":581,"second":"Catalyst","secondId":58,"quantity":1}]}}

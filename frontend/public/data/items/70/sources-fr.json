@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Poudre à canon","first":"Herbe de feu","firstId":34,"second":"Champinitro","secondId":43,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Grande bombe baril","resultId":76,"first":"Poudre à canon","firstId":70,"second":"Grand baril","secondId":75,"quantity":1}]}}

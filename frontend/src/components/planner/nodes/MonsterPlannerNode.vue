@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { Handle, Position } from '@vue-flow/core'
 import type { MonsterNodeData } from '@/types/planner'
 import { usePlannerStore } from '@/stores/plannerStore'
 import { useRouter } from 'vue-router'
+import PlannerHandles from '@/components/planner/PlannerHandles.vue'
 
 const props = defineProps<{ id: string; data: MonsterNodeData }>()
 
@@ -54,8 +54,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocClick, true))
 
 <template>
   <div ref="nodeRef" class="monster-node" :class="{ 'monster-node--hunted': data.hunted }">
-    <Handle type="target" :position="Position.Left" class="node-handle" />
-    <Handle type="source" :position="Position.Right" class="node-handle" />
+    <PlannerHandles :node-id="id" />
 
     <!-- Token: só o ícone -->
     <div class="monster-node__token" @click="onIconClick">

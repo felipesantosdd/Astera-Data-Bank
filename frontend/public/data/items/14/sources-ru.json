@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Питательная смесь","first":"Горький жук","firstId":49,"second":"Синий гриб","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Мегапитательная смесь","resultId":15,"first":"Питательная смесь","firstId":14,"second":"Мед","secondId":31,"quantity":1}]}}

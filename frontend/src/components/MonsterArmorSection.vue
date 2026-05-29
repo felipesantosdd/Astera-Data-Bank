@@ -2,16 +2,32 @@
 import { computed, ref, toRef } from 'vue'
 import { useMonsterArmor } from '@/composables/useMonsterArmor'
 import { useUI } from '@/composables/useUI'
+import { useItems } from '@/composables/useItems'
 import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
+import ItemIcon from '@/components/ItemIcon.vue'
+import EquipmentDetailModal from '@/components/equipment/EquipmentDetailModal.vue'
 import SkillTooltip from '@/components/SkillTooltip.vue'
 import InfoTooltip from '@/components/InfoTooltip.vue'
 import type { ArmorSet, ArmorPiece, ArmorMaterial } from '@/types/armor'
+import { armorPieceImageUrl, armorSlotIcon } from '@/utils/armorImageUrl'
 
 const props = defineProps<{ monsterId: number }>()
 const monsterIdRef = toRef(props, 'monsterId')
 
 const { data: sets, isLoading, isError } = useMonsterArmor(monsterIdRef)
 const { t } = useUI()
+const { data: items } = useItems()
+const selectedArmorSet = ref<ArmorSet | null>(null)
+
+const itemById = computed(() => {
+  const map = new Map<number, { iconName: string | null; iconColor: string | null }>()
+  for (const item of items.value ?? []) map.set(item.id, item)
+  return map
+})
+
+function itemMeta(itemId: number) {
+  return itemById.value.get(itemId)
+}
 
 // Agrupa sets por rank na ordem LR → HR → MR
 const RANK_ORDER = ['LR', 'HR', 'MR'] as const
@@ -62,12 +78,20 @@ function slotDots(p: ArmorPiece): number[] {
 }
 
 // Modal de fontes do item (clicando num material)
-const selectedItem = ref<{ id: number, name: string } | null>(null)
+const selectedItem = ref<{ id: number, name: string, quantity: number | null } | null>(null)
 function openItemSources(m: ArmorMaterial) {
-  selectedItem.value = { id: m.itemId, name: m.name }
+  selectedItem.value = { id: m.itemId, name: m.name, quantity: m.quantity }
 }
 function closeItemSources() {
   selectedItem.value = null
+}
+
+function openArmorDetails(set: ArmorSet) {
+  selectedArmorSet.value = set
+}
+
+function closeArmorDetails() {
+  selectedArmorSet.value = null
 }
 
 // Lista filtrada de resistências (só mostra as != 0)
@@ -146,10 +170,21 @@ function resistances(p: ArmorPiece): Array<{ key: string, value: number }> {
               v-for="piece in sortedPieces(set)"
               :key="piece.id"
               class="piece"
+              @click="openArmorDetails(set)"
             >
               <header class="piece__head">
-                <span class="piece__type">{{ typeLabel(piece.type) }}</span>
-                <span v-if="piece.rarity" class="piece__rarity">{{ t.armor.rarity }}{{ piece.rarity }}</span>
+                <div class="piece__image-wrap">
+                  <img
+                    :src="armorPieceImageUrl(piece.id)"
+                    :alt="piece.name"
+                    class="piece__image"
+                    @error="(e) => ((e.target as HTMLImageElement).src = armorSlotIcon(piece.type))"
+                  />
+                </div>
+                <div class="piece__head-copy">
+                  <span class="piece__type">{{ typeLabel(piece.type) }}</span>
+                  <span v-if="piece.rarity" class="piece__rarity">{{ t.armor.rarity }}{{ piece.rarity }}</span>
+                </div>
               </header>
 
               <h5 class="piece__name">{{ piece.name }}</h5>
@@ -247,7 +282,7 @@ function resistances(p: ArmorPiece): Array<{ key: string, value: number }> {
               </div>
 
               <!-- Materiais -->
-              <details v-if="piece.materials.length > 0" class="piece__mats">
+              <details v-if="piece.materials.length > 0" class="piece__mats" @click.stop>
                 <summary>{{ t.armor.materials }} ({{ piece.materials.length }})</summary>
                 <ul>
                   <li
@@ -256,6 +291,7 @@ function resistances(p: ArmorPiece): Array<{ key: string, value: number }> {
                     class="mat-item"
                     @click="openItemSources(m)"
                   >
+                    <ItemIcon :name="itemMeta(m.itemId)?.iconName ?? null" :color="itemMeta(m.itemId)?.iconColor ?? null" :size="20" />
                     <span class="mat-qty">×{{ m.quantity }}</span>
                     <span class="mat-name">{{ m.name }}</span>
                     <span class="mat-arrow">→</span>
@@ -272,7 +308,17 @@ function resistances(p: ArmorPiece): Array<{ key: string, value: number }> {
     <ItemSourcesModal
       :item-id="selectedItem?.id ?? null"
       :item-name="selectedItem?.name ?? ''"
+      :item-icon-name="selectedItem ? itemMeta(selectedItem.id)?.iconName ?? null : null"
+      :item-icon-color="selectedItem ? itemMeta(selectedItem.id)?.iconColor ?? null : null"
+      :planner-quantity="selectedItem?.quantity ?? 1"
       @close="closeItemSources"
+    />
+
+    <EquipmentDetailModal
+      v-if="selectedArmorSet"
+      :weapon="null"
+      :armor="selectedArmorSet"
+      @close="closeArmorDetails"
     />
   </section>
 </template>
@@ -404,17 +450,46 @@ function resistances(p: ArmorPiece): Array<{ key: string, value: number }> {
   flex-direction: column;
   gap: 8px;
   transition: border-color 0.2s;
+  cursor: pointer;
 }
 .piece:hover { border-color: var(--gold); }
 
 .piece__head {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px;
   font-family: var(--font-heading);
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+.piece__image-wrap {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.piece__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.piece__head-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 .piece__type { color: var(--text-muted); }
 .piece__rarity {

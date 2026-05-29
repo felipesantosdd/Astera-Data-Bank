@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"LV1減氣彈","first":"LV1通常彈","firstId":559,"second":"心跳加速菇","secondId":47,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"LV2減氣彈","resultId":586,"first":"LV1減氣彈","firstId":585,"second":"增強劑","secondId":58,"quantity":1}]}}

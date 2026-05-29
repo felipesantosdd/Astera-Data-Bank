@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Nutrientes","first":"Amarguinseto","firstId":49,"second":"Cogumelo Azul","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Meganutrientes","resultId":15,"first":"Nutrientes","firstId":14,"second":"Mel","secondId":31,"quantity":1}]}}

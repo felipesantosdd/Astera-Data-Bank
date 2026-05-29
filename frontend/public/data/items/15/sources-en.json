@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Mega Nutrients","first":"Nutrients","firstId":14,"second":"Honey","secondId":31,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Max Potion","resultId":3,"first":"Mega Nutrients","firstId":15,"second":"Mandragora","secondId":42,"quantity":1}]}}

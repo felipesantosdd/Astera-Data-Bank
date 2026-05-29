@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Antidotum","first":"Zioło odtruwające","firstId":33,"second":null,"secondId":null,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Lek ziołowy","resultId":6,"first":"Antidotum","firstId":5,"second":"Niebieski grzyb","secondId":41,"quantity":1}]}}

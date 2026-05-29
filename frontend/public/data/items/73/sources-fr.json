@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Bombe artifice","first":"Champinitro","firstId":43,"second":"Petit baril","secondId":71,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Méga bombe artifice","resultId":74,"first":"Champinitro","firstId":43,"second":"Bombe artifice","secondId":73,"quantity":1}]}}

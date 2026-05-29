@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"LV1 毒弾","first":"LV1 通常弾","firstId":559,"second":"毒テングダケ","secondId":46,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"LV2 毒弾","resultId":580,"first":"LV1 毒弾","firstId":579,"second":"増強剤","secondId":58,"quantity":1}]}}

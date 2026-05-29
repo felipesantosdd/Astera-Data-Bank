@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Gift I","first":"Normal I","firstId":559,"second":"Giftpilz","secondId":46,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Gift II","resultId":580,"first":"Gift I","firstId":579,"second":"Beschleuniger","secondId":58,"quantity":1}]}}

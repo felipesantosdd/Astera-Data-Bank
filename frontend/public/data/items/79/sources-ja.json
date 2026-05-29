@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"ネット","first":"ツタの葉","firstId":38,"second":"クモの巣","secondId":78,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"落とし穴","resultId":81,"first":"トラップツール","firstId":80,"second":"ネット","secondId":79,"quantity":1}]}}

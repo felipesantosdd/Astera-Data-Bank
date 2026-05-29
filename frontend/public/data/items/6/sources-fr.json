@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Remède d'herbe","first":"Antidote","firstId":5,"second":"Champignon bleu","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Poudre végétale","resultId":28,"first":"Insecte immortel","firstId":51,"second":"Remède d'herbe","secondId":6,"quantity":1}]}}

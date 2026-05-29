@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Megasubstancje odżywcze","first":"Substancje odżywcze","firstId":14,"second":"Miód","secondId":31,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Maksmikstura","resultId":3,"first":"Megasubstancje odżywcze","firstId":15,"second":"Mandragora","secondId":42,"quantity":1}]}}

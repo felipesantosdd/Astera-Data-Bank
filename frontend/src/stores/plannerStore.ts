@@ -17,6 +17,7 @@ export const usePlannerStore = defineStore('planner', () => {
 
   const nodes = ref<PlannerNode[]>(saved.nodes)
   const edges = ref<PlannerEdge[]>(saved.edges)
+  const isConnecting = ref(false)
 
   // Persist every change
   watch([nodes, edges], () => {
@@ -68,14 +69,32 @@ export const usePlannerStore = defineStore('planner', () => {
     })
   }
 
-  function addChecklistNode() {
+  function addChecklistNode(initial?: { title?: string; iconName?: string | null; iconColor?: string | null; item?: { materialId?: number; name: string; iconName?: string | null; iconColor?: string | null; quantity?: number | null } }) {
     const id = `checklist-${Date.now()}`
     nodes.value.push({
       id,
       type: 'materialChecklist',
       position: { x: 160 + nodes.value.length * 20, y: 160 + nodes.value.length * 20 },
-      data: { type: 'materialChecklist', title: 'Materiais', items: [] },
+      data: {
+        type: 'materialChecklist',
+        title: initial?.title ?? 'Materiais',
+        iconName: initial?.iconName ?? initial?.item?.iconName,
+        iconColor: initial?.iconColor ?? initial?.item?.iconColor,
+        items: initial?.item
+          ? [{
+              id: `item-${initial.item.materialId ?? Date.now()}-${Date.now()}`,
+              materialId: initial.item.materialId,
+              name: initial.item.name,
+              iconName: initial.item.iconName,
+              iconColor: initial.item.iconColor,
+              requiredQuantity: initial.item.quantity ?? 1,
+              ownedQuantity: 0,
+              completed: false,
+            }]
+          : [],
+      },
     })
+    return id
   }
 
   function removeNode(id: string) {
@@ -105,6 +124,7 @@ export const usePlannerStore = defineStore('planner', () => {
   return {
     nodes,
     edges,
+    isConnecting,
     addMonsterNode,
     addEquipmentNode,
     addNoteNode,

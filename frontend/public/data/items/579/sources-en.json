@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Poison Ammo 1","first":"Normal Ammo 1","firstId":559,"second":"Toadstool","secondId":46,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Poison Ammo 2","resultId":580,"first":"Poison Ammo 1","firstId":579,"second":"Catalyst","secondId":58,"quantity":1}]}}

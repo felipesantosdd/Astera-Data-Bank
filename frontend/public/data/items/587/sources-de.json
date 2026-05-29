@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Genesung I","first":"Normal I","firstId":559,"second":"Trank","secondId":1,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"Genesung II","resultId":588,"first":"Genesung I","firstId":587,"second":"Beschleuniger","secondId":58,"quantity":2}]}}

@@ -5,18 +5,17 @@ import { armorSetImageUrl } from '@/utils/armorImageUrl'
 
 const props = defineProps<{ set: ArmorSet }>()
 
-const setImgLoaded = ref(false)
 const setImgFailed = ref(false)
 
-function onSetLoad()  { setImgLoaded.value = true }
-function onSetError() { setImgFailed.value = true }
+// Sets com 1 peça mostram direto a imagem da peça
+const isSinglePiece = computed(() => props.set.pieces.length === 1)
+const singlePiece = computed(() => props.set.pieces[0])
 
 // Grid class baseada no número de peças
 const gridClass = computed(() => {
   const n = props.set.pieces.length
-  if (n === 1) return 'asc__pieces-grid--single'
-  if (n <= 4)  return 'asc__pieces-grid--two-col'
-  return '' // padrão 3 colunas
+  if (n <= 4) return 'asc__pieces-grid--two-col'
+  return ''
 })
 </script>
 
@@ -25,33 +24,44 @@ const gridClass = computed(() => {
     class="asc__wrap"
     :class="`asc__wrap--${set.rank.toLowerCase()}`"
   >
-    <!-- Foto do set completo -->
-    <img
-      v-show="!setImgFailed"
-      :src="armorSetImageUrl(set.id)"
-      :alt="set.name"
-      class="asc__set-img"
-      loading="lazy"
-      @load="onSetLoad"
-      @error="onSetError"
-    />
-
-    <!-- Fallback: 1 peça = cobre tudo; 2-4 = grade 2 cols; 5 = grade 3×2 -->
-    <div
-      v-show="setImgFailed"
-      class="asc__pieces-grid"
-      :class="gridClass"
-    >
+    <!-- Set com 1 peça: mostra direto a imagem da peça -->
+    <template v-if="isSinglePiece">
       <img
-        v-for="piece in set.pieces"
-        :key="piece.id"
-        :src="`/armor/pieces/${piece.id}.png`"
-        :alt="piece.type"
-        class="asc__piece"
+        :src="`/armor/pieces/${singlePiece.id}.png`"
+        :alt="singlePiece.name"
+        class="asc__set-img"
         loading="lazy"
-        @error="(e) => { (e.target as HTMLImageElement).src = `/armor/slot-${piece.type}.png` }"
+        @error="(e) => { (e.target as HTMLImageElement).src = `/armor/slot-${singlePiece.type}.png` }"
       />
-    </div>
+    </template>
+
+    <!-- Set com múltiplas peças: foto do set completo com fallback em grade -->
+    <template v-else>
+      <img
+        v-show="!setImgFailed"
+        :src="armorSetImageUrl(set.id)"
+        :alt="set.name"
+        class="asc__set-img"
+        loading="lazy"
+        @error="setImgFailed = true"
+      />
+
+      <div
+        v-show="setImgFailed"
+        class="asc__pieces-grid"
+        :class="gridClass"
+      >
+        <img
+          v-for="piece in set.pieces"
+          :key="piece.id"
+          :src="`/armor/pieces/${piece.id}.png`"
+          :alt="piece.type"
+          class="asc__piece"
+          loading="lazy"
+          @error="(e) => { (e.target as HTMLImageElement).src = `/armor/slot-${piece.type}.png` }"
+        />
+      </div>
+    </template>
   </div>
 </template>
 

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"ذخيرة الاسترداد 1","first":"ذخيرة عادية 1","firstId":559,"second":"الجرعة","secondId":1,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"ذخيرة الاسترداد 2","resultId":588,"first":"ذخيرة الاسترداد 1","firstId":587,"second":"المحفز","secondId":58,"quantity":2}]}}

@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Ervas Medicinais","first":"Antídoto","firstId":5,"second":"Cogumelo Azul","secondId":41,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Pó de Ervas","resultId":28,"first":"Inseto-deus","firstId":51,"second":"Ervas Medicinais","secondId":6,"quantity":1}]}}

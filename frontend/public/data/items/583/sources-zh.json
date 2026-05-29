@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"LV1睡眠彈","first":"LV1通常彈","firstId":559,"second":"眠草","secondId":37,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"LV2睡眠彈","resultId":584,"first":"LV1睡眠彈","firstId":583,"second":"增強劑","secondId":58,"quantity":1}]}}

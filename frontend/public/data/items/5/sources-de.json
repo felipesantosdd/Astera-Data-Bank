@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Gegengift","first":"Gegengiftkraut","firstId":33,"second":null,"secondId":null,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Kräutermedizin","resultId":6,"first":"Gegengift","firstId":5,"second":"Blaupilz","secondId":41,"quantity":1}]}}

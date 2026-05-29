@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"爆薬","first":"火薬草","firstId":34,"second":"ニトロダケ","secondId":43,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"大タル爆弾","resultId":76,"first":"爆薬","firstId":70,"second":"大タル","secondId":75,"quantity":1}]}}

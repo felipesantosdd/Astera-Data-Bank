@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"Mega nutrienti","first":"Nutrienti","firstId":14,"second":"Miele","secondId":31,"quantity":1}],"usedIn":[{"type":"usedIn","resultName":"Pillola della salute","resultId":3,"first":"Mega nutrienti","firstId":15,"second":"Mandragora","secondId":42,"quantity":1}]}}

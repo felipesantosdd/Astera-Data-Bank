@@ -1,0 +1,1 @@
+{"rewards":[],"gathering":[],"quests":[],"combinations":{"produces":[{"type":"recipe","resultName":"LV1 독탄","first":"LV1 통상탄","firstId":559,"second":"독광대버섯","secondId":46,"quantity":2}],"usedIn":[{"type":"usedIn","resultName":"LV2 독탄","resultId":580,"first":"LV1 독탄","firstId":579,"second":"증강제","secondId":58,"quantity":1}]}}
