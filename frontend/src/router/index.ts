@@ -23,6 +23,11 @@ const router = createRouter({
       component: () => import('@/views/MaterialsView.vue'),
     },
     {
+      path: '/decorations',
+      name: 'decorations',
+      component: () => import('@/views/DecorationsView.vue'),
+    },
+    {
       path: '/planner',
       name: 'planner',
       component: () => import('@/views/HuntPlannerView.vue'),
@@ -31,6 +36,16 @@ const router = createRouter({
       path: '/equipment',
       name: 'equipment',
       component: () => import('@/views/EquipmentView.vue'),
+    },
+    {
+      path: '/regions',
+      name: 'regions',
+      component: () => import('@/views/RegionsView.vue'),
+    },
+    {
+      path: '/regions/:id',
+      name: 'region-detail',
+      component: () => import('@/views/RegionDetailView.vue'),
     },
   ],
 })

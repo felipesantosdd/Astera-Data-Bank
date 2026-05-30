@@ -48,5 +48,13 @@ export const dataUrl = {
       ? `/data/armor-${lang}.json`
       : `/api/armor?lang=${lang}`,
 
+  decorations: (lang: string) => `/data/decorations-${lang}.json`,
+
   consumables: (lang: string) => `/data/consumables-${lang}.json`,
+
+  locations: (lang: string) => `/data/locations/${lang}.json`,
+
+  locationItems: (id: number, lang: string) => `/data/locations/${id}/items-${lang}.json`,
+
+  locationMonsters: (id: number, lang: string) => `/data/locations/${id}/monsters-${lang}.json`,
 }

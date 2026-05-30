@@ -16,6 +16,7 @@ import MaterialChecklistNode from './nodes/MaterialChecklistNode.vue'
 import NotePlannerNode       from './nodes/NotePlannerNode.vue'
 import EquipmentPlannerNode  from './nodes/EquipmentPlannerNode.vue'
 import RegionPlannerNode     from './nodes/RegionPlannerNode.vue'
+import DecorationPlannerNode from './nodes/DecorationPlannerNode.vue'
 
 const store = usePlannerStore()
 
@@ -25,6 +26,7 @@ const nodeTypes: NodeTypesObject = {
   note:              markRaw(NotePlannerNode)        as NodeTypesObject[string],
   equipment:         markRaw(EquipmentPlannerNode)  as NodeTypesObject[string],
   region:            markRaw(RegionPlannerNode)      as NodeTypesObject[string],
+  decoration:        markRaw(DecorationPlannerNode) as NodeTypesObject[string],
 }
 
 const flowNodes = computed(() =>
@@ -73,10 +75,9 @@ function onNodesChange(changes: NodeChange[]) {
 
       store.updateNodePosition(change.id, change.position)
 
-      if (
-        currentNode?.data.type === 'equipment' &&
-        (delta.x !== 0 || delta.y !== 0)
-      ) {
+      if (delta.x === 0 && delta.y === 0) continue
+
+      if (currentNode?.data.type === 'equipment') {
         const connectedMaterialIds = store.edges
           .filter(edge => edge.target === change.id && !changedIds.has(edge.source))
           .map(edge => edge.source)
@@ -87,6 +88,23 @@ function onNodesChange(changes: NodeChange[]) {
           store.updateNodePosition(targetId, {
             x: targetNode.position.x + delta.x,
             y: targetNode.position.y + delta.y,
+          })
+        }
+      }
+
+      // Feystone: move all linked decoration nodes (target nodes)
+      if (currentNode?.id.startsWith('feystone-')) {
+        const decorationIds = store.edges
+          .filter(edge => edge.source === change.id && !changedIds.has(edge.target))
+          .map(edge => edge.target)
+          .filter(tgt => store.nodes.find(n => n.id === tgt)?.type === 'decoration')
+
+        for (const decId of decorationIds) {
+          const decNode = store.nodes.find(n => n.id === decId)
+          if (!decNode) continue
+          store.updateNodePosition(decId, {
+            x: decNode.position.x + delta.x,
+            y: decNode.position.y + delta.y,
           })
         }
       }

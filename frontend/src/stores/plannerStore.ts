@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
-import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData, RegionNodeData } from '@/types/planner'
+import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData, RegionNodeData, DecorationNodeData } from '@/types/planner'
 
 const STORAGE_KEY = 'astera-planner'
 let idCounter = 0
@@ -105,6 +105,61 @@ export const usePlannerStore = defineStore('planner', () => {
     return id
   }
 
+  function addDecorationWithFeystones(data: Omit<DecorationNodeData, 'type' | 'obtained'>) {
+    const decId = `decoration-${data.decorationId}`
+    const alreadyExists = nodes.value.some(n => n.id === decId)
+    if (!alreadyExists) {
+      const offset = nodes.value.length * 20
+      nodes.value.push({
+        id: decId,
+        type: 'decoration',
+        position: { x: 240 + offset, y: 80 + offset },
+        data: { type: 'decoration', obtained: false, ...data },
+      })
+    }
+
+    const bestChance = data.chances.length
+      ? [data.chances.reduce((best, c) => c.chance > best.chance ? c : best, data.chances[0])]
+      : data.chances
+
+    for (const chance of bestChance) {
+      const feystoneId = `feystone-${chance.itemId}`
+      const feystoneExists = nodes.value.some(n => n.id === feystoneId)
+      if (!feystoneExists) {
+        const offset = nodes.value.length * 20
+        nodes.value.push({
+          id: feystoneId,
+          type: 'materialChecklist',
+          position: { x: 60 + offset, y: 60 + offset },
+          data: {
+            type: 'materialChecklist',
+            title: chance.name,
+            iconName: 'Gem',
+            iconColor: 'Gold',
+            items: [{
+              id: `feystone-item-${chance.itemId}`,
+              materialId: chance.itemId,
+              name: chance.name,
+              iconName: 'Gem',
+              iconColor: 'Gold',
+              requiredQuantity: 1,
+              ownedQuantity: 0,
+              completed: false,
+            }],
+          },
+        })
+      }
+
+      const edgeId = `edge-${feystoneId}-${decId}`
+      const edgeExists = edges.value.some(e => e.id === edgeId)
+      if (!edgeExists) {
+        edges.value.push({ id: edgeId, source: feystoneId, target: decId })
+      }
+    }
+
+    return true
+  }
+
   function addRegionNode(locationName: string) {
     const id = `region-${locationName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`
     const alreadyExists = nodes.value.some(n => n.id === id)
@@ -151,6 +206,7 @@ export const usePlannerStore = defineStore('planner', () => {
     addEquipmentNode,
     addNoteNode,
     addChecklistNode,
+    addDecorationWithFeystones,
     addRegionNode,
     removeNode,
     updateNodeData,

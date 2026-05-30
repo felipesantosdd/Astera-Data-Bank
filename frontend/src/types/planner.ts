@@ -1,4 +1,4 @@
-export type PlannerNodeType = 'monster' | 'materialChecklist' | 'note' | 'equipment' | 'region'
+export type PlannerNodeType = 'monster' | 'materialChecklist' | 'note' | 'equipment' | 'region' | 'decoration'
 
 // ── Monster node ──────────────────────────────────────────────────────────────
 export interface MonsterNodeData {
@@ -58,12 +58,39 @@ export interface RegionNodeData {
   done: boolean
 }
 
+// ── Decoration node ───────────────────────────────────────────────────────────
+export interface DecorationSkillRef {
+  id: number | null
+  name: string
+  level: number | null
+  levelDescription: string
+}
+
+export interface DecorationChanceRef {
+  itemId: number
+  name: string
+  chance: number
+}
+
+export interface DecorationNodeData {
+  type: 'decoration'
+  decorationId: number
+  name: string
+  slot: number | null
+  rarity: number | null
+  iconColor: string | null
+  skills: DecorationSkillRef[]
+  chances: DecorationChanceRef[]
+  obtained: boolean
+}
+
 export type PlannerNodeData =
   | MonsterNodeData
   | EquipmentNodeData
   | MaterialChecklistNodeData
   | NoteNodeData
   | RegionNodeData
+  | DecorationNodeData
 
 // ── Store types ───────────────────────────────────────────────────────────────
 export interface PlannerNode {

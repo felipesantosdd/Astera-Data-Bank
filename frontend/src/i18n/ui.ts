@@ -3,7 +3,7 @@
  * Idiomas não cobertos caem em inglês.
  */
 export interface UIStrings {
-  nav: { monsters: string; materials: string; equipment: string; planner: string }
+  nav: { monsters: string; materials: string; decorations: string; equipment: string; planner: string; regions: string }
   weaponTypes: {
     'great-sword': string; 'long-sword': string; 'sword-and-shield': string
     'dual-blades': string; 'hammer': string; 'hunting-horn': string
@@ -211,7 +211,7 @@ export interface UIStrings {
 }
 
 const en: UIStrings = {
-  nav: { monsters: 'Monsters', materials: 'Materials', equipment: 'Equipment', planner: 'Planner' },
+  nav: { monsters: 'Monsters', materials: 'Materials', decorations: 'Decorations', equipment: 'Equipment', planner: 'Planner', regions: 'Regions' },
   materials: {
     title: 'Materials',
     subtitle: 'Materials & Resources',
@@ -416,7 +416,7 @@ const en: UIStrings = {
 }
 
 const pt: UIStrings = {
-  nav: { monsters: 'Monstros', materials: 'Materiais', equipment: 'Forja', planner: 'Planner' },
+  nav: { monsters: 'Monstros', materials: 'Materiais', decorations: 'Decorações', equipment: 'Forja', planner: 'Planner', regions: 'Regiões' },
   materials: {
     title: 'Materiais',
     subtitle: 'Materiais & Recursos',

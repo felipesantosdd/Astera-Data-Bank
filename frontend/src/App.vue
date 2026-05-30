@@ -59,7 +59,9 @@ onBeforeUnmount(() => {
       <div class="navbar__right navbar__right--desktop">
         <RouterLink to="/monsters"  class="navbar__link" active-class="navbar__link--active">{{ t.nav.monsters }}</RouterLink>
         <RouterLink to="/materials" class="navbar__link" active-class="navbar__link--active">{{ t.nav.materials }}</RouterLink>
+        <RouterLink to="/decorations" class="navbar__link" active-class="navbar__link--active">{{ t.nav.decorations }}</RouterLink>
         <RouterLink to="/equipment" class="navbar__link" active-class="navbar__link--active">{{ t.nav.equipment }}</RouterLink>
+        <RouterLink to="/regions"   class="navbar__link" active-class="navbar__link--active">{{ t.nav.regions }}</RouterLink>
         <RouterLink to="/planner"   class="navbar__link" active-class="navbar__link--active">{{ t.nav.planner }}</RouterLink>
         <LanguagePicker />
       </div>
@@ -83,7 +85,9 @@ onBeforeUnmount(() => {
       <div v-if="menuOpen" class="mobile-menu">
         <RouterLink to="/monsters"  class="mobile-menu__link" active-class="mobile-menu__link--active" @click="closeMenu">{{ t.nav.monsters }}</RouterLink>
         <RouterLink to="/materials" class="mobile-menu__link" active-class="mobile-menu__link--active" @click="closeMenu">{{ t.nav.materials }}</RouterLink>
+        <RouterLink to="/decorations" class="mobile-menu__link" active-class="mobile-menu__link--active" @click="closeMenu">{{ t.nav.decorations }}</RouterLink>
         <RouterLink to="/equipment" class="mobile-menu__link" active-class="mobile-menu__link--active" @click="closeMenu">{{ t.nav.equipment }}</RouterLink>
+        <RouterLink to="/regions"   class="mobile-menu__link" active-class="mobile-menu__link--active" @click="closeMenu">{{ t.nav.regions }}</RouterLink>
         <RouterLink to="/planner"   class="mobile-menu__link" active-class="mobile-menu__link--active" @click="closeMenu">{{ t.nav.planner }}</RouterLink>
       </div>
     </Transition>
