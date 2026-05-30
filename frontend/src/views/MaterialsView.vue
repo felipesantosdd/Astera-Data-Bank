@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { computed, watch } from 'vue'
 import MaterialCard from '@/components/MaterialCard.vue'
 import ItemSourcesModal from '@/components/ItemSourcesModal.vue'
 import PaginationControls from '@/components/PaginationControls.vue'
@@ -7,17 +7,18 @@ import SearchInput from '@/components/SearchInput.vue'
 import { useItems }       from '@/composables/useItems'
 import { useConsumables } from '@/composables/useConsumables'
 import { useUI } from '@/composables/useUI'
+import { useStoredState } from '@/composables/useStoredState'
 
 const { data: materials, isLoading: loadingMaterials, isError } = useItems()
 const { data: consumables, isLoading: loadingConsumables }       = useConsumables()
 const { t } = useUI()
 
 // Aba principal: materiais de craft vs consumíveis
-const mainTab = ref<'materials' | 'consumables'>('materials')
+const mainTab = useStoredState<'materials' | 'consumables'>('adb:materials:main-tab', 'materials')
 
 // ── Modal com pilha de navegação ─────────────────────────────────────────────
 interface ModalEntry { id: number; name: string }
-const modalStack = ref<ModalEntry[]>([])
+const modalStack = useStoredState<ModalEntry[]>('adb:materials:modal-stack', [])
 
 const activeItemId   = computed(() => modalStack.value[modalStack.value.length - 1]?.id   ?? null)
 const activeItemName = computed(() => modalStack.value[modalStack.value.length - 1]?.name ?? '')
@@ -51,7 +52,7 @@ function iconGroup(iconName: string | null): string {
 }
 
 // ── Abas ─────────────────────────────────────────────────────────────────────
-const activeTab = ref('all')
+const activeTab = useStoredState('adb:materials:active-tab', 'all')
 
 const tabs = computed(() => [
   { key: 'all',          label: t.value.materials.filterAll },
@@ -62,7 +63,7 @@ const tabs = computed(() => [
 ])
 
 // ── Busca ─────────────────────────────────────────────────────────────────────
-const search = ref('')
+const search = useStoredState('adb:materials:search', '')
 
 // Fonte de dados ativa
 const items = computed(() =>
@@ -117,7 +118,7 @@ function clearFilters() {
 
 // ── Paginação ─────────────────────────────────────────────────────────────────
 const ITEMS_PER_PAGE = 60
-const currentPage    = ref(1)
+const currentPage    = useStoredState('adb:materials:page', 1)
 const totalPages     = computed(() => Math.ceil(filtered.value.length / ITEMS_PER_PAGE))
 
 const paginated = computed(() => {
@@ -126,8 +127,11 @@ const paginated = computed(() => {
 })
 
 // Volta pra página 1 ao trocar filtro/busca/aba principal
-watch([search, activeTab, mainTab], () => { currentPage.value = 1 })
-watch(mainTab, () => { activeTab.value = 'all'; search.value = '' })
+watch([search, activeTab], () => { currentPage.value = 1 })
+watch(mainTab, () => { currentPage.value = 1 })
+watch(totalPages, (pages) => {
+  if (pages > 0 && currentPage.value > pages) currentPage.value = pages
+})
 
 function goTo(page: number) {
   currentPage.value = Math.max(1, Math.min(page, totalPages.value))

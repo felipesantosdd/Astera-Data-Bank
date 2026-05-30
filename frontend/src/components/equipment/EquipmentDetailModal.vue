@@ -75,8 +75,50 @@ function weaponMaterials(weapon: Weapon) {
   return weapon.craftMaterials.length ? weapon.craftMaterials : weapon.upgradeMaterials
 }
 
+function equipmentNodePosition() {
+  const offset = plannerStore.nodes.length * 24
+  return { x: 120 + offset, y: 120 + offset }
+}
+
+function materialNodePosition(base: { x: number; y: number }, index: number, total: number) {
+  const column = Math.floor(index / 6)
+  const row = index % 6
+  const rowsInColumn = Math.min(6, total - column * 6)
+  return {
+    x: base.x - 320 - column * 260,
+    y: base.y + row * 112 - ((rowsInColumn - 1) * 112) / 2,
+  }
+}
+
+function addConnectedMaterialsToPlanner(sourceNodeId: string, basePosition: { x: number; y: number }, materials: Array<{ itemId: number; name: string; quantity: number | null }>) {
+  materials.forEach((material, index) => {
+    const meta = itemMeta(material.itemId)
+    const materialNodeId = plannerStore.addChecklistNode({
+      title: material.name,
+      iconName: meta?.iconName,
+      iconColor: meta?.iconColor,
+      position: materialNodePosition(basePosition, index, materials.length),
+      item: {
+        materialId: material.itemId,
+        name: material.name,
+        iconName: meta?.iconName,
+        iconColor: meta?.iconColor,
+        quantity: material.quantity ?? 1,
+      },
+    })
+
+    plannerStore.addEdge({
+      id: `edge-${sourceNodeId}-${materialNodeId}-${Date.now()}-${index}`,
+      source: sourceNodeId,
+      target: materialNodeId,
+      sourceHandle: 'source',
+    })
+  })
+}
+
 function addWeaponToPlanner(weapon: Weapon) {
   const weaponNodeId = `equipment-weapon-${weapon.id}`
+  const basePosition = equipmentNodePosition()
   const added = plannerStore.addEquipmentNode({
     equipmentId: weapon.id,
     name: weapon.name,
@@ -84,31 +126,10 @@ function addWeaponToPlanner(weapon: Weapon) {
     subtype: weapon.weaponType,
     rarity: weapon.rarity,
     materials: [],
-  })
+  }, basePosition)
 
   if (added) {
-    for (const material of weaponMaterials(weapon)) {
-      const meta = itemMeta(material.itemId)
-      const materialNodeId = plannerStore.addChecklistNode({
-        title: material.name,
-        iconName: meta?.iconName,
-        iconColor: meta?.iconColor,
-        item: {
-          materialId: material.itemId,
-          name: material.name,
-          iconName: meta?.iconName,
-          iconColor: meta?.iconColor,
-          quantity: material.quantity,
-        },
-      })
-
-      plannerStore.addEdge({
-        id: `edge-${weaponNodeId}-${materialNodeId}-${Date.now()}-${material.itemId}`,
-        source: weaponNodeId,
-        target: materialNodeId,
-        sourceHandle: 'source',
-      })
-    }
+    addConnectedMaterialsToPlanner(weaponNodeId, basePosition, weaponMaterials(weapon))
   }
 
   weaponFeedback.value = added ? 'added' : 'exists'
@@ -116,22 +137,17 @@ function addWeaponToPlanner(weapon: Weapon) {
 }
 
 function addPieceToPlanner(piece: import('@/types/armor').ArmorPiece) {
-  const materials = piece.materials.map(m => ({
-    id:               `mat-${m.itemId}-${piece.id}`,
-    materialId:       m.itemId,
-    name:             m.name,
-    requiredQuantity: m.quantity ?? 0,
-    ownedQuantity:    0,
-    completed:        false,
-  }))
+  const armorNodeId = `equipment-armor-${piece.id}`
+  const basePosition = equipmentNodePosition()
   const added = plannerStore.addEquipmentNode({
     equipmentId:   piece.id,
     name:          piece.name,
     equipmentType: 'armor',
     subtype:       piece.type,
     rarity:        piece.rarity,
-    materials,
-  })
+    materials:     [],
+  }, basePosition)
+  if (added) addConnectedMaterialsToPlanner(armorNodeId, basePosition, piece.materials)
   pieceFeedback.value[piece.id] = added ? 'added' : 'exists'
   setTimeout(() => { delete pieceFeedback.value[piece.id] }, 2200)
 }

@@ -3,6 +3,12 @@ import { ref, watch } from 'vue'
 import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData, RegionNodeData } from '@/types/planner'
 
 const STORAGE_KEY = 'astera-planner'
+let idCounter = 0
+
+function uniqueId(prefix: string) {
+  idCounter += 1
+  return `${prefix}-${Date.now()}-${idCounter}`
+}
 
 function loadFromStorage(): { nodes: PlannerNode[]; edges: PlannerEdge[] } {
   try {
@@ -41,7 +47,7 @@ export const usePlannerStore = defineStore('planner', () => {
     return true
   }
 
-  function addEquipmentNode(data: Omit<EquipmentNodeData, 'type' | 'completed'>) {
+  function addEquipmentNode(data: Omit<EquipmentNodeData, 'type' | 'completed'>, position?: { x: number; y: number }) {
     const alreadyExists = nodes.value.some(
       n => n.type === 'equipment' && (n.data as EquipmentNodeData).equipmentId === data.equipmentId
         && (n.data as EquipmentNodeData).equipmentType === data.equipmentType,
@@ -53,14 +59,14 @@ export const usePlannerStore = defineStore('planner', () => {
     nodes.value.push({
       id,
       type: 'equipment',
-      position: { x: 100 + offset, y: 100 + offset },
+      position: position ?? { x: 100 + offset, y: 100 + offset },
       data: { type: 'equipment', completed: false, ...data },
     })
     return true
   }
 
   function addNoteNode() {
-    const id = `note-${Date.now()}`
+    const id = uniqueId('note')
     nodes.value.push({
       id,
       type: 'note',
@@ -69,12 +75,12 @@ export const usePlannerStore = defineStore('planner', () => {
     })
   }
 
-  function addChecklistNode(initial?: { title?: string; iconName?: string | null; iconColor?: string | null; item?: { materialId?: number; name: string; iconName?: string | null; iconColor?: string | null; quantity?: number | null; sourceLocationName?: string | null; sourceAreas?: number[] } }) {
-    const id = `checklist-${Date.now()}`
+  function addChecklistNode(initial?: { title?: string; iconName?: string | null; iconColor?: string | null; position?: { x: number; y: number }; item?: { materialId?: number; name: string; iconName?: string | null; iconColor?: string | null; quantity?: number | null; sourceLocationName?: string | null; sourceAreas?: number[] } }) {
+    const id = uniqueId('checklist')
     nodes.value.push({
       id,
       type: 'materialChecklist',
-      position: { x: 160 + nodes.value.length * 20, y: 160 + nodes.value.length * 20 },
+      position: initial?.position ?? { x: 160 + nodes.value.length * 20, y: 160 + nodes.value.length * 20 },
       data: {
         type: 'materialChecklist',
         title: initial?.title ?? 'Materiais',
@@ -82,7 +88,7 @@ export const usePlannerStore = defineStore('planner', () => {
         iconColor: initial?.iconColor ?? initial?.item?.iconColor,
         items: initial?.item
           ? [{
-              id: `item-${initial.item.materialId ?? Date.now()}-${Date.now()}`,
+              id: uniqueId(`item-${initial.item.materialId ?? 'custom'}`),
               materialId: initial.item.materialId,
               name: initial.item.name,
               iconName: initial.item.iconName,

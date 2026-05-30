@@ -10,11 +10,12 @@ import MonsterDropsSection from '@/components/MonsterDropsSection.vue'
 import type { Hitzone } from '@/types/monster'
 import { usePlannerStore } from '@/stores/plannerStore'
 import { usePlannerPresence } from '@/composables/usePlannerPresence'
+import { useStoredState } from '@/composables/useStoredState'
 
 // ── Tabs ──────────────────────────────────────────────────────────────────
 type TabKey = 'combat' | 'drops' | 'equipment' | 'stats'
 const TABS: TabKey[] = ['combat', 'drops', 'equipment', 'stats']
-const activeTab = ref<TabKey>('combat')
+const activeTab = useStoredState<TabKey>('adb:monster-detail:active-tab', 'combat')
 
 const route  = useRoute()
 const router = useRouter()

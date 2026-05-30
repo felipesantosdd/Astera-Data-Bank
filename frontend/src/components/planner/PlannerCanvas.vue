@@ -57,9 +57,39 @@ const flowEdges = computed(() =>
 )
 
 function onNodesChange(changes: NodeChange[]) {
+  const changedIds = new Set(
+    changes.flatMap(change => 'id' in change ? [change.id] : []),
+  )
+
   for (const change of changes) {
     if (change.type === 'position' && change.position) {
+      const currentNode = store.nodes.find(node => node.id === change.id)
+      const delta = currentNode
+        ? {
+            x: change.position.x - currentNode.position.x,
+            y: change.position.y - currentNode.position.y,
+          }
+        : { x: 0, y: 0 }
+
       store.updateNodePosition(change.id, change.position)
+
+      if (
+        currentNode?.data.type === 'equipment' &&
+        (delta.x !== 0 || delta.y !== 0)
+      ) {
+        const connectedMaterialIds = store.edges
+          .filter(edge => edge.source === change.id && !changedIds.has(edge.target))
+          .map(edge => edge.target)
+
+        for (const targetId of connectedMaterialIds) {
+          const targetNode = store.nodes.find(node => node.id === targetId)
+          if (!targetNode || targetNode.type !== 'materialChecklist') continue
+          store.updateNodePosition(targetId, {
+            x: targetNode.position.x + delta.x,
+            y: targetNode.position.y + delta.y,
+          })
+        }
+      }
     }
   }
 }

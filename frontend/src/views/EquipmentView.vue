@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useWeapons } from '@/composables/useWeapons'
 import { useArmors }  from '@/composables/useArmors'
 import { useUI }      from '@/composables/useUI'
@@ -13,20 +13,21 @@ import PaginationControls from '@/components/PaginationControls.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import ElementIcon from '@/components/ElementIcon.vue'
 import { usePlannerPresence } from '@/composables/usePlannerPresence'
+import { useStoredState } from '@/composables/useStoredState'
 
 const { t } = useUI()
 const { isEquipmentInPlanner } = usePlannerPresence()
 
 // ── Main tab ──────────────────────────────────────────────────────────────────
 type MainTab = 'weapons' | 'armor'
-const mainTab = ref<MainTab>('armor')
+const mainTab = useStoredState<MainTab>('adb:equipment:main-tab', 'armor')
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 const { data: weapons, isLoading: loadingWeapons } = useWeapons()
 const { data: armorSets, isLoading: loadingArmor }  = useArmors()
 
 // ── Weapon type tab ───────────────────────────────────────────────────────────
-const activeType = ref<WeaponType>('great-sword')
+const activeType = useStoredState<WeaponType>('adb:equipment:weapon-type', 'great-sword')
 
 const WEAPON_SHORT: Record<string, string> = {
   'great-sword': 'GS', 'long-sword': 'LS', 'sword-and-shield': 'SnS',
@@ -60,7 +61,7 @@ const rootWeapons = computed(() =>
 )
 
 // ── Busca ─────────────────────────────────────────────────────────────────────
-const searchWeapon = ref('')
+const searchWeapon = useStoredState('adb:equipment:weapon-search', '')
 
 function treeContains(rootId: number, q: string): boolean {
   const stack = [rootId]
@@ -82,7 +83,7 @@ const filteredRoots = computed(() => {
 })
 
 // ── Acordeão — qual linha está aberta ────────────────────────────────────────
-const openLineId = ref<number | null>(null)
+const openLineId = useStoredState<number | null>('adb:equipment:open-line-id', null)
 
 function toggleLine(id: number) {
   openLineId.value = openLineId.value === id ? null : id
@@ -98,7 +99,7 @@ function switchType(type: WeaponType) {
 
 // ── Paginação das linhas de arma ──────────────────────────────────────────────
 const WEAPONS_PER_PAGE = 20
-const weaponPage  = ref(1)
+const weaponPage  = useStoredState('adb:equipment:weapon-page', 1)
 const weaponTotalPages = computed(() => Math.ceil(filteredRoots.value.length / WEAPONS_PER_PAGE))
 
 const paginatedRoots = computed(() => {
@@ -107,7 +108,10 @@ const paginatedRoots = computed(() => {
 })
 
 // Reseta página ao filtrar
-watch(filteredRoots, () => { weaponPage.value = 1 })
+watch(searchWeapon, () => { weaponPage.value = 1 })
+watch(weaponTotalPages, (pages) => {
+  if (pages > 0 && weaponPage.value > pages) weaponPage.value = pages
+})
 
 function goToWeaponPage(p: number) {
   weaponPage.value = Math.max(1, Math.min(p, weaponTotalPages.value))
@@ -151,9 +155,9 @@ function lineElement(rootId: number): { name: string; hidden: boolean } | null {
 }
 
 // ── Filtros armadura ──────────────────────────────────────────────────────────
-const searchArmor    = ref('')
-const armorRankTab   = ref<'LR' | 'HR' | 'MR'>('LR')
-const armorElemFilter = ref('')
+const searchArmor    = useStoredState('adb:equipment:armor-search', '')
+const armorRankTab   = useStoredState<'LR' | 'HR' | 'MR'>('adb:equipment:armor-rank', 'LR')
+const armorElemFilter = useStoredState('adb:equipment:armor-element', '')
 const RANKS = ['LR', 'HR', 'MR'] as const
 const ELEM_KEYS = ['fire', 'water', 'thunder', 'ice', 'dragon'] as const
 const ELEM_LABELS: Record<string, string> = {
@@ -180,7 +184,7 @@ const filteredArmor = computed(() => {
 
 // ── Paginação de armaduras ────────────────────────────────────────────────────
 const ARMOR_PER_PAGE = 9
-const armorPage = ref(1)
+const armorPage = useStoredState('adb:equipment:armor-page', 1)
 const armorTotalPages = computed(() => Math.ceil(filteredArmor.value.length / ARMOR_PER_PAGE))
 
 const paginatedArmor = computed(() => {
@@ -188,7 +192,10 @@ const paginatedArmor = computed(() => {
   return filteredArmor.value.slice(start, start + ARMOR_PER_PAGE)
 })
 
-watch(filteredArmor, () => { armorPage.value = 1 })
+watch([searchArmor, armorRankTab, armorElemFilter], () => { armorPage.value = 1 })
+watch(armorTotalPages, (pages) => {
+  if (pages > 0 && armorPage.value > pages) armorPage.value = pages
+})
 
 function goToArmorPage(p: number) {
   armorPage.value = Math.max(1, Math.min(p, armorTotalPages.value))
@@ -196,8 +203,18 @@ function goToArmorPage(p: number) {
 }
 
 // ── Modais ────────────────────────────────────────────────────────────────────
-const armorModal  = ref<ArmorSet | null>(null)
-const weaponModal = ref<import('@/types/weapon').Weapon | null>(null)
+const armorModalId = useStoredState<number | null>('adb:equipment:armor-modal-id', null)
+const weaponModalId = useStoredState<number | null>('adb:equipment:weapon-modal-id', null)
+
+const armorModal = computed<ArmorSet | null>({
+  get: () => armorSets.value?.find(set => set.id === armorModalId.value) ?? null,
+  set: (set) => { armorModalId.value = set?.id ?? null },
+})
+
+const weaponModal = computed<Weapon | null>({
+  get: () => weapons.value?.find(weapon => weapon.id === weaponModalId.value) ?? null,
+  set: (weapon) => { weaponModalId.value = weapon?.id ?? null },
+})
 </script>
 
 <template>

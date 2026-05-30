@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { computed, watch } from 'vue'
 import MonsterCard from '@/components/MonsterCard.vue'
 import PaginationControls from '@/components/PaginationControls.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import { useMonsters } from '@/composables/useMonsters'
 import { useUI } from '@/composables/useUI'
+import { useStoredState } from '@/composables/useStoredState'
 
 const { data: monsters, isLoading, isError } = useMonsters()
 const { t, lang } = useUI()
 
 // ── Filtros ──────────────────────────────────────────────────────────────────
-const search          = ref('')
-const selectedElement = ref('')   // '' = todos
-const selectedEcology = ref('')   // '' = todos
+const search          = useStoredState('adb:monsters:search', '')
+const selectedElement = useStoredState('adb:monsters:element', '')   // '' = todos
+const selectedEcology = useStoredState('adb:monsters:ecology', '')   // '' = todos
 
 // Opções dinâmicas derivadas dos dados carregados
 const availableElements = computed(() => {
@@ -72,7 +73,7 @@ function ecologyLabel(key: string): string {
 
 // ── Paginação ────────────────────────────────────────────────────────────────
 const MONSTERS_PER_PAGE = 42
-const currentPage = ref(1)
+const currentPage = useStoredState('adb:monsters:page', 1)
 const totalPages  = computed(() => Math.ceil(filtered.value.length / MONSTERS_PER_PAGE))
 
 const paginated = computed(() => {
@@ -80,7 +81,10 @@ const paginated = computed(() => {
   return filtered.value.slice(start, start + MONSTERS_PER_PAGE)
 })
 
-watch(filtered, () => { currentPage.value = 1 })
+watch([search, selectedElement, selectedEcology], () => { currentPage.value = 1 })
+watch(totalPages, (pages) => {
+  if (pages > 0 && currentPage.value > pages) currentPage.value = pages
+})
 
 function goTo(page: number) {
   currentPage.value = Math.max(1, Math.min(page, totalPages.value))

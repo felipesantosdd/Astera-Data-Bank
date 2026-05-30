@@ -77,7 +77,7 @@ const filteredGathering = computed(() => {
     )
 })
 
-function onCardClick(e: MouseEvent) {
+function onCardClick(e: Event) {
   e.stopPropagation()
   menuOpen.value = !menuOpen.value
 }
@@ -123,10 +123,14 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocClick, true))
   <div ref="nodeRef" class="material-node" :class="{ 'material-node--done': isCompleted }">
     <PlannerHandles :node-id="id" />
 
-    <button
+    <div
       v-if="primaryItem"
       class="material-node__content"
+      role="button"
+      tabindex="0"
       @click="onCardClick"
+      @keydown.enter="onCardClick"
+      @keydown.space.prevent="onCardClick"
     >
       <ItemIcon :name="materialIconName" :color="materialIconColor" :size="42" />
       <span class="material-node__body">
@@ -134,7 +138,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onDocClick, true))
         <span class="material-node__qty">x{{ primaryItem.requiredQuantity }}</span>
       </span>
       <span v-if="isCompleted" class="material-node__done" aria-label="Concluido">✓</span>
-    </button>
+    </div>
 
     <Transition name="pop">
       <div v-if="menuOpen && primaryItem" class="material-node__popover" @click.stop>

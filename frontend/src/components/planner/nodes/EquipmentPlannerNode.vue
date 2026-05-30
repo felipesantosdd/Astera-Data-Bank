@@ -61,19 +61,6 @@ function toggleMaterial(item: ChecklistItem) {
 }
 
 // ── Label do tipo ─────────────────────────────────────────────────────────────
-const WEAPON_TYPE_LABELS: Record<string, string> = {
-  'great-sword': 'GS', 'long-sword': 'LS', 'sword-and-shield': 'SnS',
-  'dual-blades': 'DB', 'hammer': 'HAM', 'hunting-horn': 'HH',
-  'lance': 'LAN', 'gunlance': 'GL', 'switch-axe': 'SA',
-  'charge-blade': 'CB', 'insect-glaive': 'IG', 'light-bowgun': 'LBG',
-  'heavy-bowgun': 'HBG', 'bow': 'BOW',
-}
-
-const typeLabel = computed(() =>
-  props.data.equipmentType === 'weapon'
-    ? (WEAPON_TYPE_LABELS[props.data.subtype] ?? props.data.subtype.toUpperCase())
-    : props.data.subtype, // LR / HR / MR / head / chest etc.
-)
 </script>
 
 <template>
@@ -103,7 +90,6 @@ const typeLabel = computed(() =>
 
       <div class="eq-node__info">
         <span class="eq-node__name">{{ data.name }}</span>
-        <span v-if="data.equipmentType !== 'weapon'" class="eq-node__type">{{ typeLabel }}</span>
       </div>
 
       <!-- Progresso -->
