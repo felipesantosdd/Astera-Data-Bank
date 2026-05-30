@@ -28,7 +28,7 @@ export const LANGUAGES: Language[] = [
 
 export const useLanguageStore = defineStore('language', () => {
   // Inicializa com o valor salvo no localStorage, ou inglês como padrão
-  const lang = ref<string>(localStorage.getItem(LS_KEY) ?? 'en')
+  const lang = ref<string>(localStorage.getItem(LS_KEY) ?? 'pt')
 
   function setLang(newLang: string) {
     lang.value = newLang

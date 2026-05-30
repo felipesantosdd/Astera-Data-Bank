@@ -29,8 +29,13 @@ function parseRow(line) {
   return cols
 }
 
-const QUEST_DIR = path.join(__dirname, '../mhdata/source_data/quests')
-const OUT_DIR   = path.join(__dirname, '../frontend/public/data')
+const QUEST_DIR  = path.join(__dirname, '../mhdata/source_data/quests')
+const OUT_DIR    = path.join(__dirname, '../frontend/public/data')
+
+// Build EN name → monster ID map
+const monstersEn = JSON.parse(fs.readFileSync(path.join(OUT_DIR, 'monsters-en.json'), 'utf8'))
+const monsterIdByEnName = {}
+for (const m of monstersEn) monsterIdByEnName[m.name.toLowerCase()] = m.id
 
 const questBase    = parseCSV(fs.readFileSync(path.join(QUEST_DIR, 'quest_base.csv'), 'utf8'))
 const translations = parseCSV(fs.readFileSync(path.join(QUEST_DIR, 'quest_base_translations.csv'), 'utf8'))
@@ -51,6 +56,7 @@ for (const m of qMonsters) {
   if (!monstersById[m.base_id]) monstersById[m.base_id] = []
   monstersById[m.base_id].push({
     nameEn: m.monster_en,
+    monsterId: monsterIdByEnName[m.monster_en.toLowerCase()] ?? null,
     quantity: m.quantity ? Number(m.quantity) : null,
     isObjective: m.is_objective === 'TRUE',
   })
@@ -79,6 +85,11 @@ const CAT_ORDER  = { assigned: 0, special: 1, optional: 2 }
 const LANGS = ['en', 'ja', 'fr', 'it', 'de', 'es', 'pt', 'pl', 'ru', 'ko', 'zh', 'ar']
 
 for (const lang of LANGS) {
+  // Build monsterId → localised name for this lang
+  const monstersLang = JSON.parse(fs.readFileSync(path.join(OUT_DIR, `monsters-${lang}.json`), 'utf8'))
+  const monsterNameById = {}
+  for (const m of monstersLang) monsterNameById[m.id] = m.name
+
   const out = filtered.map(q => {
     const t = transById[q.id] || {}
     return {
@@ -93,7 +104,10 @@ for (const lang of LANGS) {
       name:         t['name_' + lang]        || t['name_en']        || q.name_en,
       objective:    t['objective_' + lang]   || t['objective_en']   || '',
       description:  t['description_' + lang] || t['description_en'] || '',
-      monsters: (monstersById[q.id] ?? []),
+      monsters: (monstersById[q.id] ?? []).map(m => ({
+        ...m,
+        name: m.monsterId ? (monsterNameById[m.monsterId] ?? m.nameEn) : m.nameEn,
+      })),
       rewards:  (rewardsById[q.id]  ?? []),
     }
   }).sort((a, b) =>

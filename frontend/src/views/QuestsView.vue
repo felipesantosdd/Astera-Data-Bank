@@ -267,8 +267,17 @@ function addToPlanner(q: Quest) {
                   class="target-row"
                   :class="{ 'target-row--objective': m.isObjective }"
                 >
-                  <span class="target-dot" :class="{ 'target-dot--main': m.isObjective }" />
-                  <span class="target-name">{{ m.nameEn }}</span>
+                  <div class="target-icon-wrap">
+                    <img
+                      v-if="m.monsterId"
+                      :src="`/monsters/${m.monsterId}.png`"
+                      class="target-icon"
+                      :alt="m.name"
+                      @error="($event.target as HTMLImageElement).style.display = 'none'"
+                    />
+                    <span v-else class="target-dot" :class="{ 'target-dot--main': m.isObjective }" />
+                  </div>
+                  <span class="target-name">{{ m.name }}</span>
                   <span v-if="m.quantity" class="target-qty">×{{ m.quantity }}</span>
                   <span class="target-badge" :class="m.isObjective ? 'target-badge--main' : 'target-badge--sub'">
                     {{ m.isObjective ? 'Objetivo' : 'Extra' }}
@@ -588,13 +597,24 @@ function addToPlanner(q: Quest) {
 .targets-list { display: flex; flex-direction: column; gap: 6px; }
 .target-row {
   display: flex; align-items: center; gap: 10px;
-  padding: 8px 12px; border-radius: 7px;
+  padding: 7px 12px; border-radius: 7px;
   border: 1px solid var(--border); background: var(--surface-2);
 }
 .target-row--objective { border-color: rgba(232,168,56,.35); background: rgba(232,168,56,.05); }
 
+.target-icon-wrap {
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+}
+
+.target-icon {
+  width: 36px; height: 36px;
+  object-fit: contain;
+}
+
 .target-dot {
-  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  width: 7px; height: 7px; border-radius: 50%;
   background: var(--text-dim);
 }
 .target-dot--main { background: var(--gold); }

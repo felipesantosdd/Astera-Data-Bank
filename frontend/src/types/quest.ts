@@ -1,5 +1,7 @@
 export interface QuestMonster {
   nameEn: string
+  name: string
+  monsterId: number | null
   quantity: number | null
   isObjective: boolean
 }
