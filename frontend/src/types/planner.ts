@@ -29,6 +29,8 @@ export interface ChecklistItem {
   name: string
   iconName?: string | null
   iconColor?: string | null
+  sourceLocationName?: string | null
+  sourceAreas?: number[]
   requiredQuantity: number
   ownedQuantity: number
   completed: boolean

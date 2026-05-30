@@ -37,6 +37,8 @@ function addMaterialToPlanner() {
       iconName: props.itemIconName,
       iconColor: props.itemIconColor,
       quantity: props.plannerQuantity ?? 1,
+      sourceLocationName: activeSourceTab.value === 'gathering' ? activeLocation.value : null,
+      sourceAreas: activeSourceTab.value === 'gathering' ? activeGatheringAreas.value : [],
     },
   })
   if (activeSourceTab.value === 'gathering' && activeLocation.value) {
@@ -102,6 +104,7 @@ const activeSourceTab = ref<SourceTab>('drops')
 watch(() => props.itemId, () => {
   activeSourceTab.value = 'drops'
   activeDropRank.value  = 'LR'
+  activeGatheringRank.value = 'LR'
   activeQuestRank.value = 'LR'
   activeLocation.value  = ''
 })
@@ -157,14 +160,41 @@ const gatheringLocations = computed<string[]>(() => {
 })
 
 const activeLocation = ref('')
+const activeGatheringRank = ref<Rank>('LR')
 
 watch(gatheringLocations, (locs) => {
   if (locs.length && !locs.includes(activeLocation.value)) activeLocation.value = locs[0]
 }, { immediate: true })
 
-const filteredGathering = computed(() =>
-  sources.value?.gathering.filter(g => g.locationName === activeLocation.value) ?? []
+const availableGatheringRanks = computed<Rank[]>(() =>
+  RANKS.filter(r => (sources.value?.gathering ?? []).some(g =>
+    g.locationName === activeLocation.value && g.rank === r,
+  ))
 )
+
+watch([availableGatheringRanks, activeLocation], ([ranks]) => {
+  if (ranks.length && !ranks.includes(activeGatheringRank.value)) {
+    activeGatheringRank.value = ranks[0]
+  }
+}, { immediate: true })
+
+const filteredGathering = computed(() =>
+  (sources.value?.gathering ?? [])
+    .filter(g => g.locationName === activeLocation.value)
+    .filter(g => availableGatheringRanks.value.length === 0 || g.rank === activeGatheringRank.value)
+    .sort((a, b) =>
+      (a.area ?? Number.MAX_SAFE_INTEGER) - (b.area ?? Number.MAX_SAFE_INTEGER) ||
+      String(a.rank ?? '').localeCompare(String(b.rank ?? '')),
+    )
+)
+
+const activeGatheringAreas = computed(() => {
+  const areas = new Set<number>()
+  for (const g of filteredGathering.value) {
+    if (g.area != null) areas.add(g.area)
+  }
+  return [...areas].sort((a, b) => a - b)
+})
 
 // ── ESC + scroll lock ─────────────────────────────────────────────────────────
 function handleKey(e: KeyboardEvent) {
@@ -338,6 +368,18 @@ watch(isOpen, (open) => {
                   <LocationIcon :location-name="loc" :size="22" />
                   <span>{{ loc }}</span>
                 </button>
+              </div>
+              <div v-if="availableGatheringRanks.length > 1" class="rank-tabs rank-tabs--inner">
+                <button
+                  v-for="r in availableGatheringRanks"
+                  :key="r"
+                  class="rank-tab"
+                  :class="[`rank-tab--${r.toLowerCase()}`, { 'rank-tab--active': activeGatheringRank === r }]"
+                  @click="activeGatheringRank = r"
+                >{{ rankLabel(r) }}</button>
+              </div>
+              <div v-else-if="availableGatheringRanks.length === 1" class="rank-badge-row">
+                <span class="rank-badge" :class="`rank-badge--${availableGatheringRanks[0].toLowerCase()}`">{{ rankLabel(availableGatheringRanks[0]) }}</span>
               </div>
               <div class="modal__table-wrap">
                 <table class="src-table">

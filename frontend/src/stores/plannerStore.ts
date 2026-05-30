@@ -69,7 +69,7 @@ export const usePlannerStore = defineStore('planner', () => {
     })
   }
 
-  function addChecklistNode(initial?: { title?: string; iconName?: string | null; iconColor?: string | null; item?: { materialId?: number; name: string; iconName?: string | null; iconColor?: string | null; quantity?: number | null } }) {
+  function addChecklistNode(initial?: { title?: string; iconName?: string | null; iconColor?: string | null; item?: { materialId?: number; name: string; iconName?: string | null; iconColor?: string | null; quantity?: number | null; sourceLocationName?: string | null; sourceAreas?: number[] } }) {
     const id = `checklist-${Date.now()}`
     nodes.value.push({
       id,
@@ -87,6 +87,8 @@ export const usePlannerStore = defineStore('planner', () => {
               name: initial.item.name,
               iconName: initial.item.iconName,
               iconColor: initial.item.iconColor,
+              sourceLocationName: initial.item.sourceLocationName ?? null,
+              sourceAreas: initial.item.sourceAreas ?? [],
               requiredQuantity: initial.item.quantity ?? 1,
               ownedQuantity: 0,
               completed: false,

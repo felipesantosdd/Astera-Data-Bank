@@ -1,15 +1,46 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { RouterView, RouterLink } from 'vue-router'
+import { nextTick, onBeforeUnmount, ref } from 'vue'
+import { RouterView, RouterLink, useRoute, useRouter } from 'vue-router'
 import AppIntro from '@/components/AppIntro.vue'
 import LanguagePicker from '@/components/LanguagePicker.vue'
 import { useUI } from '@/composables/useUI'
 
 const { t } = useUI()
+const route = useRoute()
+const router = useRouter()
 const menuOpen = ref(false)
 const showIntro = ref(true)
+const scrollPositions = new Map<string, number>()
 
 function closeMenu() { menuOpen.value = false }
+
+function routeKey(path = route.fullPath) {
+  return path
+}
+
+function saveCurrentScroll() {
+  scrollPositions.set(routeKey(), window.scrollY)
+}
+
+const removeBeforeGuard = router.beforeEach((_to, from) => {
+  scrollPositions.set(from.fullPath, window.scrollY)
+})
+
+const removeAfterHook = router.afterEach(async (to) => {
+  await nextTick()
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: scrollPositions.get(to.fullPath) ?? 0, behavior: 'instant' })
+  })
+})
+
+window.addEventListener('beforeunload', saveCurrentScroll)
+
+onBeforeUnmount(() => {
+  saveCurrentScroll()
+  removeBeforeGuard()
+  removeAfterHook()
+  window.removeEventListener('beforeunload', saveCurrentScroll)
+})
 </script>
 
 <template>
@@ -58,7 +89,11 @@ function closeMenu() { menuOpen.value = false }
     </Transition>
 
     <main class="app-content">
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <KeepAlive>
+          <component :is="Component" />
+        </KeepAlive>
+      </RouterView>
     </main>
 
   </div>

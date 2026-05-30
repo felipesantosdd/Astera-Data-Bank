@@ -69,6 +69,51 @@ function closeMaterialSources() {
 
 // ── Planner — por peça de armadura ───────────────────────────────────────────
 const pieceFeedback = ref<Record<number, 'added' | 'exists'>>({})
+const weaponFeedback = ref<'added' | 'exists' | null>(null)
+
+function weaponMaterials(weapon: Weapon) {
+  return weapon.craftMaterials.length ? weapon.craftMaterials : weapon.upgradeMaterials
+}
+
+function addWeaponToPlanner(weapon: Weapon) {
+  const weaponNodeId = `equipment-weapon-${weapon.id}`
+  const added = plannerStore.addEquipmentNode({
+    equipmentId: weapon.id,
+    name: weapon.name,
+    equipmentType: 'weapon',
+    subtype: weapon.weaponType,
+    rarity: weapon.rarity,
+    materials: [],
+  })
+
+  if (added) {
+    for (const material of weaponMaterials(weapon)) {
+      const meta = itemMeta(material.itemId)
+      const materialNodeId = plannerStore.addChecklistNode({
+        title: material.name,
+        iconName: meta?.iconName,
+        iconColor: meta?.iconColor,
+        item: {
+          materialId: material.itemId,
+          name: material.name,
+          iconName: meta?.iconName,
+          iconColor: meta?.iconColor,
+          quantity: material.quantity,
+        },
+      })
+
+      plannerStore.addEdge({
+        id: `edge-${weaponNodeId}-${materialNodeId}-${Date.now()}-${material.itemId}`,
+        source: weaponNodeId,
+        target: materialNodeId,
+        sourceHandle: 'source',
+      })
+    }
+  }
+
+  weaponFeedback.value = added ? 'added' : 'exists'
+  setTimeout(() => { weaponFeedback.value = null }, 2200)
+}
 
 function addPieceToPlanner(piece: import('@/types/armor').ArmorPiece) {
   const materials = piece.materials.map(m => ({
@@ -158,6 +203,26 @@ function onOverlayClick(e: MouseEvent) {
                 <span class="detail-stat__label">Shelling</span>
                 <span class="detail-stat__val">{{ weapon.shelling }} Lv{{ weapon.shellingLevel }}</span>
               </div>
+            </div>
+
+            <div class="weapon-planner">
+              <button
+                class="weapon-planner__btn"
+                :class="{ 'weapon-planner__btn--planned': isEquipmentInPlanner(weapon.id, 'weapon') }"
+                :disabled="weaponMaterials(weapon).length === 0"
+                @click="addWeaponToPlanner(weapon)"
+              >
+                {{ isEquipmentInPlanner(weapon.id, 'weapon') ? '✓ Planner' : '＋ Planner' }}
+              </button>
+              <Transition name="fade">
+                <span
+                  v-if="weaponFeedback"
+                  class="weapon-planner__feedback"
+                  :class="{ 'weapon-planner__feedback--exists': weaponFeedback === 'exists' }"
+                >
+                  {{ weaponFeedback === 'added' ? '✓ Arma e materiais adicionados' : '⚠ Já está no planner' }}
+                </span>
+              </Transition>
             </div>
 
             <!-- Materiais de craft -->
@@ -380,6 +445,52 @@ function onOverlayClick(e: MouseEvent) {
 
 .val--pos { color: #6abf6a; }
 .val--neg { color: #e74c3c; }
+
+.weapon-planner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.weapon-planner__btn {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-family: var(--font-heading);
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+
+.weapon-planner__btn:hover:not(:disabled) {
+  color: var(--gold-light);
+  border-color: var(--gold-light);
+  background: var(--gold-glow);
+}
+
+.weapon-planner__btn--planned {
+  color: #5cb85c;
+  border-color: #5cb85c;
+  background: rgba(92, 184, 92, 0.12);
+}
+
+.weapon-planner__btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.weapon-planner__feedback {
+  font-size: 11px;
+  color: #5cb85c;
+}
+
+.weapon-planner__feedback--exists {
+  color: var(--text-muted);
+}
 
 /* ── Materials ── */
 .section-title {

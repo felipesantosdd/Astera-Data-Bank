@@ -103,7 +103,7 @@ const typeLabel = computed(() =>
 
       <div class="eq-node__info">
         <span class="eq-node__name">{{ data.name }}</span>
-        <span class="eq-node__type">{{ typeLabel }}</span>
+        <span v-if="data.equipmentType !== 'weapon'" class="eq-node__type">{{ typeLabel }}</span>
       </div>
 
       <!-- Progresso -->
@@ -163,7 +163,10 @@ const typeLabel = computed(() =>
   position: relative;
 }
 
-.eq-node--weapon { border-left: 3px solid var(--gold); }
+.eq-node--weapon {
+  border-left: 3px solid var(--gold);
+  width: 190px;
+}
 .eq-node--armor  { border-left: 3px solid #9060c0; }
 .eq-node--done   { opacity: .6; }
 
