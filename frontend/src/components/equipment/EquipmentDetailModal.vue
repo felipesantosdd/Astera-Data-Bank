@@ -90,7 +90,7 @@ function materialNodePosition(base: { x: number; y: number }, index: number, tot
   }
 }
 
-function addConnectedMaterialsToPlanner(sourceNodeId: string, basePosition: { x: number; y: number }, materials: Array<{ itemId: number; name: string; quantity: number | null }>) {
+function addConnectedMaterialsToPlanner(equipmentNodeId: string, basePosition: { x: number; y: number }, materials: Array<{ itemId: number; name: string; quantity: number | null }>) {
   materials.forEach((material, index) => {
     const meta = itemMeta(material.itemId)
     const materialNodeId = plannerStore.addChecklistNode({
@@ -108,10 +108,11 @@ function addConnectedMaterialsToPlanner(sourceNodeId: string, basePosition: { x:
     })
 
     plannerStore.addEdge({
-      id: `edge-${sourceNodeId}-${materialNodeId}-${Date.now()}-${index}`,
-      source: sourceNodeId,
-      target: materialNodeId,
+      id: `edge-${materialNodeId}-${equipmentNodeId}-${Date.now()}-${index}`,
+      source: materialNodeId,
+      target: equipmentNodeId,
       sourceHandle: 'source',
+      targetHandle: `target-${index}`,
     })
   })
 }

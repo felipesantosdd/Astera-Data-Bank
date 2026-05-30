@@ -78,8 +78,8 @@ function onNodesChange(changes: NodeChange[]) {
         (delta.x !== 0 || delta.y !== 0)
       ) {
         const connectedMaterialIds = store.edges
-          .filter(edge => edge.source === change.id && !changedIds.has(edge.target))
-          .map(edge => edge.target)
+          .filter(edge => edge.target === change.id && !changedIds.has(edge.source))
+          .map(edge => edge.source)
 
         for (const targetId of connectedMaterialIds) {
           const targetNode = store.nodes.find(node => node.id === targetId)
