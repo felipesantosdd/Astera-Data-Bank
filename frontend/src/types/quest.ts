@@ -8,7 +8,7 @@ export interface QuestMonster {
 
 export interface QuestReward {
   group: string
-  itemNameEn: string
+  itemName: string
   stack: number
   percentage: number
 }

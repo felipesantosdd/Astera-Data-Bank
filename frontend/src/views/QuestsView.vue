@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useQuests } from '@/composables/useQuests'
 import { useStoredState } from '@/composables/useStoredState'
 import { usePlannerStore } from '@/stores/plannerStore'
@@ -7,6 +8,8 @@ import LocationIcon from '@/components/LocationIcon.vue'
 import SearchInput from '@/components/SearchInput.vue'
 import type { Quest } from '@/types/quest'
 
+const route  = useRoute()
+const router = useRouter()
 const { data: quests, isLoading, isError } = useQuests()
 const plannerStore = usePlannerStore()
 
@@ -55,11 +58,27 @@ const paginated  = computed(() => {
 watch([activeRank, activeCat, activeType, search], () => { currentPage.value = 1 })
 watch(totalPages, pages => { if (pages > 0 && currentPage.value > pages) currentPage.value = pages })
 
-// ── Detail modal ──────────────────────────────────────────────────────────────
+// ── Detail modal — persiste ID na URL ─────────────────────────────────────────
 const selectedQuest = ref<Quest | null>(null)
 
-function openQuest(q: Quest) { selectedQuest.value = q }
-function closeQuest() { selectedQuest.value = null }
+// Reabrir modal ao carregar a página se ?quest=ID estiver na URL
+watch(quests, (list) => {
+  if (!list) return
+  const id = route.query.quest ? Number(route.query.quest) : null
+  if (id) selectedQuest.value = list.find(q => q.id === id) ?? null
+}, { immediate: true })
+
+function openQuest(q: Quest) {
+  selectedQuest.value = q
+  router.replace({ query: { ...route.query, quest: q.id } })
+}
+
+function closeQuest() {
+  selectedQuest.value = null
+  const query = { ...route.query }
+  delete query.quest
+  router.replace({ query })
+}
 
 // group rewards by group letter
 const rewardsByGroup = computed(() => {
@@ -302,7 +321,7 @@ function addToPlanner(q: Quest) {
                       :key="i"
                       class="reward-row"
                     >
-                      <span class="reward-name">{{ r.itemNameEn }}</span>
+                      <span class="reward-name">{{ r.itemName }}</span>
                       <span v-if="r.stack > 1" class="reward-stack">×{{ r.stack }}</span>
                       <strong class="reward-pct">{{ r.percentage }}%</strong>
                     </div>

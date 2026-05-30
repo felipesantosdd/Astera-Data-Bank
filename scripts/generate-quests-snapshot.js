@@ -29,14 +29,39 @@ function parseRow(line) {
   return cols
 }
 
-const QUEST_DIR  = path.join(__dirname, '../mhdata/source_data/quests')
-const OUT_DIR    = path.join(__dirname, '../frontend/public/data')
+const QUEST_DIR = path.join(__dirname, '../mhdata/source_data/quests')
+const ITEM_DIR  = path.join(__dirname, '../mhdata/source_data/items')
+const OUT_DIR   = path.join(__dirname, '../frontend/public/data')
 
-// Build EN name → monster ID map
+// ── Monster ID lookup (EN name → ID) ─────────────────────────────────────────
 const monstersEn = JSON.parse(fs.readFileSync(path.join(OUT_DIR, 'monsters-en.json'), 'utf8'))
 const monsterIdByEnName = {}
 for (const m of monstersEn) monsterIdByEnName[m.name.toLowerCase()] = m.id
 
+// ── Item name translations (EN name → { lang: localizedName }) ────────────────
+// item_base_translations.csv: name_en, description_en, name_ja, ..., name_pt, ...
+// No id column — keyed by name_en
+const itemTransCSV = parseCSV(fs.readFileSync(path.join(ITEM_DIR, 'item_base_translations.csv'), 'utf8'))
+const itemNameByEnAndLang = {}  // itemNameByEnAndLang['Potion']['pt'] = 'Poção'
+for (const row of itemTransCSV) {
+  const enName = row['name_en']
+  if (!enName) continue
+  itemNameByEnAndLang[enName.toLowerCase()] = {}
+  for (const key of Object.keys(row)) {
+    if (key.startsWith('name_')) {
+      const lang = key.replace('name_', '')
+      if (row[key]) itemNameByEnAndLang[enName.toLowerCase()][lang] = row[key]
+    }
+  }
+}
+
+function getItemName(enName, lang) {
+  const entry = itemNameByEnAndLang[enName.toLowerCase()]
+  if (!entry) return enName
+  return entry[lang] || entry['en'] || enName
+}
+
+// ── Load quest CSVs ───────────────────────────────────────────────────────────
 const questBase    = parseCSV(fs.readFileSync(path.join(QUEST_DIR, 'quest_base.csv'), 'utf8'))
 const translations = parseCSV(fs.readFileSync(path.join(QUEST_DIR, 'quest_base_translations.csv'), 'utf8'))
 const qMonsters    = parseCSV(fs.readFileSync(path.join(QUEST_DIR, 'quest_monsters.csv'), 'utf8'))
@@ -46,8 +71,7 @@ const INCLUDE_CATS = new Set(['assigned', 'optional', 'special'])
 const filtered     = questBase.filter(q => INCLUDE_CATS.has(q.category))
 const filteredIds  = new Set(filtered.map(q => q.id))
 
-// index by quest id
-const transById   = {}
+const transById = {}
 for (const t of translations) { if (filteredIds.has(t.id)) transById[t.id] = t }
 
 const monstersById = {}
@@ -55,37 +79,41 @@ for (const m of qMonsters) {
   if (!filteredIds.has(m.base_id)) continue
   if (!monstersById[m.base_id]) monstersById[m.base_id] = []
   monstersById[m.base_id].push({
-    nameEn: m.monster_en,
-    monsterId: monsterIdByEnName[m.monster_en.toLowerCase()] ?? null,
-    quantity: m.quantity ? Number(m.quantity) : null,
+    nameEn:      m.monster_en,
+    monsterId:   monsterIdByEnName[m.monster_en.toLowerCase()] ?? null,
+    quantity:    m.quantity ? Number(m.quantity) : null,
     isObjective: m.is_objective === 'TRUE',
   })
 }
 
-const rewardsById = {}
+const rewardsRaw = {}
 for (const r of qRewards) {
   if (!filteredIds.has(r.base_id)) continue
-  if (!rewardsById[r.base_id]) rewardsById[r.base_id] = []
-  rewardsById[r.base_id].push({
-    group: r.group,
+  if (!rewardsRaw[r.base_id]) rewardsRaw[r.base_id] = []
+  rewardsRaw[r.base_id].push({
+    group:      r.group,
     itemNameEn: r.item_en,
-    stack: Number(r.stack) || 1,
+    stack:      Number(r.stack) || 1,
     percentage: Number(r.percentage) || 0,
   })
 }
 
 const LOC_MAP = {
   'Ancient Forest': 1, 'Wildspire Waste': 2, 'Coral Highlands': 3,
-  'Rotten Vale': 4, "Elder's Recess": 5, 'Hoarfrost Reach': 6, 'Guiding Lands': 7,
+  "Rotten Vale": 4, "Elder's Recess": 5, 'Hoarfrost Reach': 6, 'Guiding Lands': 7,
 }
-
 const RANK_ORDER = { LR: 0, HR: 1, MR: 2 }
 const CAT_ORDER  = { assigned: 0, special: 1, optional: 2 }
-
 const LANGS = ['en', 'ja', 'fr', 'it', 'de', 'es', 'pt', 'pl', 'ru', 'ko', 'zh', 'ar']
 
+console.log('Item translations loaded:', Object.keys(itemNameByEnAndLang).length)
+// Quick check
+const testPt = getItemName('Armor Sphere', 'pt')
+const testPt2 = getItemName('Mysterious Feystone', 'pt')
+console.log('Armor Sphere (pt):', testPt)
+console.log('Mysterious Feystone (pt):', testPt2)
+
 for (const lang of LANGS) {
-  // Build monsterId → localised name for this lang
   const monstersLang = JSON.parse(fs.readFileSync(path.join(OUT_DIR, `monsters-${lang}.json`), 'utf8'))
   const monsterNameById = {}
   for (const m of monstersLang) monsterNameById[m.id] = m.name
@@ -108,7 +136,12 @@ for (const lang of LANGS) {
         ...m,
         name: m.monsterId ? (monsterNameById[m.monsterId] ?? m.nameEn) : m.nameEn,
       })),
-      rewards:  (rewardsById[q.id]  ?? []),
+      rewards: (rewardsRaw[q.id] ?? []).map(r => ({
+        group:      r.group,
+        itemName:   getItemName(r.itemNameEn, lang),
+        stack:      r.stack,
+        percentage: r.percentage,
+      })),
     }
   }).sort((a, b) =>
     (RANK_ORDER[a.rank] ?? 9) - (RANK_ORDER[b.rank] ?? 9) ||
@@ -118,5 +151,5 @@ for (const lang of LANGS) {
   )
 
   fs.writeFileSync(path.join(OUT_DIR, `quests-${lang}.json`), JSON.stringify(out))
-  console.log(`${lang}: ${out.length} quests`)
+  console.log(`${lang}: ${out.length} quests — reward ex: "${out[0]?.rewards[1]?.itemName}"`)
 }
