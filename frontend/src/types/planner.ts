@@ -1,4 +1,4 @@
-export type PlannerNodeType = 'monster' | 'materialChecklist' | 'note' | 'equipment' | 'region' | 'decoration'
+export type PlannerNodeType = 'monster' | 'materialChecklist' | 'note' | 'equipment' | 'region' | 'decoration' | 'quest'
 
 // ── Monster node ──────────────────────────────────────────────────────────────
 export interface MonsterNodeData {
@@ -84,6 +84,21 @@ export interface DecorationNodeData {
   obtained: boolean
 }
 
+// ── Quest node ────────────────────────────────────────────────────────────────
+export interface QuestNodeData {
+  type: 'quest'
+  questId: number
+  name: string
+  category: string
+  rank: string
+  stars: number | null
+  questType: string
+  objective: string
+  locationName: string
+  zenny: number
+  completed: boolean
+}
+
 export type PlannerNodeData =
   | MonsterNodeData
   | EquipmentNodeData
@@ -91,6 +106,7 @@ export type PlannerNodeData =
   | NoteNodeData
   | RegionNodeData
   | DecorationNodeData
+  | QuestNodeData
 
 // ── Store types ───────────────────────────────────────────────────────────────
 export interface PlannerNode {

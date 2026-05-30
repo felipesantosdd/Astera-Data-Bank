@@ -17,6 +17,7 @@ import NotePlannerNode       from './nodes/NotePlannerNode.vue'
 import EquipmentPlannerNode  from './nodes/EquipmentPlannerNode.vue'
 import RegionPlannerNode     from './nodes/RegionPlannerNode.vue'
 import DecorationPlannerNode from './nodes/DecorationPlannerNode.vue'
+import QuestPlannerNode      from './nodes/QuestPlannerNode.vue'
 
 const store = usePlannerStore()
 
@@ -27,6 +28,7 @@ const nodeTypes: NodeTypesObject = {
   equipment:         markRaw(EquipmentPlannerNode)  as NodeTypesObject[string],
   region:            markRaw(RegionPlannerNode)      as NodeTypesObject[string],
   decoration:        markRaw(DecorationPlannerNode) as NodeTypesObject[string],
+  quest:             markRaw(QuestPlannerNode)       as NodeTypesObject[string],
 }
 
 const flowNodes = computed(() =>

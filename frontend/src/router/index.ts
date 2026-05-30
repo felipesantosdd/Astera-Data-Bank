@@ -38,6 +38,11 @@ const router = createRouter({
       component: () => import('@/views/EquipmentView.vue'),
     },
     {
+      path: '/quests',
+      name: 'quests',
+      component: () => import('@/views/QuestsView.vue'),
+    },
+    {
       path: '/regions',
       name: 'regions',
       component: () => import('@/views/RegionsView.vue'),

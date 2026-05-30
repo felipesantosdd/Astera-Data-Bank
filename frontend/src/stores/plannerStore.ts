@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
-import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData, RegionNodeData, DecorationNodeData } from '@/types/planner'
+import type { PlannerNode, PlannerEdge, MonsterNodeData, EquipmentNodeData, RegionNodeData, DecorationNodeData, QuestNodeData } from '@/types/planner'
 
 const STORAGE_KEY = 'astera-planner'
 let idCounter = 0
@@ -105,6 +105,20 @@ export const usePlannerStore = defineStore('planner', () => {
     return id
   }
 
+  function addQuestNode(data: Omit<QuestNodeData, 'type' | 'completed'>) {
+    const id = `quest-${data.questId}`
+    const alreadyExists = nodes.value.some(n => n.id === id)
+    if (alreadyExists) return false
+    const offset = nodes.value.length * 20
+    nodes.value.push({
+      id,
+      type: 'quest',
+      position: { x: 160 + offset, y: 160 + offset },
+      data: { type: 'quest', completed: false, ...data },
+    })
+    return true
+  }
+
   function addDecorationWithFeystones(data: Omit<DecorationNodeData, 'type' | 'obtained'>) {
     const decId = `decoration-${data.decorationId}`
     const alreadyExists = nodes.value.some(n => n.id === decId)
@@ -207,6 +221,7 @@ export const usePlannerStore = defineStore('planner', () => {
     addNoteNode,
     addChecklistNode,
     addDecorationWithFeystones,
+    addQuestNode,
     addRegionNode,
     removeNode,
     updateNodeData,
